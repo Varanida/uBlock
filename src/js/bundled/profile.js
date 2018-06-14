@@ -134,10 +134,10 @@
         const min = this.getAttribute('min');
         // We check the value is between max and min
         let value = input.value;
-        if (value > max) {
+        if (max && value > max) {
             value = max;
             input.value = value;
-        } else if (value < min) {
+        } else if (min && value < min) {
             value = min;
             input.value = value;
         }

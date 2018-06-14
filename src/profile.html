@@ -118,17 +118,34 @@
                                                     <div class="col-xl-9 col-lg-9 row">
                                                         <div class="col-xl-3 col-lg-3">
                                                             <input type="number" name="userBirthdateDay" id="user-birthdate-day"
-                                                                   step="1" min="1" max="31" data-setting-name="userBirthdate"
+                                                                   placeholder="dd" step="1" min="1" max="31" data-setting-name="userBirthdate"
                                                                    data-setting-level="1" data-setting-type="date" class="form-control m-input">
                                                         </div>
                                                         <div class="col-xl-3 col-lg-3">
-                                                            <input type="number" name="userBirthdateMonth" id="user-birthdate-month"
+                                                            <select name="userBirthdateMonth" class="form-control m-input m-input--solid"
+                                                                    id="user-birthdate-month" data-setting-name="userBirthdate"
+                                                                    data-setting-level="1" data-setting-type="date">
+                                                                <option value=""></option>
+                                                                <option value="01" data-i18n="month01"></option>
+                                                                <option value="02" data-i18n="month02"></option>
+                                                                <option value="03" data-i18n="month03"></option>
+                                                                <option value="04" data-i18n="month04"></option>
+                                                                <option value="05" data-i18n="month05"></option>
+                                                                <option value="06" data-i18n="month06"></option>
+                                                                <option value="07" data-i18n="month07"></option>
+                                                                <option value="08" data-i18n="month08"></option>
+                                                                <option value="09" data-i18n="month09"></option>
+                                                                <option value="10" data-i18n="month10"></option>
+                                                                <option value="11" data-i18n="month11"></option>
+                                                                <option value="12" data-i18n="month12"></option>
+                                                            </select>
+                                                            <!-- <input type="number" name="userBirthdateMonth" id="user-birthdate-month"
                                                                    step="1" min="1" max="12" data-setting-name="userBirthdate"
-                                                                   data-setting-level="1" data-setting-type="date" class="form-control m-input">
+                                                                   data-setting-level="1" data-setting-type="date" class="form-control m-input"> -->
                                                         </div>
                                                         <div class="col-xl-3 col-lg-3">
                                                             <input type="number" name="userBirthdateYear" id="user-birthdate-year"
-                                                                   step="1" min="1900" max="2018" data-setting-name="userBirthdate"
+                                                                   placeholder="YYYY" step="1" min="1900" max="2018" data-setting-name="userBirthdate"
                                                                    data-setting-level="1" data-setting-type="date" class="form-control m-input">
                                                         </div>
                                                         <span class="m-form__help" data-i18n="profileUserBirthdateInfo"></span>
