@@ -328,10 +328,20 @@ var renderWallet = function(address) {
   var abscentWalletAddressPane = uDom.nodeFromId('abscentWalletAddress');
   var existingWalletAddressPane = uDom.nodeFromId('existingWalletAddress');
   if (walletAddress) {
-    var addressInput = uDom.nodeFromId("address-field");
-    addressInput.value = walletAddress;
-    var totalRewardCount = popupData.totalRewardCount;
-    uDom.nodeFromId('total-reward').textContent = totalRewardCount+" VAD";
+    var rewardActivated = popupData.captchaValidated;
+    var rewardDiv = uDom.nodeFromId("rewardActivated");
+    var captchaButtonDiv = uDom.nodeFromId("rewardDeactivated");
+    if (rewardActivated) {
+      captchaButtonDiv.style.setProperty("display", "none");
+      rewardDiv.style.setProperty("display", "block");
+      var addressInput = uDom.nodeFromId("address-field");
+      addressInput.value = walletAddress;
+      var totalRewardCount = popupData.totalRewardCount;
+      uDom.nodeFromId('total-reward').textContent = totalRewardCount+" VAD";
+    } else {
+      rewardDiv.style.setProperty("display", "none");
+      captchaButtonDiv.style.setProperty("display", "block");
+    }
     abscentWalletPane.style.setProperty("display", "none");
     existingWalletPane.style.setProperty("display", "flex");
     abscentWalletAddressPane.style.setProperty("display", "none");
@@ -409,11 +419,13 @@ var hideOverlay = function(overlayId) {
   overlayState.remove();
   var overlaysContainer = uDom.nodeFromId("overlays");
   var overlaysList = uDom.nodesFromClass("overlayWindow");
+  var errorFields = [];
   if (overlayId === "createWalletOverlay" || overlayId === "all") {
     var passwordField = uDom.nodeFromId("create-wallet-password");
     var passwordFieldDuplicate = uDom.nodeFromId("create-wallet-password-duplicate");
     passwordField.value = "";
     passwordFieldDuplicate.value = "";
+    errorFields.push(uDom.nodeFromId("create-wallet-overlay-error"));
   }
   if (overlayId === "showSeedOverlay" || overlayId === "all") {
     var seedContainer = uDom.nodeFromId("seed-field");
@@ -433,12 +445,22 @@ var hideOverlay = function(overlayId) {
     importMethodPanel.style.setProperty("display", "block");
     walletImportPanel.style.setProperty("display", "none");
     addressImportPanel.style.setProperty("display", "none");
+    errorFields.push(uDom.nodeFromId("import-wallet-overlay-error"));
+    errorFields.push(uDom.nodeFromId("import-address-overlay-error"));
   }
   if (overlayId === "captchaOverlay") {
     uDom.nodeFromId("captchaField").innerHTML = "";
+    errorFields.push(uDom.nodeFromId("input-captcha-overlay-error"));
   }
   if (overlayId === "referralInputOverlay") {
     messaging.send('popupPanel', { what: 'setReferralWindowShown', shown: true });
+    errorFields.push(uDom.nodeFromId("import-referral-overlay-error"));
+  }
+  if (errorFields.length > 0) {
+    for (var j = 0; j < errorFields.length; j++) {
+      errorFields[j].textContent = "";
+      errorFields[j].parentElement.classList.remove("has-danger");
+    }
   }
   for (var i = 0; i < overlaysList.length; i++) {
     overlaysList[i].style.setProperty("display", "none");
@@ -1003,6 +1025,7 @@ var closeSeedOverlay = function() {
 var showCaptchaIfNotValidated = function() {
   showOverlay("waitingOverlay");
   var onStatusReceived = function(alreadyVerified) {
+    updatePopupData({captchaValidated: alreadyVerified});
     hideOverlay("waitingOverlay");
     if (!alreadyVerified) {
       showCaptcha();
@@ -1059,8 +1082,9 @@ var renderCaptchaLoading = function(loading) {
         errorField.textContent = vAPI.i18n('wrongCaptchaError');
         errorField.parentElement.classList.add("has-danger");
         showCaptcha();
-        return console.log("error getting captcha");
+        return console.log("error wrong captcha");
       }
+      updatePopupData({captchaValidated: true});
       getUpdatedRewardData();
       hideOverlay("captchaOverlay");
     };
@@ -1320,9 +1344,15 @@ var onHideTooltip = function() {
 
     uDom('#show-seed-button-overlay').on('click', function(ev){ev.preventDefault();closeSeedOverlay();});
 
+    uDom('#passCaptchaButton').on('click', showCaptchaIfNotValidated);
     uDom('#change-captcha').on('click', showCaptcha);
     uDom('#input-captcha-button-overlay').on('click', sendCaptchaAnswerFromOverlay);
-    uDom('#no-captcha-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("captchaOverlay");});
+    uDom('#no-captcha-button-overlay').on('click', function(ev){
+      ev.preventDefault();
+      updatePopupData({captchaValidated: false});
+      getUpdatedRewardData();
+      hideOverlay("captchaOverlay");
+    });
 
     uDom('#import-referral-button-overlay').on('click', importReferralFromOverlay);
     uDom('#no-referral-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("referralInputOverlay");});

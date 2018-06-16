@@ -50,7 +50,7 @@ const µWallet = (function() {
           referrerSignaled: false,
           installationSignaled: false,
           referralNoticeHidden: false,
-          captchaValidated: false,
+          captchaValidated: true,
         },
         requestCountHistory: {lastUpdate: null, history: []},
         recorder: null,
@@ -157,7 +157,7 @@ const checkEthereumAddress = function(address) {
         referrerSignaled: false,
         installationSignaled: false,
         referralNoticeHidden: false,
-        captchaValidated: false
+        captchaValidated: true
       };
       if (paramsToKeep) {
         for (let key in paramsToKeep) {

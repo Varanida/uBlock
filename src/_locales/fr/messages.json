@@ -271,6 +271,10 @@
     "message":"Ajoutez un portefeuille pour recevoir une récompense lorsque Varanida bloque un élément",
     "description":"appears in popup"
   },
+  "popupWalletActivateButton":{
+    "message":"Activer",
+    "description":"appears in popup"
+  },
   "popupStatisticsTab":{
     "message":"Statistiques",
     "description":"appears in popup"

@@ -365,7 +365,8 @@ var popupDataFromTabId = function(tabId, tabTitle) {
         walletAddress: µw.walletSettings.keyringAddress,
         totalRewardCount: µw.walletSettings.totalRewardCount,
         referralWindowShown: µw.walletSettings.referralWindowShown,
-        referralNoticeHidden: µw.walletSettings.referralNoticeHidden
+        referralNoticeHidden: µw.walletSettings.referralNoticeHidden,
+        captchaValidated: µw.walletSettings.captchaValidated
     };
 
     var pageStore = µb.pageStoreFromTabId(tabId);

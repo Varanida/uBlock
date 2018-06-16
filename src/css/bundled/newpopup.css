@@ -278,6 +278,19 @@ html, body {
   border-right-width: 1.5px;
 }
 
+#rewardActivated {
+  display: none;
+}
+
+#rewardDeactivated {
+  display: none;
+}
+
+.btn.m-btn--pill.btn-outline-success#passCaptchaButton {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
 .overlay-container {
   display: none;
   position: absolute;
