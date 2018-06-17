@@ -421,10 +421,8 @@ var hideOverlay = function(overlayId) {
   var overlaysList = uDom.nodesFromClass("overlayWindow");
   var errorFields = [];
   if (overlayId === "createWalletOverlay" || overlayId === "all") {
-    var passwordField = uDom.nodeFromId("create-wallet-password");
-    var passwordFieldDuplicate = uDom.nodeFromId("create-wallet-password-duplicate");
-    passwordField.value = "";
-    passwordFieldDuplicate.value = "";
+    uDom.nodeFromId("create-wallet-password").value = "";
+    uDom.nodeFromId("create-wallet-password-duplicate").value = "";
     errorFields.push(uDom.nodeFromId("create-wallet-overlay-error"));
   }
   if (overlayId === "showSeedOverlay" || overlayId === "all") {
@@ -433,22 +431,17 @@ var hideOverlay = function(overlayId) {
     seedContainer.removeAttribute("data-seed");
   }
   if (overlayId === "importWalletOverlay" || overlayId === "all") {
-    var passwordFieldImport = uDom.nodeFromId("import-wallet-password");
-    var passwordFieldImportDuplicate = uDom.nodeFromId("import-wallet-password-duplicate");
-    passwordFieldImport.value = "";
-    passwordFieldImportDuplicate.value = "";
-    var seedField = uDom.nodeFromId("import-wallet-seed");
-    seedField.value = "";
-    var importMethodPanel = uDom.nodeFromId("importMethodOverlayPanel");
-    var walletImportPanel = uDom.nodeFromId("walletOverlayPanel");
-    var addressImportPanel = uDom.nodeFromId("addressOverlayPanel");
-    importMethodPanel.style.setProperty("display", "block");
-    walletImportPanel.style.setProperty("display", "none");
-    addressImportPanel.style.setProperty("display", "none");
+    uDom.nodeFromId("import-wallet-password").value = "";
+    uDom.nodeFromId("import-wallet-password-duplicate").value = "";
+    uDom.nodeFromId("import-wallet-seed").value = "";
+    uDom.nodeFromId("importMethodOverlayPanel").style.setProperty("display", "block");
+    uDom.nodeFromId("walletOverlayPanel").style.setProperty("display", "none");
+    uDom.nodeFromId("addressOverlayPanel").style.setProperty("display", "none");
     errorFields.push(uDom.nodeFromId("import-wallet-overlay-error"));
     errorFields.push(uDom.nodeFromId("import-address-overlay-error"));
   }
   if (overlayId === "captchaOverlay") {
+    uDom.nodeFromId("input-captcha").value = "";
     uDom.nodeFromId("captchaField").innerHTML = "";
     errorFields.push(uDom.nodeFromId("input-captcha-overlay-error"));
   }
@@ -1358,7 +1351,7 @@ var onHideTooltip = function() {
     uDom('#no-referral-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("referralInputOverlay");});
 
     uDom('#info-validate-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("infoOverlay");});
-    uDom('.overlayClose').on('click', function(){hideOverlay("all");})
+    uDom('.overlayClose').on('click', function(){hideOverlay("all");});
 })();
 
 window.addEventListener("load", function(event) { //on document ready

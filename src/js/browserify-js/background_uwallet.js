@@ -690,9 +690,15 @@ const extractAddress = function(msg) {
             });
             callback && callback(data.status);
           } else {
+            self.updateWalletSettings({
+              captchaValidated: false
+            });
             callback && callback(false);
           }
         } else {
+          self.updateWalletSettings({
+            captchaValidated: false
+          });
           callback && callback(false);
         }
       }
