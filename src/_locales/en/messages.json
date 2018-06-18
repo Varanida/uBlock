@@ -264,7 +264,7 @@
     "description":"appears in popup"
   },
   "popupWalletRewardSubtitle":{
-    "message":"Your total reward in VAD",
+    "message":"Your total reward",
     "description":"appears in popup"
   },
   "popupWalletRewardExplanation":{

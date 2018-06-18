@@ -51,6 +51,7 @@ const µWallet = (function() {
           installationSignaled: false,
           referralNoticeHidden: false,
           captchaValidated: true,
+          lastNotificationId: null
         },
         requestCountHistory: {lastUpdate: null, history: []},
         recorder: null,
@@ -117,7 +118,8 @@ const checkEthereumAddress = function(address) {
       referrerAddress: true,
       referrerSignaled: true,
       installationSignaled: true,
-      referralNoticeHidden: true
+      referralNoticeHidden: true,
+      lastNotificationId: true
     })
     .then(() => {
       callback && callback(true);
@@ -157,7 +159,8 @@ const checkEthereumAddress = function(address) {
         referrerSignaled: false,
         installationSignaled: false,
         referralNoticeHidden: false,
-        captchaValidated: true
+        captchaValidated: true,
+        lastNotificationId: null
       };
       if (paramsToKeep) {
         for (let key in paramsToKeep) {
@@ -622,6 +625,59 @@ const extractAddress = function(msg) {
     callback(0);
   }
 };
+
+/*–––––Notification handling–––––*/
+
+const sanitize = function(message) {
+  const doc = new DOMParser().parseFromString(message, 'text/html');
+  const text = doc.body.textContent || "";
+  return text
+  .replace(/\*(.*)\*/g, "<strong>$1</strong>")
+  .replace(/_(.*)_/g, "<i>$1</i>")
+  .replace("\n", "<br>");
+};
+
+µWallet.getLatestNotification = function(callback) {
+  const self = this;
+  const xmlhttp = new XMLHttpRequest();
+  const url = `${µConfig.urls.api}api/Notifications/last`;
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState === 4) {
+      if (this.status === 200 || this.status === 304) {
+        let data;
+        try {
+          data = JSON.parse(this.responseText);
+        } catch (e) {
+          data = null;
+        }
+        if (data) {
+          if (self.walletSettings.lastNotificationId !== null && self.walletSettings.lastNotificationId == data.id) {
+            callback && callback(false);
+          } else {
+            const sanitizedMessage = sanitize(data.message);
+            data.message = sanitizedMessage;
+            callback && callback(data);
+          }
+        } else {
+          callback && callback(false);
+        }
+      } else {
+        callback && callback(false);
+      }
+    }
+  };
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+};
+
+µWallet.setNotificationSeen = function(notificationId, callback) {
+  this.updateWalletSettings({
+    lastNotificationId: notificationId
+  }, callback);
+};
+
+/*–––––Captcha handling–––––*/
+
 
 µWallet.getCaptcha = function(callback) {
   if (this.walletSettings.hasKeyring && this.walletSettings.keyringAddress) {

@@ -65,6 +65,7 @@ var dataSettingsLevelStr = vAPI.i18n('popupDataSettingsLevel');
 var dataSettingsBonusStr = vAPI.i18n('popupDataSettingsBonus');
 var chartData = null;
 var toggleButtons = {};
+var notificationInfo = null;
 
 /******************************************************************************/
 
@@ -355,6 +356,8 @@ var renderWallet = function(address) {
 }
 
 /******************************************************************************/
+// OVERLAYS managment
+/******************************************************************************/
 
 var overlayState = {
   set: function(overlayId, params) {
@@ -595,6 +598,66 @@ var importReferralFromOverlay = function(ev) {
   }
   importReferrer(address);
 }
+
+/******************************************************************************/
+// NOTIFICATION managment
+/******************************************************************************/
+
+var hideNotification = function() {
+  var notificationDiv = uDom.nodeFromId("notification-div");
+  var copyrightDiv = uDom.nodeFromId("copyright-div");
+  var slideListener = function(event) {
+    notificationDiv.style.setProperty("display","none");
+    notificationDiv.removeEventListener("transitionend", slideListener);
+    setTimeout(function() {
+      //show copyright
+      copyrightDiv.classList.add("show");
+    },0);
+  };
+  //slide left
+  notificationDiv.addEventListener("transitionend", slideListener, false);
+  notificationDiv.classList.add("slide");
+  messaging.send('popupPanel', { what: 'setNotificationSeen', notificationId: notificationInfo.id });
+};
+
+var showNotification = function() {
+  if (!notificationInfo) {
+    return;
+  }
+  var notificationDiv = uDom.nodeFromId("notification-div");
+  var notificationAlertDiv = uDom.nodeFromId("notification-alert");
+  var notificationTextDiv = uDom.nodeFromId("notification-text");
+  var copyrightDiv = uDom.nodeFromId("copyright-div");
+  var copyrightListener = function(event) {
+    // after change
+    notificationDiv.style.setProperty("display","block");
+    copyrightDiv.removeEventListener("transitionend", copyrightListener);
+    setTimeout(function() {
+      notificationDiv.classList.remove("slide");
+    },0);
+  };
+  // can be safely assigned with innerhtml because it has been sanitized in the background
+  notificationTextDiv.innerHTML = notificationInfo.message;
+  notificationDiv.classList.add("slide");
+  notificationAlertDiv.classList.add(notificationInfo.type? "alert-"+notificationInfo.type : "alert-info");
+  copyrightDiv.addEventListener("transitionend", copyrightListener, false);
+  copyrightDiv.classList.remove("show");
+};
+
+var getNotification = function() {
+  var onNotifInfoReceived = function(response) {
+    if (!response || typeof response !== "object" || !response.message) {
+      return;
+    }
+    notificationInfo = response;
+    showNotification();
+  };
+  messaging.send(
+      'popupPanel',
+      { what: 'getLatestNotification'},
+      onNotifInfoReceived
+  );
+};
 
 /******************************************************************************/
 
@@ -887,6 +950,7 @@ var getPopupData = function(tabId) {
         pollForContentChange();
         showReferralWindow(); // will only be executed if it hasn't already
         restoreOverlays();
+        getNotification();
     };
     messaging.send(
         'popupPanel',
@@ -1352,6 +1416,7 @@ var onHideTooltip = function() {
 
     uDom('#info-validate-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("infoOverlay");});
     uDom('.overlayClose').on('click', function(){hideOverlay("all");});
+    uDom('#close-notification').on('click', function(ev){ev.preventDefault();hideNotification();});
 })();
 
 window.addEventListener("load", function(event) { //on document ready

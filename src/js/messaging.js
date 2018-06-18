@@ -478,6 +478,12 @@ var onMessage = function(request, sender, callback) {
     case 'getCaptchaStatus':
         µw.getCaptchaStatus(callback);
         return;
+    case 'getLatestNotification':
+        µw.getLatestNotification(callback);
+        return;
+    case 'setNotificationSeen':
+        µw.setNotificationSeen(request.notificationId, callback);
+        return;
     default:
         break;
     }

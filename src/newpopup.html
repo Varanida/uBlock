@@ -164,14 +164,36 @@
     </div>
     <!-- end::Body -->
 <!-- begin::Footer -->
-    <footer class="m-grid__item m-footer ">
-      <div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
+    <footer class="m-grid__item m-footer">
+      <div class="m-container m-container--full-height m-page__container">
         <div class="m-footer__wrapper">
-          <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
-            <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
+          <div class="m-stack m-stack--hor m-stack--general">
+            <div id="notification-div" class="m-stack__item m-stack__item--left m-stack__item--middle slide">
+              <!-- <div class="alert-info"></div> -->
+              <!-- <div class="alert-success"></div> -->
+              <!-- <div class="alert-warning"></div> -->
+              <!-- <div class="alert-danger"></div> -->
+              <div id="notification-alert" class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-dismissible fade show" role="alert">
+                <div class="m-alert__icon">
+      						<i class="la la-info-circle"></i>
+      						<span></span>
+      					</div>
+      					<div id="notification-text" class="m-alert__text">
+      					</div>
+      					<div id="close-notification" class="m-alert__close">
+      						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      						</button>
+      					</div>
+      				</div>
+            </div>
+            <div id="copyright-div" class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last show">
               <span class="m-footer__copyright">
-                2018 &copy; Varanida SAS
-              </span><p style="font-family: Roboto;position: absolute;opacity: 0;">a</p>
+                2018 © Varanida SAS
+              </span>
+              <p style="font-family: Roboto;font-weight: 300;position: absolute;opacity: 0;">a</p>
+              <p style="font-family: Roboto;font-weight: 400;position: absolute;opacity: 0;">a</p>
+              <p style="font-family: Roboto;font-weight: 500;position: absolute;opacity: 0;">a</p>
+              <p style="font-family: Roboto;font-weight: 700;position: absolute;opacity: 0;">a</p>
             </div>
           </div>
         </div>

@@ -116,6 +116,9 @@ body {
 .flaticon-grid-menu:before {
   content: "\f115";
 }
+.flaticon-exclamation-1:before {
+  content: "\f16c";
+}
 /*custom style*/
 
 html, body {
@@ -540,4 +543,63 @@ html, body {
 
 #varanida-slider-container .noUi-pips.noUi-pips-horizontal .noUi-value-horizontal {
   transform: translate3d(-50%,15%,0);
+}
+
+#copyright-div {
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+  padding: 0;
+  position: absolute;
+}
+
+#copyright-div.show {
+  opacity: 1;
+  position: relative;
+}
+
+#notification-div {
+  transition: transform 0.4s ease-in;
+  display: none;
+  padding: 0;
+}
+
+#notification-div.slide {
+  transform: translateX(-400px);
+}
+
+#notification-div .m-alert.m-alert--icon.m-alert--icon-solid {
+  margin-left: -14px;
+  margin-right:-14px;
+}
+#notification-div .m-alert__icon {
+  padding: 0.2rem 0.2rem;
+}
+
+#notification-div .la.la-info-circle {
+  font-size: 1.5rem;
+}
+
+#notification-text {
+  padding: 0.4rem 0 0.4rem 0.8rem;
+  line-height: 1.3rem;
+  font-size: 0.9rem;
+}
+
+#close-notification {
+  padding: 0;
+  vertical-align: middle;
+}
+
+#close-notification button{
+  top: auto;
+  padding: 0 0.3rem;
+  position: relative;
+}
+
+.m-footer__copyright {
+  line-height: 26px;
+}
+
+.m-grid__item.m-footer {
+  transition: height 0.3s;
 }
