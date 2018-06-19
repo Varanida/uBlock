@@ -546,21 +546,20 @@ html, body {
 }
 
 #copyright-div {
-  opacity: 0;
-  transition: opacity 0.2s ease-in;
   padding: 0;
-  position: absolute;
-}
-
-#copyright-div.show {
-  opacity: 1;
   position: relative;
 }
 
 #notification-div {
-  transition: transform 0.4s ease-in;
-  display: none;
+  transition: transform 0.4s ease-in, max-height 0.4s ease-in;
+  display: block;
   padding: 0;
+  transform: none;
+  max-height: 3.4rem;
+}
+
+#notification-div.squash {
+  max-height: 10px;
 }
 
 #notification-div.slide {
@@ -570,6 +569,7 @@ html, body {
 #notification-div .m-alert.m-alert--icon.m-alert--icon-solid {
   margin-left: -14px;
   margin-right:-14px;
+  margin-bottom: -10px;
 }
 #notification-div .m-alert__icon {
   padding: 0.2rem 0.2rem;
@@ -583,6 +583,17 @@ html, body {
   padding: 0.4rem 0 0.4rem 0.8rem;
   line-height: 1.3rem;
   font-size: 0.9rem;
+  font-weight: 500;
+}
+#notification-text a {
+  font-weight: bold;
+  cursor: pointer;
+  padding-left: 5px;
+  color: inherit;
+}
+
+#notification-text a:hover {
+  text-decoration: underline;
 }
 
 #close-notification {

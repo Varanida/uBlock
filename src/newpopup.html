@@ -69,6 +69,26 @@
     <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
       <div class="m-grid__item m-grid__item--fluid m-wrapper">
         <div class="m-content popup-content">
+          <!--Begin::Notification-->
+          <div id="notification-div" class="m-stack__item m-stack__item--left m-stack__item--middle slide squash">
+            <!-- <div class="alert-info"></div> -->
+            <!-- <div class="alert-success"></div> -->
+            <!-- <div class="alert-warning"></div> -->
+            <!-- <div class="alert-danger"></div> -->
+            <div id="notification-alert" class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-dismissible fade show" role="alert">
+              <div class="m-alert__icon">
+                <i class="la la-info-circle"></i>
+                <span></span>
+              </div>
+              <div id="notification-text" class="m-alert__text">
+              </div>
+              <div id="close-notification" class="m-alert__close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                </button>
+              </div>
+            </div>
+          </div>
+          <!--End::Notification-->
           <!--Begin::Section-->
             <div class="m-portlet__body  m-portlet__body--no-padding">
               <div class="row m-row--no-padding m-row--col-separator-xl">
@@ -168,25 +188,7 @@
       <div class="m-container m-container--full-height m-page__container">
         <div class="m-footer__wrapper">
           <div class="m-stack m-stack--hor m-stack--general">
-            <div id="notification-div" class="m-stack__item m-stack__item--left m-stack__item--middle slide">
-              <!-- <div class="alert-info"></div> -->
-              <!-- <div class="alert-success"></div> -->
-              <!-- <div class="alert-warning"></div> -->
-              <!-- <div class="alert-danger"></div> -->
-              <div id="notification-alert" class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-dismissible fade show" role="alert">
-                <div class="m-alert__icon">
-      						<i class="la la-info-circle"></i>
-      						<span></span>
-      					</div>
-      					<div id="notification-text" class="m-alert__text">
-      					</div>
-      					<div id="close-notification" class="m-alert__close">
-      						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      						</button>
-      					</div>
-      				</div>
-            </div>
-            <div id="copyright-div" class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last show">
+            <div id="copyright-div" class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
               <span class="m-footer__copyright">
                 2018 © Varanida SAS
               </span>

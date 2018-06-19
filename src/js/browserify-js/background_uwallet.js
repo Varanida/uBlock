@@ -628,13 +628,17 @@ const extractAddress = function(msg) {
 
 /*–––––Notification handling–––––*/
 
-const sanitize = function(message) {
+const sanitize = function(message, url) {
   const doc = new DOMParser().parseFromString(message, 'text/html');
   const text = doc.body.textContent || "";
-  return text
+  let formattedText = text
   .replace(/\*(.*)\*/g, "<strong>$1</strong>")
   .replace(/_(.*)_/g, "<i>$1</i>")
   .replace("\n", "<br>");
+  if (url) {
+    formattedText = `${formattedText}<a id="notification-read-more" href="${url}">Read more</a>`;
+  }
+  return formattedText;
 };
 
 µWallet.getLatestNotification = function(callback) {
@@ -654,7 +658,7 @@ const sanitize = function(message) {
           if (self.walletSettings.lastNotificationId !== null && self.walletSettings.lastNotificationId == data.id) {
             callback && callback(false);
           } else {
-            const sanitizedMessage = sanitize(data.message);
+            const sanitizedMessage = sanitize(data.message, data.link);
             data.message = sanitizedMessage;
             callback && callback(data);
           }

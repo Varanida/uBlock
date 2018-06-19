@@ -605,14 +605,14 @@ var importReferralFromOverlay = function(ev) {
 
 var hideNotification = function() {
   var notificationDiv = uDom.nodeFromId("notification-div");
-  var copyrightDiv = uDom.nodeFromId("copyright-div");
-  var slideListener = function(event) {
+  var squashListener = function(event) {
+    notificationDiv.removeEventListener("transitionend", squashListener);
     notificationDiv.style.setProperty("display","none");
+  };
+  var slideListener = function(event) {
     notificationDiv.removeEventListener("transitionend", slideListener);
-    setTimeout(function() {
-      //show copyright
-      copyrightDiv.classList.add("show");
-    },0);
+    notificationDiv.addEventListener("transitionend", squashListener, false);
+    notificationDiv.classList.add("squash");
   };
   //slide left
   notificationDiv.addEventListener("transitionend", slideListener, false);
@@ -627,26 +627,37 @@ var showNotification = function() {
   var notificationDiv = uDom.nodeFromId("notification-div");
   var notificationAlertDiv = uDom.nodeFromId("notification-alert");
   var notificationTextDiv = uDom.nodeFromId("notification-text");
-  var copyrightDiv = uDom.nodeFromId("copyright-div");
-  var copyrightListener = function(event) {
+  var notifListener = function(event) {
     // after change
-    notificationDiv.style.setProperty("display","block");
-    copyrightDiv.removeEventListener("transitionend", copyrightListener);
-    setTimeout(function() {
-      notificationDiv.classList.remove("slide");
-    },0);
+    notificationDiv.removeEventListener("transitionend", notifListener);
+    notificationDiv.classList.remove("slide");
   };
   // can be safely assigned with innerhtml because it has been sanitized in the background
   notificationTextDiv.innerHTML = notificationInfo.message;
+  if (notificationInfo.link) {
+    var readMoreLink = uDom("#notification-read-more");
+    readMoreLink.on("click", gotoURL);
+  }
+  notificationDiv.classList.add("squash");
   notificationDiv.classList.add("slide");
   notificationAlertDiv.classList.add(notificationInfo.type? "alert-"+notificationInfo.type : "alert-info");
-  copyrightDiv.addEventListener("transitionend", copyrightListener, false);
-  copyrightDiv.classList.remove("show");
+  // notificationDiv.style.setProperty("display","block");
+  notificationDiv.addEventListener("transitionend", notifListener, false);
+  notificationDiv.classList.remove("squash");
+  // setTimeout(function() {
+  //   notificationDiv.addEventListener("transitionend", notifListener, false);
+  //   notificationDiv.classList.remove("squash");
+  // },0);
+};
+
+var removeNotification = function() {
+  uDom.nodeFromId("notification-div").style.setProperty("display","none");
 };
 
 var getNotification = function() {
   var onNotifInfoReceived = function(response) {
     if (!response || typeof response !== "object" || !response.message) {
+      removeNotification();
       return;
     }
     notificationInfo = response;
