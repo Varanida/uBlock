@@ -404,7 +404,9 @@ var showOverlay = function(overlayId, params) {
       startOverlayPanel.style.setProperty("display", "block");
     }
   } else if (overlayId === "captchaOverlay" && params) {
-    uDom.nodeFromId("captchaField").innerHTML = params.svgCaptcha;
+    var captchaDiv = uDom.nodeFromId("captchaField");
+    captchaDiv.innerHTML = "";
+    captchaDiv.appendChild(document.adoptNode(createSVGdocument(params.svgCaptcha).documentElement))
   }
   if (overlay) {
     if (overlayId !== "referralInputOverlay") {
@@ -605,18 +607,29 @@ var importReferralFromOverlay = function(ev) {
 
 var hideNotification = function() {
   var notificationDiv = uDom.nodeFromId("notification-div");
-  var squashListener = function(event) {
+  var safeTimeout = null;
+  var squashListener = function() {
+    if (safeTimeout) {
+      clearTimeout(safeTimeout);
+      safeTimeout = null;
+    }
     notificationDiv.removeEventListener("transitionend", squashListener);
     notificationDiv.style.setProperty("display","none");
   };
-  var slideListener = function(event) {
+  var slideListener = function() {
+    if (safeTimeout) {
+      clearTimeout(safeTimeout);
+      safeTimeout = null;
+    }
     notificationDiv.removeEventListener("transitionend", slideListener);
     notificationDiv.addEventListener("transitionend", squashListener, false);
     notificationDiv.classList.add("squash");
+    safeTimeout = setTimeout(function() {safeTimeout = null; squashListener();}, 2000);
   };
   //slide left
   notificationDiv.addEventListener("transitionend", slideListener, false);
   notificationDiv.classList.add("slide");
+  safeTimeout = setTimeout(function() {safeTimeout = null; slideListener();}, 2000);
   messaging.send('popupPanel', { what: 'setNotificationSeen', notificationId: notificationInfo.id });
 };
 
@@ -627,8 +640,13 @@ var showNotification = function() {
   var notificationDiv = uDom.nodeFromId("notification-div");
   var notificationAlertDiv = uDom.nodeFromId("notification-alert");
   var notificationTextDiv = uDom.nodeFromId("notification-text");
-  var notifListener = function(event) {
+  var safeTimeout = null;
+  var notifListener = function() {
     // after change
+    if (safeTimeout) {
+      clearTimeout(safeTimeout);
+      safeTimeout = null;
+    }
     notificationDiv.removeEventListener("transitionend", notifListener);
     notificationDiv.classList.remove("slide");
   };
@@ -641,13 +659,9 @@ var showNotification = function() {
   notificationDiv.classList.add("squash");
   notificationDiv.classList.add("slide");
   notificationAlertDiv.classList.add(notificationInfo.type? "alert-"+notificationInfo.type : "alert-info");
-  // notificationDiv.style.setProperty("display","block");
   notificationDiv.addEventListener("transitionend", notifListener, false);
   notificationDiv.classList.remove("squash");
-  // setTimeout(function() {
-  //   notificationDiv.addEventListener("transitionend", notifListener, false);
-  //   notificationDiv.classList.remove("squash");
-  // },0);
+  safeTimeout = setTimeout(function() {safeTimeout = null; notifListener();}, 2000);
 };
 
 var removeNotification = function() {
@@ -1109,6 +1123,9 @@ var showCaptchaIfNotValidated = function() {
 };
 
 /******************************************************************************/
+  var createSVGdocument = function(svgText) {
+    return new DOMParser().parseFromString(svgText,'image/svg+xml');
+  };
 
   var showCaptcha = function() {
     var onCaptchaReceived = function(response) {

@@ -577,6 +577,8 @@ html, body {
 
 #notification-div .la.la-info-circle {
   font-size: 1.5rem;
+  color: #ffffff;
+  font-weight: 600;
 }
 
 #notification-text {
