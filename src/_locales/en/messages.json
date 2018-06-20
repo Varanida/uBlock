@@ -675,6 +675,66 @@
     "message":"Please enter your birthdate",
     "description":"English: Please enter your birthdate"
   },
+  "profileUserBirthdateDay":{
+    "message":"Day:",
+    "description":"Day descriptor"
+  },
+  "profileUserBirthdateMonth":{
+    "message":"Month:",
+    "description":"Month descriptor"
+  },
+  "profileUserBirthdateYear":{
+    "message":"Year:",
+    "description":"Year descriptor"
+  },
+  "month01":{
+    "message":"January",
+    "description":"English: January"
+  },
+  "month02":{
+    "message":"February",
+    "description":"English: February"
+  },
+  "month03":{
+    "message":"March",
+    "description":"English: March"
+  },
+  "month04":{
+    "message":"April",
+    "description":"English: April"
+  },
+  "month05":{
+    "message":"May",
+    "description":"English: May"
+  },
+  "month06":{
+    "message":"June",
+    "description":"English: June"
+  },
+  "month07":{
+    "message":"July",
+    "description":"English: July"
+  },
+  "month08":{
+    "message":"August",
+    "description":"English: August"
+  },
+  "month09":{
+    "message":"September",
+    "description":"English: September"
+  },
+  "month10":{
+    "message":"October",
+    "description":"English: October"
+  },
+  "month11":{
+    "message":"November",
+    "description":"English: November"
+  },
+  "month12":{
+    "message":"December",
+    "description":"English: December"
+  },
   "profileUserCity":{
     "message":"Where do you live?",
     "description":"English: Where do you live?"

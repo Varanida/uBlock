@@ -675,6 +675,66 @@
     "message":"Saisissez votre date de naissance",
     "description":"English: Please enter your birthdate"
   },
+  "profileUserBirthdateDay":{
+    "message":"Jour:",
+    "description":"Day descriptor"
+  },
+  "profileUserBirthdateMonth":{
+    "message":"Mois:",
+    "description":"Month descriptor"
+  },
+  "profileUserBirthdateYear":{
+    "message":"Année:",
+    "description":"Year descriptor"
+  },
+  "month01":{
+    "message":"Janvier",
+    "description":"English: January"
+  },
+  "month02":{
+    "message":"Février",
+    "description":"English: February"
+  },
+  "month03":{
+    "message":"Mars",
+    "description":"English: March"
+  },
+  "month04":{
+    "message":"Avril",
+    "description":"English: April"
+  },
+  "month05":{
+    "message":"Mai",
+    "description":"English: May"
+  },
+  "month06":{
+    "message":"Juin",
+    "description":"English: June"
+  },
+  "month07":{
+    "message":"Juillet",
+    "description":"English: July"
+  },
+  "month08":{
+    "message":"Août",
+    "description":"English: August"
+  },
+  "month09":{
+    "message":"Septembre",
+    "description":"English: September"
+  },
+  "month10":{
+    "message":"Octobre",
+    "description":"English: October"
+  },
+  "month11":{
+    "message":"Novembre",
+    "description":"English: November"
+  },
+  "month12":{
+    "message":"Décembre",
+    "description":"English: December"
+  },
   "profileUserCity":{
     "message":"Où habitez vous?",
     "description":"English: Where do you live?"

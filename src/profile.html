@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title data-i18n="profilePageName"></title>
-    <link rel="stylesheet" href="css/flatpickr.min.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="css/profile_style.bundle.css" />
 </head>
 
@@ -113,14 +112,48 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group m-form__group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label" data-i18n="profileUserBirthdate" for="user-birthdate"></label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <input type="text" name="userBirthdate" id="user-birthdate" type="date" data-setting-name="userBirthdate"
-                                                               data-setting-level="1" data-setting-type="input" class="form-control m-input">
-                                                        <span class="m-form__help" data-i18n="profileUserBirthdateInfo"></span>
+                                                <fieldset class="form-group m-form__group row">
+                                                    <legend class="col-xl-3 col-lg-3 col-form-label" data-i18n="profileUserBirthdate" for="user-birthdate"></legend>
+                                                    <div class="col-xl-9 col-lg-9 row">
+                                                        <div class="col-xl-3 col-lg-3 date-info-col">
+                                                            <span class="m-form__help" data-i18n="profileUserBirthdateDay"></span>
+                                                            <input type="number" name="userBirthdateDay" id="user-birthdate-day"
+                                                                   placeholder="dd" step="1" min="1" max="31" data-setting-name="userBirthdate"
+                                                                   data-setting-level="1" data-setting-type="date" class="form-control m-input">
+                                                        </div>
+                                                        <div class="col-xl-3 col-lg-3 date-info-col">
+                                                            <span class="m-form__help" data-i18n="profileUserBirthdateMonth"></span>
+                                                            <select name="userBirthdateMonth" class="form-control m-input m-input--solid"
+                                                                    id="user-birthdate-month" data-setting-name="userBirthdate"
+                                                                    data-setting-level="1" data-setting-type="date">
+                                                                <option value=""></option>
+                                                                <option value="01" data-i18n="month01"></option>
+                                                                <option value="02" data-i18n="month02"></option>
+                                                                <option value="03" data-i18n="month03"></option>
+                                                                <option value="04" data-i18n="month04"></option>
+                                                                <option value="05" data-i18n="month05"></option>
+                                                                <option value="06" data-i18n="month06"></option>
+                                                                <option value="07" data-i18n="month07"></option>
+                                                                <option value="08" data-i18n="month08"></option>
+                                                                <option value="09" data-i18n="month09"></option>
+                                                                <option value="10" data-i18n="month10"></option>
+                                                                <option value="11" data-i18n="month11"></option>
+                                                                <option value="12" data-i18n="month12"></option>
+                                                            </select>
+                                                            <!-- <input type="number" name="userBirthdateMonth" id="user-birthdate-month"
+                                                                   step="1" min="1" max="12" data-setting-name="userBirthdate"
+                                                                   data-setting-level="1" data-setting-type="date" class="form-control m-input"> -->
+                                                        </div>
+                                                        <div class="col-xl-3 col-lg-3 date-info-col">
+                                                            <span class="m-form__help" data-i18n="profileUserBirthdateYear"></span>
+                                                            <input type="number" name="userBirthdateYear" id="user-birthdate-year"
+                                                                   placeholder="YYYY" step="1" min="1900" max="2018" data-setting-name="userBirthdate"
+                                                                   data-setting-level="1" data-setting-type="date" class="form-control m-input">
+                                                        </div>
+                                                        <div class="col-xl-9 col-lg-12"><span class="m-form__help" data-i18n="profileUserBirthdateInfo"></span></div>
                                                     </div>
-                                                </div>
+                                                </fieldset>
+
                                                 <div class="form-group m-form__group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label" data-i18n="profileUserCity" for="user-city"></label>
                                                     <div class="col-xl-9 col-lg-9">
@@ -484,7 +517,6 @@
 <script src="js/dashboard-common.js"></script>
 <script src="config/main-config.js"></script>
 <script src="config/profile-config.js"></script>
-<script src="js/profile_dll.bundle.js"></script>
 <script src="js/profile_scripts.bundle.js"></script>
 
 </body>

@@ -97,6 +97,7 @@
         var bonus = µConfig.rewards.bonusPercentageForData[level];
         uDom.nodeFromId('dataBonusInfo').textContent = vAPI.i18n('popupDataSettingsBonus').replace('{{bonus}}', bonus);
     };
+
     /******************************************************************************/
 
     var changeUserProfile = function(level, name, value) {
@@ -114,16 +115,69 @@
 
     /******************************************************************************/
 
+    var getUserValue = function(level, name) {
+        if (userDataStore && userDataStore['level'+level]) {
+            return userDataStore['level'+level][name];
+        } else {
+            return undefined;
+        }
+    };
+
+    /******************************************************************************/
+
+    var onDateInputChanged = function(ev) {
+        const input = ev.target;
+        const level = this.getAttribute('data-setting-level');
+        const name = this.getAttribute('data-setting-name');
+        const type = this.getAttribute('data-setting-type');
+        const max = this.getAttribute('max');
+        const min = this.getAttribute('min');
+        // We check the value is between max and min
+        let value = input.value;
+        if (max && value > max) {
+            value = max;
+            input.value = value;
+        } else if (min && value < min) {
+            value = min;
+            input.value = value;
+        }
+
+        let oldValue = getUserValue(level, name); // We fetch old value
+        oldValue = oldValue ? oldValue.split('/') : []; // We split it in a single array
+        oldValue = oldValue.length === 3 ? oldValue : [1, 1, 1970]; // We check the array contain a day / month /year
+        switch (this.getAttribute('id').split('-').slice(-1).pop()) {
+            case 'day':
+                oldValue[0] = value;
+                break;
+            case 'month':
+                oldValue[1] = value;
+                break;
+            case 'year':
+                oldValue[2] = value;
+                break;
+            default:
+                return;
+        }
+        const newValue = oldValue.join('/'); // We apply updated array to value
+        changeUserProfile(level, name, newValue);
+    };
+
+    /******************************************************************************/
+
     var onInputChanged = function(ev) {
-        var input = ev.target;
-        var level = this.getAttribute('data-setting-level');
-        var name = this.getAttribute('data-setting-name');
-        var type = this.getAttribute('data-setting-type');
-        var value = input.value;
-        if(type === "checkbox"){
+        const input = ev.target;
+        const level = this.getAttribute('data-setting-level');
+        const name = this.getAttribute('data-setting-name');
+        const type = this.getAttribute('data-setting-type');
+        let value = input.value;
+        if (type === "checkbox"){
             value = uDom(this).prop('checked');
         }
-        if ( value !== input.value ) {
+        if (type === "date"){
+            // should not use this for a date
+            return;
+        }
+        if ( value !== input.value) {
             input.value = value;
         }
         changeUserProfile(level, name, value);
@@ -189,29 +243,6 @@
 
     /******************************************************************************/
 
-    var initFlatpickr = function() {
-
-        var locale = navigator.language;
-        if (navigator.languages && navigator.languages.length > 0) {
-            locale = navigator.languages[0];
-        }
-        var localeStr = locale.split('-')[0].toLowerCase();
-        var startDate = "";
-        if (userDataStore &&
-          userDataStore.level1 &&
-          userDataStore.level1.userBirthdate &&
-          /\d{4}-\d{1,2}-\d{1,2}/.test(userDataStore.level1.userBirthdate)
-        ) {
-          startDate = userDataStore.level1.userBirthdate;
-        }
-        flatpickr("#user-birthdate", {
-            "locale": localeStr,
-            "defaultDate": startDate
-        });
-    };
-
-    /******************************************************************************/
-
     var renderProfileLoading = function(loading) {
       if (loading) {
         uDom(".profileLoading").addClass("loading");
@@ -233,6 +264,30 @@
                     uNode.val(data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')]);
                 }
             });
+            uDom('[data-setting-type="date"]').forEach(function(uNode) {
+                if (data['level'+uNode.attr('data-setting-level')]) {
+                    var dateVal = data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')];
+                    if (dateVal && /[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(dateVal)) {
+                      //compatibility with old date input
+                      var dateValSplit = dateVal.split("-");
+                      dateVal = [dateValSplit[2], dateValSplit[1], dateValSplit[0]];
+                    } else {
+                      dateVal = dateVal ? dateVal.split('/') : [undefined, undefined, undefined];
+                      dateVal = Array.isArray(dateVal) && dateVal.length === 3 ? dateVal : [undefined, undefined, undefined];
+                    }
+                    switch (uNode.attr('id').split('-').slice(-1).pop()) {
+                        case 'day':
+                            uNode.val(dateVal[0]);
+                            break;
+                        case 'month':
+                            uNode.val(dateVal[1]);
+                            break;
+                        case 'year':
+                            uNode.val(dateVal[2]);
+                            break;
+                    }
+                }
+            });
             uDom('[data-setting-type="checkbox"]').forEach(function(uNode) {
                 if (data['level'+uNode.attr('data-setting-level')]) {
                     uNode.prop('checked', data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')] === true);
@@ -244,7 +299,6 @@
                 }
             });
             renderPage();
-            initFlatpickr();
             displayCompletionLevel(calculateNewCompletionLevel());
             errorMessage.textContent = "";
             uDom.nodeFromId('errorUnlockWalletBlock').style.setProperty("display", "none");
@@ -268,8 +322,8 @@
 
     var afterSave = function(saveError) {
       if (!saveError) {
-        var button = uDom.nodeFromId("profileSaveButton");
-        var resetButton = function() {
+        const button = uDom.nodeFromId("profileSaveButton");
+        const resetButton = function() {
           if (button && button.innerHTML) {
             button.innerHTML =
             '<span>'+
@@ -277,7 +331,7 @@
                 '<span data-i18n="profileSave">'+vAPI.i18n("profileSave")+'</span>'+
             '</span>';
           }
-        }
+        };
         button.innerHTML =
         '<span>'+
             '<i class="la la-check"></i>'+
@@ -285,7 +339,7 @@
         '</span>';
         vAPI.setTimeout(resetButton, 2000);
     }
-    }
+    };
 
     var onProfileSave = function() {
         let newCompletionLevel = calculateNewCompletionLevel();
@@ -380,6 +434,9 @@
         uDom('#profileSaveButton').on('click', onProfileSave);
         uDom('[data-setting-type="input"]').forEach(function(uNode) {
             uNode.on('change', onInputChanged).on('click', onPreventDefault);
+        });
+        uDom('[data-setting-type="date"]').forEach(function(uNode) {
+            uNode.on('change', onDateInputChanged).on('click', onPreventDefault);
         });
         uDom('[data-setting-type="checkbox"]').forEach(function(uNode) {
             uNode.on('click', onInputChanged);

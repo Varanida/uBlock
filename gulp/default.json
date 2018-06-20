@@ -36,24 +36,7 @@
                 "bundle": {
                     "scripts": "{$config.output}/js/popup_dll.bundle.js"
                 }
-            },
-            "profile": {
-                "src": {
-                    "external": {
-                        "flatpicker": {
-                            "scripts": [
-                                "{$config.path.node_modules}/flatpickr/dist/flatpickr.min.js",
-                                "{$config.path.node_modules}/flatpickr/dist/l10n/fr.js"
-
-                            ]
-                        }
-                    }
-                },
-                "bundle": {
-                    "scripts": "{$config.output}/js/profile_dll.bundle.js"
-                }
             }
-
         },
         "varanida": {
             "default": {
@@ -94,8 +77,7 @@
                         "{$config.path.src}/css/fonts/Roboto/*.ttf"
                       ],
                       "styles": [
-                          "{$config.path.node_modules}/nouislider/distribute/nouislider.min.css",
-                          "{$config.path.node_modules}/flatpickr/dist/flatpickr.min.css"
+                          "{$config.path.node_modules}/nouislider/distribute/nouislider.min.css"
                       ]
                   },
                   "output": {
