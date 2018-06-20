@@ -142,24 +142,24 @@
             input.value = value;
         }
 
-        let old_value = getUserValue(level, name); // We fetch old value
-        old_value = old_value ? old_value.split('/') : []; // We split it in a single array
-        old_value = old_value.length === 3 ? old_value : [1, 1, 1970]; // We check the array contain a day / month /year
+        let oldValue = getUserValue(level, name); // We fetch old value
+        oldValue = oldValue ? oldValue.split('/') : []; // We split it in a single array
+        oldValue = oldValue.length === 3 ? oldValue : [1, 1, 1970]; // We check the array contain a day / month /year
         switch (this.getAttribute('id').split('-').slice(-1).pop()) {
             case 'day':
-                old_value[0] = value;
+                oldValue[0] = value;
                 break;
             case 'month':
-                old_value[1] = value;
+                oldValue[1] = value;
                 break;
             case 'year':
-                old_value[2] = value;
+                oldValue[2] = value;
                 break;
             default:
                 return;
         }
-        const new_value = old_value.join('/'); // We apply updated array to value
-        changeUserProfile(level, name, new_value);
+        const newValue = oldValue.join('/'); // We apply updated array to value
+        changeUserProfile(level, name, newValue);
     };
 
     /******************************************************************************/
@@ -266,18 +266,24 @@
             });
             uDom('[data-setting-type="date"]').forEach(function(uNode) {
                 if (data['level'+uNode.attr('data-setting-level')]) {
-                    let date_val = data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')];
-                    date_val = date_val ? date_val.split('/') : [undefined, undefined, undefined];
-                    date_val = Array.isArray(date_val) && date_val.length === 3 ? date_val : [undefined, undefined, undefined];
+                    var dateVal = data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')];
+                    if (dateVal && /[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(dateVal)) {
+                      //compatibility with old date input
+                      var dateValSplit = dateVal.split("-");
+                      dateVal = [dateValSplit[2], dateValSplit[1], dateValSplit[0]];
+                    } else {
+                      dateVal = dateVal ? dateVal.split('/') : [undefined, undefined, undefined];
+                      dateVal = Array.isArray(dateVal) && dateVal.length === 3 ? dateVal : [undefined, undefined, undefined];
+                    }
                     switch (uNode.attr('id').split('-').slice(-1).pop()) {
                         case 'day':
-                            uNode.val(date_val[0]);
+                            uNode.val(dateVal[0]);
                             break;
                         case 'month':
-                            uNode.val(date_val[1]);
+                            uNode.val(dateVal[1]);
                             break;
                         case 'year':
-                            uNode.val(date_val[2]);
+                            uNode.val(dateVal[2]);
                             break;
                     }
                 }

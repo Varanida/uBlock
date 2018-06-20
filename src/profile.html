@@ -116,12 +116,14 @@
                                                 <fieldset class="form-group m-form__group row">
                                                     <legend class="col-xl-3 col-lg-3 col-form-label" data-i18n="profileUserBirthdate" for="user-birthdate"></legend>
                                                     <div class="col-xl-9 col-lg-9 row">
-                                                        <div class="col-xl-3 col-lg-3">
+                                                        <div class="col-xl-3 col-lg-3 date-info-col">
+                                                            <span class="m-form__help" data-i18n="profileUserBirthdateDay"></span>
                                                             <input type="number" name="userBirthdateDay" id="user-birthdate-day"
                                                                    placeholder="dd" step="1" min="1" max="31" data-setting-name="userBirthdate"
                                                                    data-setting-level="1" data-setting-type="date" class="form-control m-input">
                                                         </div>
-                                                        <div class="col-xl-3 col-lg-3">
+                                                        <div class="col-xl-3 col-lg-3 date-info-col">
+                                                            <span class="m-form__help" data-i18n="profileUserBirthdateMonth"></span>
                                                             <select name="userBirthdateMonth" class="form-control m-input m-input--solid"
                                                                     id="user-birthdate-month" data-setting-name="userBirthdate"
                                                                     data-setting-level="1" data-setting-type="date">
@@ -143,12 +145,13 @@
                                                                    step="1" min="1" max="12" data-setting-name="userBirthdate"
                                                                    data-setting-level="1" data-setting-type="date" class="form-control m-input"> -->
                                                         </div>
-                                                        <div class="col-xl-3 col-lg-3">
+                                                        <div class="col-xl-3 col-lg-3 date-info-col">
+                                                            <span class="m-form__help" data-i18n="profileUserBirthdateYear"></span>
                                                             <input type="number" name="userBirthdateYear" id="user-birthdate-year"
                                                                    placeholder="YYYY" step="1" min="1900" max="2018" data-setting-name="userBirthdate"
                                                                    data-setting-level="1" data-setting-type="date" class="form-control m-input">
                                                         </div>
-                                                        <span class="m-form__help" data-i18n="profileUserBirthdateInfo"></span>
+                                                        <div class="col-xl-9 col-lg-12"><span class="m-form__help" data-i18n="profileUserBirthdateInfo"></span></div>
                                                     </div>
                                                 </fieldset>
 
