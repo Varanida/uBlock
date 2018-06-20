@@ -749,6 +749,9 @@ var renderOnce = function() {
     }
 
     renderDataSlider();
+    showReferralWindow(); // will only be executed if it hasn't already
+    restoreOverlays();
+    getNotification();
 };
 
 /******************************************************************************/
@@ -973,9 +976,6 @@ var getPopupData = function(tabId) {
         renderPopupLazy(); // low priority rendering
         hashFromPopupData(true);
         pollForContentChange();
-        showReferralWindow(); // will only be executed if it hasn't already
-        restoreOverlays();
-        getNotification();
     };
     messaging.send(
         'popupPanel',

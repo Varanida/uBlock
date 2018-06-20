@@ -556,6 +556,7 @@ html, body {
   padding: 0;
   transform: none;
   max-height: 3.4rem;
+  margin-bottom: -10px;
 }
 
 #notification-div.squash {
@@ -569,7 +570,7 @@ html, body {
 #notification-div .m-alert.m-alert--icon.m-alert--icon-solid {
   margin-left: -14px;
   margin-right:-14px;
-  margin-bottom: -10px;
+  margin-bottom: 0px;
 }
 #notification-div .m-alert__icon {
   padding: 0.2rem 0.2rem;
