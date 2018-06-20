@@ -591,7 +591,6 @@ html, body {
 #notification-text a {
   font-weight: bold;
   cursor: pointer;
-  padding-left: 5px;
   color: inherit;
 }
 

@@ -636,7 +636,11 @@ const sanitize = function(message, url) {
   .replace(/_(.*)_/g, "<i>$1</i>")
   .replace("\n", "<br>");
   if (url) {
-    formattedText = `${formattedText}<a id="notification-read-more" href="${url}">Read more</a>`;
+    if (formattedText.indexOf("[") !== -1) {
+      formattedText = formattedText.replace(/\[(.*)\]/g, `<a id="notification-read-more" href="${url}">$1</a>`);
+    } else {
+      formattedText = `${formattedText}<a style="padding-left: 5px;" id="notification-read-more" href="${url}">Read more</a>`;
+    }
   }
   return formattedText;
 };
