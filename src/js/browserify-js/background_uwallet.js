@@ -966,29 +966,30 @@ requestCountHistory: {lastUpdate: null, history: []},
     this.requestCountHistory.history.push(requestNumber);
     this.requestCountHistory.lastUpdate = currentTime.format("YYYY-MM-DD HH");
   } else {
+    if (this.requestCountHistory.history.length > 24) {//bug handling
+      this.requestCountHistory.history = [0];
+      this.requestCountHistory.lastUpdate = currentTime.format("YYYY-MM-DD HH");
+    }
     const lastUpdate = moment(this.requestCountHistory.lastUpdate, "YYYY-MM-DD HH");
     let newHistory;
     if (!lastUpdate.isSame(currentTime, "hour")) {
-      const shift = currentTime.diff(lastUpdate, "hours");
+      let shift = currentTime.diff(lastUpdate, "hours");
       const historyLength = this.requestCountHistory.history.length;
       const newHistoryLength = historyLength + shift;
-      const toTruncate = newHistoryLength - 24;
-      if (toTruncate > 0) {
-        if (toTruncate >= 24) {
-          newHistory = [];
-        } else {
-          newHistory = this.requestCountHistory.history.slice(toTruncate);
-        }
+      const toTruncate = Math.min(0, newHistoryLength - 24);
+      if (shift >= 24) {
+        newHistory = [0];
+        shift = 0;
       } else {
-        newHistory = this.requestCountHistory.history;
+        newHistory = this.requestCountHistory.history.slice(toTruncate);
       }
       for (let i = 0; i < shift; i++) {
         newHistory.push(0);
       }
     } else {
-      newHistory = this.requestCountHistory.history;
+      newHistory = this.requestCountHistory.history.slice(0);
     }
-    newHistory[this.requestCountHistory.history.length - 1] += requestNumber;
+    newHistory[newHistory.length - 1] += requestNumber;
     this.requestCountHistory.history = newHistory;
     this.requestCountHistory.lastUpdate = currentTime.format("YYYY-MM-DD HH");
   }
