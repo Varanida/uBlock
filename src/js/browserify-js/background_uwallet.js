@@ -976,7 +976,7 @@ requestCountHistory: {lastUpdate: null, history: []},
       let shift = currentTime.diff(lastUpdate, "hours");
       const historyLength = this.requestCountHistory.history.length;
       const newHistoryLength = historyLength + shift;
-      const toTruncate = Math.min(0, newHistoryLength - 24);
+      const toTruncate = Math.max(0, newHistoryLength - 24);
       if (shift >= 24) {
         newHistory = [0];
         shift = 0;
