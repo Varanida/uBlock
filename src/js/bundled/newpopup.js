@@ -65,6 +65,7 @@ var dataSettingsLevelStr = vAPI.i18n('popupDataSettingsLevel');
 var dataSettingsBonusStr = vAPI.i18n('popupDataSettingsBonus');
 var chartData = null;
 var toggleButtons = {};
+var notificationInfo = null;
 
 /******************************************************************************/
 
@@ -178,6 +179,14 @@ var gotoURL = function(ev) {
     vAPI.closePopup();
 };
 
+var renderBalanceLoading = function(loading) {
+  if (loading) {
+    uDom.nodeFromId("balanceLoader").style.setProperty("display", "inline-block");
+  } else {
+    uDom.nodeFromId("balanceLoader").style.setProperty("display", "none");
+  }
+};
+
 /******************************************************************************/
 
 var gotoEtherscan = function(ev) {
@@ -227,13 +236,23 @@ var renderPopup = function() {
 
     blocked = popupData.globalBlockedRequestCount;
     total = popupData.globalAllowedRequestCount + blocked;
+    var blockedStr = total === 0? "" : blocked.toString();
+    var percentageBlockedStr = formatNumber(Math.floor(blocked * 100 / total));
+    var numberLength = blockedStr.length + percentageBlockedStr.length;
     if ( total === 0 ) {
         text = formatNumber(0);
     } else {
         text = statsStr.replace('{{count}}', formatNumber(blocked))
-                       .replace('{{percent}}', formatNumber(Math.floor(blocked * 100 / total)));
+                       .replace('{{percent}}', percentageBlockedStr);
     }
-    uDom.nodeFromId('total-blocked').textContent = text;
+    if (numberLength > 6) {
+      var totalFontSize = Math.round(21 - numberLength)/10;
+      var totalNode = uDom.nodeFromId('total-blocked');
+      totalNode.style.setProperty("font-size", totalFontSize+"rem");
+      totalNode.textContent = text;
+    } else {
+      uDom.nodeFromId('total-blocked').textContent = text;
+    }
 
     // https://github.com/gorhill/uBlock/issues/507
     // Convenience: open the logger with current tab automatically selected
@@ -258,12 +277,6 @@ var renderPopup = function() {
         toggleButtons[toggleButton].prop("checked", toggleStates[toggleButton]);
       }
     }
-
-    //add varanida website linking
-    var varanidaMainLogo = uDom("#main-brand-logo");
-    varanidaMainLogo.attr("href", µConfig.urls.front);
-    varanidaMainLogo.on("click", gotoURL);
-
 
     //fill data sharing information
     renderDataSharingInfo();
@@ -316,10 +329,20 @@ var renderWallet = function(address) {
   var abscentWalletAddressPane = uDom.nodeFromId('abscentWalletAddress');
   var existingWalletAddressPane = uDom.nodeFromId('existingWalletAddress');
   if (walletAddress) {
-    var addressInput = uDom.nodeFromId("address-field");
-    addressInput.value = walletAddress;
-    var totalRewardCount = popupData.totalRewardCount;
-    uDom.nodeFromId('total-reward').textContent = totalRewardCount+" VAD";
+    var rewardActivated = popupData.captchaValidated;
+    var rewardDiv = uDom.nodeFromId("rewardActivated");
+    var captchaButtonDiv = uDom.nodeFromId("rewardDeactivated");
+    if (rewardActivated) {
+      captchaButtonDiv.style.setProperty("display", "none");
+      rewardDiv.style.setProperty("display", "block");
+      var addressInput = uDom.nodeFromId("address-field");
+      addressInput.value = walletAddress;
+      var totalRewardCount = popupData.totalRewardCount;
+      uDom.nodeFromId('total-reward').textContent = totalRewardCount+" VAD";
+    } else {
+      rewardDiv.style.setProperty("display", "none");
+      captchaButtonDiv.style.setProperty("display", "block");
+    }
     abscentWalletPane.style.setProperty("display", "none");
     existingWalletPane.style.setProperty("display", "flex");
     abscentWalletAddressPane.style.setProperty("display", "none");
@@ -333,6 +356,31 @@ var renderWallet = function(address) {
 }
 
 /******************************************************************************/
+// OVERLAYS managment
+/******************************************************************************/
+
+var overlayState = {
+  set: function(overlayId, params) {
+    var memObject = JSON.stringify({
+      overlayId: overlayId,
+      params: params
+    });
+    vAPI.localStorage.setItem("popupOverlayState", memObject);
+  },
+  get: function() {
+    var state = vAPI.localStorage.getItem("popupOverlayState");
+    if (state) {
+      return JSON.parse(state);
+    } else {
+      return null;
+    }
+  },
+  remove: function() {
+    vAPI.localStorage.removeItem("popupOverlayState");
+  }
+};
+
+/******************************************************************************/
 
 var showOverlay = function(overlayId, params) {
   var overlaysContainer = uDom.nodeFromId("overlays");
@@ -340,15 +388,30 @@ var showOverlay = function(overlayId, params) {
   if (overlayId === "showSeedOverlay" && params) {
     var seedContainer = uDom.nodeFromId("seed-field");
     seedContainer.value = params.seed;
+    seedContainer.setAttribute("data-seed", params.seed);
   } else if (overlayId === "infoOverlay" && params) {
     uDom.nodeFromId("info-overlay-title").textContent = params.title || vAPI.i18n('popupInfoOverlayDefaultTitle');
     uDom.nodeFromId("info-overlay-text").textContent = params.text || "";
     uDom.nodeFromId("info-validate-button-overlay").textContent = params.button || vAPI.i18n('popupInfoOverlayDefaultButton');
   } else if (overlayId === "importWalletOverlay") {
-    var startOverlayPanel = uDom.nodeFromId("importMethodOverlayPanel");
-    startOverlayPanel.style.setProperty("display", "block");
+    if (params && params.currentPanel) {
+      var importMethodPanel = uDom.nodeFromId("importMethodOverlayPanel");
+      var currentImportPanel = uDom.nodeFromId(params.currentPanel);
+      importMethodPanel.style.setProperty("display", "none");
+      currentImportPanel.style.setProperty("display", "block");
+    } else {
+      var startOverlayPanel = uDom.nodeFromId("importMethodOverlayPanel");
+      startOverlayPanel.style.setProperty("display", "block");
+    }
+  } else if (overlayId === "captchaOverlay" && params) {
+    var captchaDiv = uDom.nodeFromId("captchaField");
+    captchaDiv.innerHTML = "";
+    captchaDiv.appendChild(document.adoptNode(createSVGdocument(params.svgCaptcha).documentElement))
   }
   if (overlay) {
+    if (overlayId !== "referralInputOverlay") {
+      overlayState.set(overlayId, params);
+    }
     overlaysContainer.style.setProperty("display", "block");
     overlay.style.setProperty("display", "block");
     return true;
@@ -358,34 +421,44 @@ var showOverlay = function(overlayId, params) {
   }
 }
 var hideOverlay = function(overlayId) {
+  overlayState.remove();
   var overlaysContainer = uDom.nodeFromId("overlays");
   var overlaysList = uDom.nodesFromClass("overlayWindow");
+  var errorFields = [];
   if (overlayId === "createWalletOverlay" || overlayId === "all") {
-    var passwordField = uDom.nodeFromId("create-wallet-password");
-    var passwordFieldDuplicate = uDom.nodeFromId("create-wallet-password-duplicate");
-    passwordField.value = "";
-    passwordFieldDuplicate.value = "";
+    uDom.nodeFromId("create-wallet-password").value = "";
+    uDom.nodeFromId("create-wallet-password-duplicate").value = "";
+    errorFields.push(uDom.nodeFromId("create-wallet-overlay-error"));
   }
   if (overlayId === "showSeedOverlay" || overlayId === "all") {
     var seedContainer = uDom.nodeFromId("seed-field");
     seedContainer.value = "";
+    seedContainer.removeAttribute("data-seed");
   }
   if (overlayId === "importWalletOverlay" || overlayId === "all") {
-    var passwordFieldImport = uDom.nodeFromId("import-wallet-password");
-    var passwordFieldImportDuplicate = uDom.nodeFromId("import-wallet-password-duplicate");
-    passwordFieldImport.value = "";
-    passwordFieldImportDuplicate.value = "";
-    var seedField = uDom.nodeFromId("import-wallet-seed");
-    seedField.value = "";
-    var importMethodPanel = uDom.nodeFromId("importMethodOverlayPanel");
-    var walletImportPanel = uDom.nodeFromId("walletOverlayPanel");
-    var addressImportPanel = uDom.nodeFromId("addressOverlayPanel");
-    importMethodPanel.style.setProperty("display", "block");
-    walletImportPanel.style.setProperty("display", "none");
-    addressImportPanel.style.setProperty("display", "none");
+    uDom.nodeFromId("import-wallet-password").value = "";
+    uDom.nodeFromId("import-wallet-password-duplicate").value = "";
+    uDom.nodeFromId("import-wallet-seed").value = "";
+    uDom.nodeFromId("importMethodOverlayPanel").style.setProperty("display", "block");
+    uDom.nodeFromId("walletOverlayPanel").style.setProperty("display", "none");
+    uDom.nodeFromId("addressOverlayPanel").style.setProperty("display", "none");
+    errorFields.push(uDom.nodeFromId("import-wallet-overlay-error"));
+    errorFields.push(uDom.nodeFromId("import-address-overlay-error"));
+  }
+  if (overlayId === "captchaOverlay") {
+    uDom.nodeFromId("input-captcha").value = "";
+    uDom.nodeFromId("captchaField").innerHTML = "";
+    errorFields.push(uDom.nodeFromId("input-captcha-overlay-error"));
   }
   if (overlayId === "referralInputOverlay") {
     messaging.send('popupPanel', { what: 'setReferralWindowShown', shown: true });
+    errorFields.push(uDom.nodeFromId("import-referral-overlay-error"));
+  }
+  if (errorFields.length > 0) {
+    for (var j = 0; j < errorFields.length; j++) {
+      errorFields[j].textContent = "";
+      errorFields[j].parentElement.classList.remove("has-danger");
+    }
   }
   for (var i = 0; i < overlaysList.length; i++) {
     overlaysList[i].style.setProperty("display", "none");
@@ -394,18 +467,35 @@ var hideOverlay = function(overlayId) {
 }
 
 var showWalletImport = function() {
+  overlayState.set("importWalletOverlay", {currentPanel:"walletOverlayPanel"});
   var importMethodPanel = uDom.nodeFromId("importMethodOverlayPanel");
   var walletImportPanel = uDom.nodeFromId("walletOverlayPanel");
   importMethodPanel.style.setProperty("display", "none");
   walletImportPanel.style.setProperty("display", "block");
-}
+};
 
 var showAddressImport = function() {
+  overlayState.set("importWalletOverlay", {currentPanel:"addressOverlayPanel"});
   var importMethodPanel = uDom.nodeFromId("importMethodOverlayPanel");
   var addressImportPanel = uDom.nodeFromId("addressOverlayPanel");
   importMethodPanel.style.setProperty("display", "none");
   addressImportPanel.style.setProperty("display", "block");
-}
+};
+
+var restoreOverlays = function() {
+  var currentOverlayState = overlayState.get();
+  if (!currentOverlayState) {
+    return;
+  }
+  if (
+    !currentOverlayState.overlayId ||
+    currentOverlayState.overlayId === "referralInputOverlay"
+  ) {
+    overlayState.remove();
+    return;
+  }
+  showOverlay(currentOverlayState.overlayId, currentOverlayState.params);
+};
 
 var createWalletFromOverlay = function(ev) {
   ev.preventDefault();
@@ -418,6 +508,9 @@ var createWalletFromOverlay = function(ev) {
     errorField.textContent = vAPI.i18n('passwordMismatchError');
     errorField.parentElement.classList.add("has-danger");
     return;
+  } else if (pass1.length < µConfig.minimalPasswordLength) {
+    errorField.textContent = vAPI.i18n('passwordTooShortError').replace("{{minLength}}", µConfig.minimalPasswordLength);
+    errorField.parentElement.classList.add("has-danger");
   } else {
     errorField.textContent = "";
     errorField.parentElement.classList.remove("has-danger");
@@ -438,6 +531,9 @@ var importWalletFromOverlay = function(ev) {
     errorField.textContent = vAPI.i18n('passwordMismatchError');
     errorField.parentElement.classList.add("has-danger");
     return;
+  } else if (pass1.length < µConfig.minimalPasswordLength) {
+    errorField.textContent = vAPI.i18n('passwordTooShortError').replace("{{minLength}}", µConfig.minimalPasswordLength);
+    errorField.parentElement.classList.add("has-danger");
   } else if (seed === "") {
     errorField.textContent = vAPI.i18n('noSeedError');
     errorField.parentElement.classList.add("has-danger");
@@ -472,6 +568,23 @@ var showReferralWindow = function() {
   showOverlay("referralInputOverlay");
 }
 
+var sendCaptchaAnswerFromOverlay = function(ev) {
+  ev.preventDefault();
+  var solutionField = uDom.nodeFromId("input-captcha");
+  var errorField = uDom.nodeFromId("input-captcha-overlay-error");
+  var solution = solutionField.value;
+  if (solution.length !== 5) {
+    errorField.textContent = vAPI.i18n('captchaLengthError');
+    errorField.parentElement.classList.add("has-danger");
+    showCaptcha();
+    return;
+  } else {
+    errorField.textContent = "";
+    errorField.parentElement.classList.remove("has-danger");
+  }
+  sendCaptchaAnswerAndContinue(solution);
+}
+
 var importReferralFromOverlay = function(ev) {
   ev.preventDefault();
   var addressField = uDom.nodeFromId("import-referral-address");
@@ -487,6 +600,89 @@ var importReferralFromOverlay = function(ev) {
   }
   importReferrer(address);
 }
+
+/******************************************************************************/
+// NOTIFICATION managment
+/******************************************************************************/
+
+var hideNotification = function() {
+  var notificationDiv = uDom.nodeFromId("notification-div");
+  var safeTimeout = null;
+  var squashListener = function() {
+    if (safeTimeout) {
+      clearTimeout(safeTimeout);
+      safeTimeout = null;
+    }
+    notificationDiv.removeEventListener("transitionend", squashListener);
+    notificationDiv.style.setProperty("display","none");
+  };
+  var slideListener = function() {
+    if (safeTimeout) {
+      clearTimeout(safeTimeout);
+      safeTimeout = null;
+    }
+    notificationDiv.removeEventListener("transitionend", slideListener);
+    notificationDiv.addEventListener("transitionend", squashListener, false);
+    notificationDiv.classList.add("squash");
+    safeTimeout = setTimeout(function() {safeTimeout = null; squashListener();}, 2000);
+  };
+  //slide left
+  notificationDiv.addEventListener("transitionend", slideListener, false);
+  notificationDiv.classList.add("slide");
+  safeTimeout = setTimeout(function() {safeTimeout = null; slideListener();}, 2000);
+  messaging.send('popupPanel', { what: 'setNotificationSeen', notificationId: notificationInfo.id });
+};
+
+var showNotification = function() {
+  if (!notificationInfo) {
+    return;
+  }
+  var notificationDiv = uDom.nodeFromId("notification-div");
+  var notificationAlertDiv = uDom.nodeFromId("notification-alert");
+  var notificationTextDiv = uDom.nodeFromId("notification-text");
+  var safeTimeout = null;
+  var notifListener = function() {
+    // after change
+    if (safeTimeout) {
+      clearTimeout(safeTimeout);
+      safeTimeout = null;
+    }
+    notificationDiv.removeEventListener("transitionend", notifListener);
+    notificationDiv.classList.remove("slide");
+  };
+  // can be safely assigned with innerhtml because it has been sanitized in the background
+  notificationTextDiv.innerHTML = notificationInfo.message;
+  if (notificationInfo.link) {
+    var readMoreLink = uDom("#notification-read-more");
+    readMoreLink.on("click", gotoURL);
+  }
+  notificationDiv.classList.add("squash");
+  notificationDiv.classList.add("slide");
+  notificationAlertDiv.classList.add(notificationInfo.type? "alert-"+notificationInfo.type : "alert-info");
+  notificationDiv.addEventListener("transitionend", notifListener, false);
+  notificationDiv.classList.remove("squash");
+  safeTimeout = setTimeout(function() {safeTimeout = null; notifListener();}, 2000);
+};
+
+var removeNotification = function() {
+  uDom.nodeFromId("notification-div").style.setProperty("display","none");
+};
+
+var getNotification = function() {
+  var onNotifInfoReceived = function(response) {
+    if (!response || typeof response !== "object" || !response.message) {
+      removeNotification();
+      return;
+    }
+    notificationInfo = response;
+    showNotification();
+  };
+  messaging.send(
+      'popupPanel',
+      { what: 'getLatestNotification'},
+      onNotifInfoReceived
+  );
+};
 
 /******************************************************************************/
 
@@ -536,7 +732,26 @@ var renderDataSlider = function() {
 
 var renderOnce = function() {
     renderOnce = function(){};
+
+    //add varanida website linking
+    var varanidaMainLogo = uDom("#main-brand-logo");
+    varanidaMainLogo.attr("href", µConfig.urls.front);
+    varanidaMainLogo.on("click", gotoURL);
+
+    //show referral notice if needed and attach events
+    if (!popupData.referralNoticeHidden) {
+      uDom.nodeFromId("referral-notice-text").textContent = vAPI.i18n("popupReferralNotice").replace("{{referral}}", µConfig.rewards.referral);
+      uDom("#hide-referral-notice").on("click",function() {
+        messaging.send('popupPanel', { what: 'hideReferralNotice', hide: true });
+        uDom.nodeFromId("referral-notice").style.setProperty("display", "none");
+      });
+      uDom.nodeFromId("referral-notice").style.setProperty("display", "inline-block");
+    }
+
     renderDataSlider();
+    showReferralWindow(); // will only be executed if it hasn't already
+    restoreOverlays();
+    getNotification();
 };
 
 /******************************************************************************/
@@ -594,6 +809,19 @@ var copyAdressToClipboard = function(fieldToCopy) {
     document.execCommand("copy");
     addressInput.blur();
   }
+};
+
+/******************************************************************************/
+
+var saveSeed = function() {
+  var seedField = uDom.nodeFromId("seed-field");
+  var seedText = seedField.getAttribute("data-seed");
+
+  vAPI.download({
+      'url': 'data:text/plain;charset=utf-8,' +
+             encodeURIComponent(seedText),
+      'filename': "varanida_wallet_passphrase.txt"
+  });
 };
 
 /******************************************************************************/
@@ -723,9 +951,11 @@ var pollForContentChange = (function() {
 /******************************************************************************/
 
 var getUpdatedRewardData = function() {
+    renderBalanceLoading(true);
     var onDataReceived = function(response) {
         updatePopupData({totalRewardCount: response});
         renderWallet();
+        renderBalanceLoading(false);
     };
     messaging.send(
         'popupPanel',
@@ -746,7 +976,6 @@ var getPopupData = function(tabId) {
         renderPopupLazy(); // low priority rendering
         hashFromPopupData(true);
         pollForContentChange();
-        showReferralWindow(); // will only be executed if it hasn't already
     };
     messaging.send(
         'popupPanel',
@@ -809,7 +1038,6 @@ var importWallet = function(password, seed) {
       renderWallet();
       hideOverlay("importWalletOverlay");
       showOverlay("showSeedOverlay", {seed: response.seed})
-      getUpdatedRewardData();
     };
     messaging.send(
         'popupPanel',
@@ -834,7 +1062,7 @@ var importWallet = function(password, seed) {
       });
       renderWallet();
       hideOverlay("importWalletOverlay");
-      getUpdatedRewardData();
+      showCaptchaIfNotValidated();
     };
     messaging.send(
         'popupPanel',
@@ -869,6 +1097,91 @@ var importWallet = function(password, seed) {
 
 /******************************************************************************/
 
+var closeSeedOverlay = function() {
+  hideOverlay("showSeedOverlay");
+  showCaptchaIfNotValidated();
+};
+
+/******************************************************************************/
+
+var showCaptchaIfNotValidated = function() {
+  showOverlay("waitingOverlay");
+  var onStatusReceived = function(alreadyVerified) {
+    updatePopupData({captchaValidated: alreadyVerified});
+    hideOverlay("waitingOverlay");
+    if (!alreadyVerified) {
+      showCaptcha();
+    } else {
+      getUpdatedRewardData();
+    }
+  };
+  messaging.send(
+      'popupPanel',
+      { what: 'getCaptchaStatus'},
+      onStatusReceived
+  );
+};
+
+/******************************************************************************/
+  var createSVGdocument = function(svgText) {
+    return new DOMParser().parseFromString(svgText,'image/svg+xml');
+  };
+
+  var showCaptcha = function() {
+    var onCaptchaReceived = function(response) {
+      if (!response) {
+        var errorField = uDom.nodeFromId("input-captcha-overlay-error");
+        errorField.textContent = vAPI.i18n('getCaptchaError');
+        errorField.parentElement.classList.add("has-danger");
+        return console.log("error getting captcha");
+      }
+      showOverlay("captchaOverlay", {
+        svgCaptcha: response,
+      });
+
+    };
+    messaging.send(
+        'popupPanel',
+        { what: 'getCaptcha'},
+        onCaptchaReceived
+    );
+};
+
+/******************************************************************************/
+
+var renderCaptchaLoading = function(loading) {
+  if (loading) {
+    uDom(".captchaLoading").addClass("loading");
+  } else {
+    uDom(".captchaLoading").removeClass("loading");
+  }
+};
+
+/******************************************************************************/
+
+  var sendCaptchaAnswerAndContinue = function(solution) {
+    var onResponseReceived = function(response) {
+      renderCaptchaLoading(false);
+      if (!response) {
+        var errorField = uDom.nodeFromId("input-captcha-overlay-error");
+        errorField.textContent = vAPI.i18n('wrongCaptchaError');
+        errorField.parentElement.classList.add("has-danger");
+        showCaptcha();
+        return console.log("error wrong captcha");
+      }
+      updatePopupData({captchaValidated: true});
+      getUpdatedRewardData();
+      hideOverlay("captchaOverlay");
+    };
+    renderCaptchaLoading(true);
+    messaging.send(
+        'popupPanel',
+        { what: 'sendCaptchaAnswerAndContinue', 'solution': solution},
+        onResponseReceived
+    );
+};
+/******************************************************************************/
+
   var getChartData = function(callback) {
     var onChartDataReceived = function(response) {
       if (!response) {
@@ -897,6 +1210,8 @@ var moveOutWhenDone = function() {
     tip.style.top = "";
     tip.style.bottom = "";
     tip.style.setProperty('right', '-1000px');
+    tip.classList.remove("bs-tooltip-top");
+    tip.classList.remove("bs-tooltip-bottom");
     uDom.nodeFromId('templates').appendChild(tip);
     tooltipClosing = false;
   }
@@ -993,7 +1308,7 @@ var onHideTooltip = function() {
     }
 
     toggleButtons = {
-      noPopup:             uDom('#no-popup'),
+      noPopup:             uDom('#no-popups'),
       noLargeMedia:        uDom('#no-large-media'),
       noCosmeticFiltering: uDom('#no-cosmetic-filtering'),
       noRemoteFonts:       uDom('#no-remote-fonts')
@@ -1081,6 +1396,8 @@ var onHideTooltip = function() {
     // uDom('#revertRules').on('click', revertFirewallRules);
     uDom('#address-clipboard-button').on('click', function() {copyAdressToClipboard("address-field")});
     uDom('#seed-clipboard-button').on('click', function() {copyAdressToClipboard("seed-field")});
+    uDom('#seed-save-button').on('click', saveSeed);
+
     // uDom('[data-i18n="popupAnyRulePrompt"]').on('click', toggleMinimize);
 
     uDom('body').on('mouseenter', '[data-tip]', onShowTooltip)
@@ -1110,13 +1427,24 @@ var onHideTooltip = function() {
     uDom('#import-address-button-overlay').on('click', importAddressFromOverlay);
     uDom('#cancel-import-address-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("importWalletOverlay");});
 
-    uDom('#show-seed-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("showSeedOverlay");});
+    uDom('#show-seed-button-overlay').on('click', function(ev){ev.preventDefault();closeSeedOverlay();});
+
+    uDom('#passCaptchaButton').on('click', showCaptchaIfNotValidated);
+    uDom('#change-captcha').on('click', showCaptcha);
+    uDom('#input-captcha-button-overlay').on('click', sendCaptchaAnswerFromOverlay);
+    uDom('#no-captcha-button-overlay').on('click', function(ev){
+      ev.preventDefault();
+      updatePopupData({captchaValidated: false});
+      getUpdatedRewardData();
+      hideOverlay("captchaOverlay");
+    });
 
     uDom('#import-referral-button-overlay').on('click', importReferralFromOverlay);
     uDom('#no-referral-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("referralInputOverlay");});
 
     uDom('#info-validate-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("infoOverlay");});
-    uDom('.overlayClose').on('click', function(){hideOverlay("all");})
+    uDom('.overlayClose').on('click', function(){hideOverlay("all");});
+    uDom('#close-notification').on('click', function(ev){ev.preventDefault();hideNotification();});
 })();
 
 window.addEventListener("load", function(event) { //on document ready

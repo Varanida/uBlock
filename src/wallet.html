@@ -12,10 +12,12 @@
 <body>
 <h2 data-i18n="popupWalletAdressPrompt"></h2>
 <p><span id="walletAddress"></span></p>
-<div id="walletFunctions">
+<div id="basicWalletFunctions">
   <p>
     <button id="delete-wallet-button" class="action-button danger-button" type="button" data-i18n="deleteWallet"></button>
   </p>
+</div>
+<div id="walletFunctions">
   <div id="lockWallet">
     <p>
       <button id="lock-wallet-button" class="action-button neutral-button" type="button" data-i18n="lockWallet"></button>
@@ -36,6 +38,15 @@
     <p><span data-i18n="exportPrivKey"></span></p>
     <p><div class="copy-address-group"><input id="privkey-field" readonly="" placeholder="" type="text"><button id="privkey-clipboard-button" class="fa clipboard-button">&#xf0c5;</button></div></p>
   </div>
+  <br>
+  <h2 data-i18n="passwordManagment"></h2>
+  <p>
+    <button id="change-password-button" class="action-button neutral-button" type="button" data-i18n="changePassword"></button>
+  </p>
+  <p><span data-i18n="forgottenPassword"></span></p>
+  <p>
+    <button id="restore-password-button" class="action-button neutral-button" type="button" data-i18n="restorePassword"></button>
+  </p>
 </div>
 <div id="modal-overlay">
   <div class="modal-background">
@@ -44,8 +55,8 @@
     <div class="overlayClose"></div>
     <div class="overlayTitle"><h1 data-i18n="deleteWallet"></h1></div>
     <div class="overlayText"><p data-i18n="deleteWalletText"></p></div>
-    <div class="overlayText small"><p data-i18n="popupOverlayPassword"></p></div>
     <div id="delete-overlay-password-div">
+      <div class="overlayText small"><p data-i18n="popupOverlayPassword"></p></div>
       <div class="overlayText"><p data-i18n="deleteOverlayPassword"></p></div>
       <div class="text-input-group"><input type="password" id="delete-wallet-password" placeholder=""></div>
       <div class="overlayError"><p id="delete-wallet-overlay-error"></p></div>
@@ -53,8 +64,40 @@
     <button class="action-button danger-button overlay-validate" id="delete-wallet-button-overlay" data-i18n="deleteConfirm"></button>
     <button class="action-button neutral-button overlay-validate" id="cancel-delete-wallet-button-overlay" data-i18n="deleteCancel"></button>
   </div>
+  <div class="modal-window" id="restore-modal">
+    <div class="overlayClose"></div>
+    <div class="overlayTitle"><h1 data-i18n="restorePassword"></h1></div>
+    <div class="overlayText"><p data-i18n="walletOverlaySeedSubtitle"></p></div>
+    <div class="overlayText small"><p data-i18n="popupOverlaySeed"></p></div>
+    <div class="text-input-group wider"><input type="text" id="restore-wallet-seed" placeholder=""></div>
+    <div class="overlayError"><p id="restore-wallet-overlay-seed-error"></p></div>
+    <br>
+    <div class="overlayText small"><p data-i18n="overlayNewPassword"></p></div>
+    <div class="text-input-group"><input type="password" id="restore-wallet-new-password" placeholder=""></div>
+    <div class="overlayText small"><p data-i18n="popupOverlayPasswordConfirm"></p></div>
+    <div class="text-input-group"><input type="password" id="restore-wallet-new-password-duplicate" placeholder=""></div>
+    <div class="overlayError"><p id="restore-wallet-overlay-error"></p></div>
+    <button class="action-button valid-button overlay-validate" id="restore-wallet-button-overlay" data-i18n="restoreConfirm"></button>
+    <button class="action-button neutral-button overlay-validate" id="cancel-restore-wallet-button-overlay" data-i18n="deleteCancel"></button>
+  </div>
+  <div class="modal-window" id="change-password-modal">
+    <div class="overlayClose"></div>
+    <div class="overlayTitle"><h1 data-i18n="changePassword"></h1></div>
+    <div class="overlayText small"><p data-i18n="overlayOldPassword"></p></div>
+    <div class="text-input-group"><input type="password" id="change-password-old-password" placeholder=""></div>
+    <div class="overlayError"><p id="change-password-overlay-old-error"></p></div>
+    <br>
+    <div class="overlayText small"><p data-i18n="overlayNewPassword"></p></div>
+    <div class="text-input-group"><input type="password" id="change-password-new-password" placeholder=""></div>
+    <div class="overlayText small"><p data-i18n="popupOverlayPasswordConfirm"></p></div>
+    <div class="text-input-group"><input type="password" id="change-password-new-password-duplicate" placeholder=""></div>
+    <div class="overlayError"><p id="change-password-overlay-error"></p></div>
+    <button class="action-button valid-button overlay-validate" id="change-password-button-overlay" data-i18n="changePasswordConfirm"></button>
+    <button class="action-button neutral-button overlay-validate" id="cancel-change-password-button-overlay" data-i18n="deleteCancel"></button>
+  </div>
 </div>
 
+<script src="config/main-config.js"></script>
 <script src="js/vapi.js"></script>
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>

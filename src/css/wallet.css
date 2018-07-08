@@ -1,3 +1,6 @@
+#basicWalletFunctions {
+  display: none;
+}
 #walletFunctions {
   display: none;
 }
@@ -142,9 +145,6 @@
 #modal-overlay {
   display: none;
 }
-#delete-modal {
-  display: none;
-}
 #lockWallet {
   display: none;
 }
@@ -164,14 +164,15 @@
   height: 100%;
 }
 .modal-window {
+  display: none;
   position: absolute;
-  top:0;
-  bottom: 0;
   left: 0;
   right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   margin: auto;
   width: 450px;
-  height: 210px;
+  min-height: 150px;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4), 0 1px 1px rgba(0, 0, 0, 0.5);
@@ -223,8 +224,11 @@
 .modal-window .text-input-group {
   position: relative;
   height: 30px;
-  width: 70%;
+  width: 60%;
   display: block;
   overflow: hidden;
   margin: auto;
+}
+.modal-window .text-input-group.wider {
+  width: 90%;
 }

@@ -28,11 +28,13 @@
 /******************************************************************************/
 
 var worker = null;
-var workerTTL = 5 * 60 * 1000;
+var workerTTL = 17 * 60 * 1000;
 var workerTTLTimer = null;
 var needLists = true;
 var messageId = 1;
 var pendingResponses = Object.create(null);
+var workerInitiating = false;
+var workerQueue = [];
 
 /******************************************************************************/
 
@@ -47,8 +49,12 @@ var onWorkerMessage = function(e) {
 
 var stopWorker = function() {
     workerTTLTimer = null;
-    if ( worker === null ) {
+    if ( worker === null) {
         return;
+    }
+    if (workerInitiating === true) {
+      workerTTLTimer = vAPI.setTimeout(stopWorker, workerTTL);
+      return;
     }
     worker.terminate();
     worker = null;
@@ -68,12 +74,22 @@ var initWorker = function(callback) {
         callback();
         return;
     }
-
-    needLists = false;
+    workerQueue.push(callback);
+    if (workerInitiating === true) {
+      return;
+    }
+    workerInitiating = true;
 
     var entries = Object.create(null);
     var countdown = 0;
-
+    var afterInit = function() {
+      workerInitiating = false;
+      needLists = false;
+      for (var i = 0; i < workerQueue.length; i++) {
+        setTimeout(workerQueue[i],0);
+      }
+      workerQueue.length = 0;
+    };
     var onListLoaded = function(details) {
         var entry = entries[details.assetKey];
 
@@ -92,7 +108,7 @@ var initWorker = function(callback) {
 
         countdown -= 1;
         if ( countdown === 0 ) {
-            callback();
+            afterInit();
         }
     };
 
@@ -115,7 +131,7 @@ var initWorker = function(callback) {
     }
 
     if ( countdown === 0 ) {
-        callback();
+        afterInit();
         return;
     }
 
@@ -149,13 +165,17 @@ var fromNetFilter = function(compiledFilter, rawFilter, callback) {
             compiledFilter: compiledFilter,
             rawFilter: rawFilter
         };
-        pendingResponses[id] = callback;
+        pendingResponses[id] = function(res) {
+          callback(res);
+        };
         worker.postMessage(message);
 
         // The worker will be shutdown after n minutes without being used.
+        if (workerTTLTimer) {
+          clearTimeout(workerTTLTimer);
+        }
         workerTTLTimer = vAPI.setTimeout(stopWorker, workerTTL);
     };
-
     initWorker(onWorkerReady);
 };
 
@@ -189,6 +209,9 @@ var fromCosmeticFilter = function(hostname, rawFilter, callback) {
         worker.postMessage(message);
 
         // The worker will be shutdown after n minutes without being used.
+        if (workerTTLTimer) {
+          clearTimeout(workerTTLTimer);
+        }
         workerTTLTimer = vAPI.setTimeout(stopWorker, workerTTL);
     };
 

@@ -11,6 +11,30 @@
     "message": "Varanida — Tableau de bord",
     "description": "English: Varanida — Dashboard"
   },
+  "profilePageName":{
+    "message":"Profil",
+    "description":"appears as tab name in dashboard"
+  },
+  "profileCurrentLevel":{
+    "message":"Niveau actuel",
+    "description":"Current Level"
+  },
+  "profileLevel":{
+    "message":"Niveau",
+    "description":"Level"
+  },
+  "profilePersonalQuestions":{
+    "message":"Questions personnelles",
+    "description":"Personal questions"
+  },
+  "profileSave":{
+    "message":"Sauvegarder",
+    "description":"Save"
+  },
+  "profileSaved":{
+    "message":"Sauvegardé!",
+    "description":"Saved!"
+  },
   "settingsPageName": {
     "message": "Paramètres",
     "description": "appears as tab name in dashboard"
@@ -227,20 +251,36 @@
     "message":"Copier",
     "description":"appears in popup"
   },
+  "popupSaveAsText":{
+    "message":"Sauvegarder comme fichier texte",
+    "description":"appears in popup"
+  },
+  "popupReferralNotice":{
+    "message":"Partagez-la et gagnez {{referral}} VAD par parrainage",
+    "description":"ntoice under address"
+  },
   "popupWalletRewardPrompt":{
     "message":"Récompense",
     "description":"appears in popup"
   },
   "popupWalletRewardSubtitle":{
-    "message":"Total de vos gains en VAD",
+    "message":"Total de vos gains",
     "description":"appears in popup"
   },
   "popupWalletRewardExplanation":{
     "message":"Ajoutez un portefeuille pour recevoir une récompense lorsque Varanida bloque un élément",
     "description":"appears in popup"
   },
+  "popupWalletActivateButton":{
+    "message":"Activer",
+    "description":"appears in popup"
+  },
   "popupStatisticsTab":{
     "message":"Statistiques",
+    "description":"appears in popup"
+  },
+  "popupDataTab":{
+    "message":"Données",
     "description":"appears in popup"
   },
   "popupGeneralConfig":{
@@ -411,6 +451,46 @@
     "message":"Pas de parrain",
     "description":"no referral overlay button"
   },
+  "popupOverlayCaptchaTitle":{
+    "message":"Vérification de sécurité",
+    "description":"captcha overlay title"
+  },
+  "popupOverlayCaptchaSubTitle":{
+    "message":"Vous devez subir ceci pour recevoir des tokens. De cette façon, nous donnons plus aux humains et moins aux robots.",
+    "description":"captcha overlay subtitle"
+  },
+  "popupOverlayCaptchaField":{
+    "message":"Recopier le texte suivant",
+    "description":"captcha overlay field title"
+  },
+  "popupOverlayCaptchaChangeSubtitle":{
+    "message":"Changer de texte",
+    "description":"captcha overlay response help"
+  },
+  "popupOverlayCaptchaHelpSubtitle":{
+    "message":"L'image contient 5 caractères",
+    "description":"captcha overlay response help"
+  },
+  "popupOverlayCaptchaButton":{
+    "message":"Valider",
+    "description":"captcha overlay valid button"
+  },
+  "popupOverlayNoCaptchaButton":{
+    "message":"Annuler",
+    "description":"captcha overlay cancel button"
+  },
+  "getCaptchaError":{
+    "message":"Erreur lors du téléchargement du captcha",
+    "description":"captcha overlay error"
+  },
+  "captchaLengthError":{
+    "message":"Réponse de taille inadéquate (5 caractères attendus)",
+    "description":"captcha overlay error"
+  },
+  "wrongCaptchaError":{
+    "message":"Mauvaise réponse",
+    "description":"captcha overlay error"
+  },
   "popupInfoOverlayDefaultTitle":{
     "message":"Information",
     "description":"default title for the info overlay"
@@ -430,6 +510,10 @@
   "passwordMismatchError":{
     "message":"Mots de passe différents",
     "description": "password mismatch error message"
+  },
+  "passwordTooShortError":{
+    "message":"Mot de passe trop court ({{minLength}} caractères minimum)",
+    "description": "password too short error message"
   },
   "noSeedError":{
     "message": "passphrase manquante",
@@ -567,6 +651,246 @@
     "message": "Date de la dernière sauvegarde :",
     "description": "English: Last backup:"
   },
+  "profileNetworkError":{
+    "message":"Une erreur réseau a empêché le chargement de votre profil.",
+    "description":"network error message"
+  },
+  "profileLevel1":{
+    "message":"Niveau 1",
+    "description":"English: Level 1"
+  },
+  "profileLevel2":{
+    "message":"Niveau 2",
+    "description":"English: Level 2"
+  },
+  "profileLevel3":{
+    "message":"Niveau 3",
+    "description":"English: Level 3"
+  },
+  "profileUserBirthdate":{
+    "message":"Quand êtes vous né?",
+    "description":"English: When were you born?"
+  },
+  "profileUserBirthdateInfo":{
+    "message":"Saisissez votre date de naissance",
+    "description":"English: Please enter your birthdate"
+  },
+  "profileUserBirthdateDay":{
+    "message":"Jour:",
+    "description":"Day descriptor"
+  },
+  "profileUserBirthdateMonth":{
+    "message":"Mois:",
+    "description":"Month descriptor"
+  },
+  "profileUserBirthdateYear":{
+    "message":"Année:",
+    "description":"Year descriptor"
+  },
+  "month01":{
+    "message":"Janvier",
+    "description":"English: January"
+  },
+  "month02":{
+    "message":"Février",
+    "description":"English: February"
+  },
+  "month03":{
+    "message":"Mars",
+    "description":"English: March"
+  },
+  "month04":{
+    "message":"Avril",
+    "description":"English: April"
+  },
+  "month05":{
+    "message":"Mai",
+    "description":"English: May"
+  },
+  "month06":{
+    "message":"Juin",
+    "description":"English: June"
+  },
+  "month07":{
+    "message":"Juillet",
+    "description":"English: July"
+  },
+  "month08":{
+    "message":"Août",
+    "description":"English: August"
+  },
+  "month09":{
+    "message":"Septembre",
+    "description":"English: September"
+  },
+  "month10":{
+    "message":"Octobre",
+    "description":"English: October"
+  },
+  "month11":{
+    "message":"Novembre",
+    "description":"English: November"
+  },
+  "month12":{
+    "message":"Décembre",
+    "description":"English: December"
+  },
+  "profileUserCity":{
+    "message":"Où habitez vous?",
+    "description":"English: Where do you live?"
+  },
+  "profileUserGender":{
+    "message":"Vous êtes:",
+    "description":"English: Are you:"
+  },
+  "profileUserGenderMale":{
+    "message":"Un homme",
+    "description":"English: Male"
+  },
+  "profileUserGenderFemale":{
+    "message":"Une femme",
+    "description":"English: Female"
+  },
+  "profileUserMotherTongue":{
+    "message":"Langue natale",
+    "description":"English: Mother tongue"
+  },
+  "profileUserEducationLevel":{
+    "message":"Votre niveau d'étude est:",
+    "description":"English: Your highest education level was:"
+  },
+  "profileUserEducationLevelNone":{
+    "message":"Aucun",
+    "description":"English: None"
+  },
+  "profileUserEducationLevelCollege":{
+    "message":"Lycée",
+    "description":"English: College"
+  },
+  "profileUserEducationLevelHighSchool":{
+    "message":"Université",
+    "description":"English: High School"
+  },
+  "profileUserEducationLevelPostGraduate":{
+    "message":"Master",
+    "description":"English: Post-graduate"
+  },
+  "profileUserEducationLevelDoctorate":{
+    "message":"Doctorat",
+    "description":"English: Doctorate"
+  },
+  "profileUserEducationLevelProfessionalDegree":{
+    "message":"Formation professionnelle",
+    "description":"English: Professional degree"
+  },
+  "profileUserRelationshipStatus":{
+    "message":"Vous êtes:",
+    "description":"English: Are you:"
+  },
+  "profileUserRelationshipStatusSingle":{
+    "message":"Célibataire",
+    "description":"English: Single"
+  },
+  "profileUserRelationshipStatusInRelationship":{
+    "message":"En couple",
+    "description":"English: In relationship"
+  },
+  "profileUserRelationshipStatusEngaged":{
+    "message":"Fiancé",
+    "description":"English: Engaged"
+  },
+  "profileUserRelationshipStatusMarried":{
+    "message":"Marié",
+    "description":"English: Married"
+  },
+  "profileUserRelationshipStatusDivorced":{
+    "message":"Divorcé",
+    "description":"English: Divorced"
+  },
+  "profileUserRelationshipStatusOther":{
+    "message":"Autre",
+    "description":"English: Other"
+  },
+  "profileUserHasKids":{
+    "message":"Vous avez des enfants:",
+    "description":"English: Do you have kids:"
+  },
+  "profileUserHasKidsTrue":{
+    "message":"Oui",
+    "description":"English: Yes"
+  },
+  "profileUserHasKidsFalse":{
+    "message":"Non",
+    "description":"English: No"
+  },
+  "profileUserWorkStatus":{
+    "message":"Votre statut:",
+    "description":"English: Your work status:"
+  },
+  "profileUserWorkStatusEmployee":{
+    "message":"Employé",
+    "description":"English: Employee"
+  },
+  "profileUserWorkStatusIndependant":{
+    "message":"Indépendant",
+    "description":"English: Independant"
+  },
+  "profileUserWorkStatusUnemployed":{
+    "message":"Sans emploi",
+    "description":"English: Unemployed"
+  },
+  "profileUserWorkStatusStudent":{
+    "message":"Étudiant",
+    "description":"English: Student"
+  },
+  "profileUserWorkStatusRetired":{
+    "message":"Retraité",
+    "description":"English: Retired"
+  },
+  "profileUserBasicMaterials":{
+    "message":"Matière premières",
+    "description":"English: Basic Materials"
+  },
+  "profileUserIndustry":{
+    "message":"Industrie",
+    "description":"English: Industry"
+  },
+  "profileLocationSharing":{
+    "message":"J'accepte de renseigner ma position avec mon profil",
+    "description":"English: I'm ok to complete my profile with my location"
+  },
+  "profilePreferencesSharing":{
+    "message":"J'accepte de renseigner mes préférences avec mon profil",
+    "description":"English: I'm ok to complete my profile with my preferences information"
+  },
+  "profileSessionSharing":{
+    "message":"J'accepte de renseigner mes informations de session avec mon profil",
+    "description":"English: I'm ok to complete my profile with my session information"
+  },
+  "profileBrowsingHistorySharing":{
+    "message":"J'accepte de renseigner mon historique de navigation avec mon profil",
+    "description":"English: I'm ok to complete my profile with my browsing history information"
+  },
+  "privKeyError":{
+    "message":"Clé privée incorrecte",
+    "description":"wrong private key error"
+  },
+  "unlockWalletTitle":{
+    "message":"Débloquez votre portefeuille",
+    "description":"English: Unlock your wallet"
+  },
+  "unlockWalletWithPassword":{
+    "message":"Entrez le mot de passe du portefeuille",
+    "description":"English: Enter your wallet password"
+  },
+  "unlockWalletWithPrivkey":{
+    "message":"Entrez votre passphrase ou clé privée",
+    "description":"English: Enter your private key"
+  },
+  "unlockWalletButton":{
+    "message":"Débloquer",
+    "description":"English: Unlock"
+  },
   "walletPrivKeyExport":{
     "message":"Exporter passphrase et clé privée",
     "description":"wallet export title"
@@ -607,9 +931,53 @@
     "message":"Annuler",
     "description":"delete wallet button"
   },
-  "deleteWalletError":{
+  "passwordError":{
     "message":"Mot de passe erroné",
     "description":"delete wallet error"
+  },
+  "passwordManagment":{
+    "message":"Gestion du mot de passe",
+    "description":"password managment title"
+  },
+  "forgottenPassword":{
+    "message":"Mot de passe oublié?",
+    "description":"password subtitle"
+  },
+  "restorePassword":{
+    "message":"Restaurer avec la passphrase",
+    "description":"restore password button"
+  },
+  "changePassword":{
+    "message":"Changer de mot de passe",
+    "description":"change password button"
+  },
+  "walletOverlaySeedSubtitle":{
+    "message":"Entrez la passphrase (seed de 12 mots) du portefeuille",
+    "description":"restore wallet subtitle"
+  },
+  "seedMismatch":{
+    "message":"La passphrase ne correspond pas au portefeuille",
+    "description":"seed mismatch error"
+  },
+  "seedInvalidError":{
+    "message":"La passphrase doit être composée de 12 mots",
+    "description":"seed invalid error"
+  },
+  "overlayNewPassword":{
+    "message":"Nouveau mot de passe",
+    "description":"new password prompt"
+  },
+  "restoreConfirm":{
+    "message":"Restaurer",
+    "description":"restore password confirm button"
+  },
+  "overlayOldPassword":{
+    "message":"Mot de passe actuel",
+    "description":"restore password confirm button"
+  },
+  "changePasswordConfirm":{
+    "message":"Changer le mot de passe",
+    "description":"restore password confirm button"
   },
   "3pListsOfBlockedHostsPrompt": {
     "message": "{{netFilterCount}} filtre(s) réseau et {{cosmeticFilterCount}} filtre(s) esthétique(s) sont actuellement en vigueur :",

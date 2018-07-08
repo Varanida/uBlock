@@ -11,6 +11,30 @@
     "message":"Varanida — Dashboard",
     "description":"English: Varanida — Dashboard"
   },
+  "profilePageName":{
+    "message":"Profile",
+    "description":"appears as tab name in dashboard"
+  },
+  "profileCurrentLevel":{
+    "message":"Current level",
+    "description":"Current Level"
+  },
+  "profileLevel":{
+    "message":"Level",
+    "description":"Level"
+  },
+  "profilePersonalQuestions":{
+    "message":"Personal questions",
+    "description":"Personal questions"
+  },
+  "profileSave":{
+    "message":"Save",
+    "description":"Save"
+  },
+  "profileSaved":{
+    "message":"Saved!",
+    "description":"Saved!"
+  },
   "settingsPageName":{
     "message":"Settings",
     "description":"appears as tab name in dashboard"
@@ -227,20 +251,36 @@
     "message":"Copy",
     "description":"appears in popup"
   },
+  "popupSaveAsText":{
+    "message":"Save as text file",
+    "description":"appears in popup"
+  },
+  "popupReferralNotice":{
+    "message":"Share it and earn {{referral}} VAD per referral",
+    "description":"ntoice under address"
+  },
   "popupWalletRewardPrompt":{
     "message":"Reward",
     "description":"appears in popup"
   },
   "popupWalletRewardSubtitle":{
-    "message":"Your total reward in VAD",
+    "message":"Your total reward",
     "description":"appears in popup"
   },
   "popupWalletRewardExplanation":{
     "message":"Add a wallet to receive a reward when Varanida blocks an element",
     "description":"appears in popup"
   },
+  "popupWalletActivateButton":{
+    "message":"Activate",
+    "description":"appears in popup"
+  },
   "popupStatisticsTab":{
     "message":"Statistics",
+    "description":"appears in popup"
+  },
+  "popupDataTab":{
+    "message":"Data",
     "description":"appears in popup"
   },
   "popupGeneralConfig":{
@@ -411,6 +451,46 @@
     "message":"No Referral",
     "description":"no referral overlay button"
   },
+  "popupOverlayCaptchaTitle":{
+    "message":"Security Check",
+    "description":"captcha overlay title"
+  },
+  "popupOverlayCaptchaSubTitle":{
+    "message":"You have to go through this to participate to receive tokens. This way we give more to real humans, and less to bots.",
+    "description":"captcha overlay subtitle"
+  },
+  "popupOverlayCaptchaField":{
+    "message":"Please enter the text below",
+    "description":"captcha overlay field title"
+  },
+  "popupOverlayCaptchaChangeSubtitle":{
+    "message":"Try another text",
+    "description":"captcha overlay response help"
+  },
+  "popupOverlayCaptchaHelpSubtitle":{
+    "message":"The picture contains 5 characters",
+    "description":"captcha overlay response help"
+  },
+  "popupOverlayCaptchaButton":{
+    "message":"Validate",
+    "description":"captcha overlay valid button"
+  },
+  "popupOverlayNoCaptchaButton":{
+    "message":"Cancel",
+    "description":"captcha overlay cancel button"
+  },
+  "getCaptchaError":{
+    "message":"Error retrieving the captcha",
+    "description":"captcha overlay error"
+  },
+  "captchaLengthError":{
+    "message":"Answer is not the right length (expected 5 characters)",
+    "description":"captcha overlay error"
+  },
+  "wrongCaptchaError":{
+    "message":"Wrong answer",
+    "description":"captcha overlay error"
+  },
   "popupInfoOverlayDefaultTitle":{
     "message":"Information",
     "description":"default title for the info overlay"
@@ -430,6 +510,10 @@
   "passwordMismatchError":{
     "message":"Password mismatch",
     "description": "password mismatch error message"
+  },
+  "passwordTooShortError":{
+    "message":"Password is too short ({{minLength}} characters minimum)",
+    "description": "password too short error message"
   },
   "noSeedError":{
     "message":"no passphrase provided",
@@ -567,6 +651,834 @@
     "message":"Last backup:",
     "description":"English: Last backup:"
   },
+  "profileNetworkError":{
+    "message":"A network error prevented your profile from being loaded.",
+    "description":"network error message"
+  },
+  "profileLevel1":{
+    "message":"Level 1",
+    "description":"English: Level 1"
+  },
+  "profileLevel2":{
+    "message":"Level 2",
+    "description":"English: Level 2"
+  },
+  "profileLevel3":{
+    "message":"Level 3",
+    "description":"English: Level 3"
+  },
+  "profileUserBirthdate":{
+    "message":"When were you born?",
+    "description":"English: When were you born?"
+  },
+  "profileUserBirthdateInfo":{
+    "message":"Please enter your birthdate",
+    "description":"English: Please enter your birthdate"
+  },
+  "profileUserBirthdateDay":{
+    "message":"Day:",
+    "description":"Day descriptor"
+  },
+  "profileUserBirthdateMonth":{
+    "message":"Month:",
+    "description":"Month descriptor"
+  },
+  "profileUserBirthdateYear":{
+    "message":"Year:",
+    "description":"Year descriptor"
+  },
+  "month01":{
+    "message":"January",
+    "description":"English: January"
+  },
+  "month02":{
+    "message":"February",
+    "description":"English: February"
+  },
+  "month03":{
+    "message":"March",
+    "description":"English: March"
+  },
+  "month04":{
+    "message":"April",
+    "description":"English: April"
+  },
+  "month05":{
+    "message":"May",
+    "description":"English: May"
+  },
+  "month06":{
+    "message":"June",
+    "description":"English: June"
+  },
+  "month07":{
+    "message":"July",
+    "description":"English: July"
+  },
+  "month08":{
+    "message":"August",
+    "description":"English: August"
+  },
+  "month09":{
+    "message":"September",
+    "description":"English: September"
+  },
+  "month10":{
+    "message":"October",
+    "description":"English: October"
+  },
+  "month11":{
+    "message":"November",
+    "description":"English: November"
+  },
+  "month12":{
+    "message":"December",
+    "description":"English: December"
+  },
+  "profileUserCity":{
+    "message":"Where do you live?",
+    "description":"English: Where do you live?"
+  },
+  "profileUserGender":{
+    "message":"Are you:",
+    "description":"English: Are you:"
+  },
+  "profileUserGenderMale":{
+    "message":"Male",
+    "description":"English: Male"
+  },
+  "profileUserGenderFemale":{
+    "message":"Female",
+    "description":"English: Female"
+  },
+  "profileUserMotherTongue":{
+    "message":"Mother tongue",
+    "description":"English: Mother tongue"
+  },
+  "profileUserEducationLevel":{
+    "message":"Your highest education level was:",
+    "description":"English: Your highest education level was:"
+  },
+  "profileUserEducationLevelNone":{
+    "message":"None",
+    "description":"English: None"
+  },
+  "profileUserEducationLevelCollege":{
+    "message":"College",
+    "description":"English: College"
+  },
+  "profileUserEducationLevelHighSchool":{
+    "message":"High School",
+    "description":"English: High School"
+  },
+  "profileUserEducationLevelPostGraduate":{
+    "message":"Post-graduate",
+    "description":"English: Post-graduate"
+  },
+  "profileUserEducationLevelDoctorate":{
+    "message":"Doctorate",
+    "description":"English: Doctorate"
+  },
+  "profileUserEducationLevelProfessionalDegree":{
+    "message":"Professional degree",
+    "description":"English: Professional degree"
+  },
+  "profileUserRelationshipStatus":{
+    "message":"Are you:",
+    "description":"English: Are you:"
+  },
+  "profileUserRelationshipStatusSingle":{
+    "message":"Single",
+    "description":"English: Single"
+  },
+  "profileUserRelationshipStatusInRelationship":{
+    "message":"In relationship",
+    "description":"English: In relationship"
+  },
+  "profileUserRelationshipStatusEngaged":{
+    "message":"Engaged",
+    "description":"English: Engaged"
+  },
+  "profileUserRelationshipStatusMarried":{
+    "message":"Married",
+    "description":"English: Married"
+  },
+  "profileUserRelationshipStatusDivorced":{
+    "message":"Divorced",
+    "description":"English: Divorced"
+  },
+  "profileUserRelationshipStatusOther":{
+    "message":"Other",
+    "description":"English: Other"
+  },
+  "profileUserHasKids":{
+    "message":"Do you have kids:",
+    "description":"English: Do you have kids:"
+  },
+  "profileUserHasKidsTrue":{
+    "message":"Yes",
+    "description":"English: Yes"
+  },
+  "profileUserHasKidsFalse":{
+    "message":"No",
+    "description":"English: No"
+  },
+  "profileUserWorkStatus":{
+    "message":"Your work status:",
+    "description":"English: Your work status:"
+  },
+  "profileUserWorkStatusEmployee":{
+    "message":"Employee",
+    "description":"English: Employee"
+  },
+  "profileUserWorkStatusIndependant":{
+    "message":"Independant",
+    "description":"English: Independant"
+  },
+  "profileUserWorkStatusUnemployed":{
+    "message":"Unemployed",
+    "description":"English: Unemployed"
+  },
+  "profileUserWorkStatusStudent":{
+    "message":"Student",
+    "description":"English: Student"
+  },
+  "profileUserWorkStatusRetired":{
+    "message":"Retired",
+    "description":"English: Retired"
+  },
+  "profileUserBasicMaterials":{
+    "message":"Basic Materials",
+    "description":"English: Basic Materials"
+  },
+  "profileUserIndustry":{
+    "message":"Industry",
+    "description":"English: Industry"
+  },
+  "profileUserIndustryAccounting":{
+    "message":"Accounting",
+    "description":"English: Accounting"
+  },
+  "profileUserIndustryAirlinesAviation":{
+    "message":"Airlines/Aviation",
+    "description":"English: Airlines/Aviation"
+  },
+  "profileUserIndustryAlternativeDisputeResolution":{
+    "message":"Alternative Dispute Resolution",
+    "description":"English: Alternative Dispute Resolution"
+  },
+  "profileUserIndustryAlternativeMedicine":{
+    "message":"Alternative Medicine",
+    "description":"English: Alternative Medicine"
+  },
+  "profileUserIndustryAnimation":{
+    "message":"Animation",
+    "description":"English: Animation"
+  },
+  "profileUserIndustryApparelFashion":{
+    "message":"Apparel/Fashion",
+    "description":"English: Apparel/Fashion"
+  },
+  "profileUserIndustryArchitecturePlanning":{
+    "message":"Architecture/Planning",
+    "description":"English: Architecture/Planning"
+  },
+  "profileUserIndustryArtsCrafts":{
+    "message":"Arts/Crafts",
+    "description":"English: Arts/Crafts"
+  },
+  "profileUserIndustryAutomotive":{
+    "message":"Automotive",
+    "description":"English: Automotive"
+  },
+  "profileUserIndustryAviationAerospace":{
+    "message":"Aviation/Aerospace",
+    "description":"English: Aviation/Aerospace"
+  },
+  "profileUserIndustryBankingMortgage":{
+    "message":"Banking/Mortgage",
+    "description":"English: Banking/Mortgage"
+  },
+  "profileUserIndustryBiotechnologyGreentech":{
+    "message":"Biotechnology/Greentech",
+    "description":"English: Biotechnology/Greentech"
+  },
+  "profileUserIndustryBroadcastMedia":{
+    "message":"Broadcast Media",
+    "description":"English: Broadcast Media"
+  },
+  "profileUserIndustryBuildingMaterials":{
+    "message":"Building Materials",
+    "description":"English: Building Materials"
+  },
+  "profileUserIndustryBusinessSuppliesEquipment":{
+    "message":"Business Supplies/Equipment",
+    "description":"English: Business Supplies/Equipment"
+  },
+  "profileUserIndustryCapitalMarketsHedgeFundPrivateEquity":{
+    "message":"Capital Markets/Hedge Fund/Private Equity",
+    "description":"English: Capital Markets/Hedge Fund/Private Equity"
+  },
+  "profileUserIndustryChemicals":{
+    "message":"Chemicals",
+    "description":"English: Chemicals"
+  },
+  "profileUserIndustryCivicSocialOrganization":{
+    "message":"Civic/Social Organization",
+    "description":"English: Civic/Social Organization"
+  },
+  "profileUserIndustryCivilEngineering":{
+    "message":"Civil Engineering",
+    "description":"English: Civil Engineering"
+  },
+  "profileUserIndustryCommercialRealEstate":{
+    "message":"Commercial Real Estate",
+    "description":"English: Commercial Real Estate"
+  },
+  "profileUserIndustryComputerGames":{
+    "message":"Computer Games",
+    "description":"English: Computer Games"
+  },
+  "profileUserIndustryComputerHardware":{
+    "message":"Computer Hardware",
+    "description":"English: Computer Hardware"
+  },
+  "profileUserIndustryComputerNetworking":{
+    "message":"Computer Networking",
+    "description":"English: Computer Networking"
+  },
+  "profileUserIndustryComputerSoftwareEngineering":{
+    "message":"Computer Software/Engineering",
+    "description":"English: Computer Software/Engineering"
+  },
+  "profileUserIndustryComputerNetworkSecurity":{
+    "message":"Computer/Network Security",
+    "description":"English: Computer/Network Security"
+  },
+  "profileUserIndustryConstruction":{
+    "message":"Construction",
+    "description":"English: Construction"
+  },
+  "profileUserIndustryConsumerElectronics":{
+    "message":"Consumer Electronics",
+    "description":"English: Consumer Electronics"
+  },
+  "profileUserIndustryConsumerGoods":{
+    "message":"Consumer Goods",
+    "description":"English: Consumer Goods"
+  },
+  "profileUserIndustryConsumerServices":{
+    "message":"Consumer Services",
+    "description":"English: Consumer Services"
+  },
+  "profileUserIndustryCosmetics":{
+    "message":"Cosmetics",
+    "description":"English: Cosmetics"
+  },
+  "profileUserIndustryDairy":{
+    "message":"Dairy",
+    "description":"English: Dairy"
+  },
+  "profileUserIndustryDefenseSpace":{
+    "message":"Defense/Space",
+    "description":"English: Defense/Space"
+  },
+  "profileUserIndustryDesign":{
+    "message":"Design",
+    "description":"English: Design"
+  },
+  "profileUserIndustryELearning":{
+    "message":"E-Learning",
+    "description":"English: E-Learning"
+  },
+  "profileUserIndustryEducationManagement":{
+    "message":"Education Management",
+    "description":"English: Education Management"
+  },
+  "profileUserIndustryElectricalElectronicManufacturing":{
+    "message":"Electrical/Electronic Manufacturing",
+    "description":"English: Electrical/Electronic Manufacturing"
+  },
+  "profileUserIndustryEntertainmentMovieProduction":{
+    "message":"Entertainment/Movie Production",
+    "description":"English: Entertainment/Movie Production"
+  },
+  "profileUserIndustryEnvironmentalServices":{
+    "message":"Environmental Services",
+    "description":"English: Environmental Services"
+  },
+  "profileUserIndustryEventsServices":{
+    "message":"Events Services",
+    "description":"English: Events Services"
+  },
+  "profileUserIndustryExecutiveOffice":{
+    "message":"Executive Office",
+    "description":"English: Executive Office"
+  },
+  "profileUserIndustryFacilitiesServices":{
+    "message":"Facilities Services",
+    "description":"English: Facilities Services"
+  },
+  "profileUserIndustryFarming":{
+    "message":"Farming",
+    "description":"English: Farming"
+  },
+  "profileUserIndustryFinancialServices":{
+    "message":"Financial Services",
+    "description":"English: Financial Services"
+  },
+  "profileUserIndustryFineArt":{
+    "message":"Fine Art",
+    "description":"English: Fine Art"
+  },
+  "profileUserIndustryFishery":{
+    "message":"Fishery",
+    "description":"English: Fishery"
+  },
+  "profileUserIndustryFoodProduction":{
+    "message":"Food Production",
+    "description":"English: Food Production"
+  },
+  "profileUserIndustryFoodBeverages":{
+    "message":"Food/Beverages",
+    "description":"English: Food/Beverages"
+  },
+  "profileUserIndustryFundraising":{
+    "message":"Fundraising",
+    "description":"English: Fundraising"
+  },
+  "profileUserIndustryFurniture":{
+    "message":"Furniture",
+    "description":"English: Furniture"
+  },
+  "profileUserIndustryGamblingCasinos":{
+    "message":"Gambling/Casinos",
+    "description":"English: Gambling/Casinos"
+  },
+  "profileUserIndustryGlassCeramicsConcrete":{
+    "message":"Glass/Ceramics/Concrete",
+    "description":"English: Glass/Ceramics/Concrete"
+  },
+  "profileUserIndustryGovernmentAdministration":{
+    "message":"Government Administration",
+    "description":"English: Government Administration"
+  },
+  "profileUserIndustryGovernmentRelations":{
+    "message":"Government Relations",
+    "description":"English: Government Relations"
+  },
+  "profileUserIndustryGraphicDesignWebDesign":{
+    "message":"Graphic Design/Web Design",
+    "description":"English: Graphic Design/Web Design"
+  },
+  "profileUserIndustryHealthFitness":{
+    "message":"Health/Fitness",
+    "description":"English: Health/Fitness"
+  },
+  "profileUserIndustryHigherEducationAcadamia":{
+    "message":"Higher Education/Acadamia",
+    "description":"English: Higher Education/Acadamia"
+  },
+  "profileUserIndustryHospitalHealthCare":{
+    "message":"Hospital/Health Care",
+    "description":"English: Hospital/Health Care"
+  },
+  "profileUserIndustryHospitality":{
+    "message":"Hospitality",
+    "description":"English: Hospitality"
+  },
+  "profileUserIndustryHumanResourcesHR":{
+    "message":"Human Resources/HR",
+    "description":"English: Human Resources/HR"
+  },
+  "profileUserIndustryImportExport":{
+    "message":"Import/Export",
+    "description":"English: Import/Export"
+  },
+  "profileUserIndustryIndividualFamilyServices":{
+    "message":"Individual/Family Services",
+    "description":"English: Individual/Family Services"
+  },
+  "profileUserIndustryIndustrialAutomation":{
+    "message":"Industrial Automation",
+    "description":"English: Industrial Automation"
+  },
+  "profileUserIndustryInformationServices":{
+    "message":"Information Services",
+    "description":"English: Information Services"
+  },
+  "profileUserIndustryInformationTechnologyIT":{
+    "message":"Information Technology/IT",
+    "description":"English: Information Technology/IT"
+  },
+  "profileUserIndustryInsurance":{
+    "message":"Insurance",
+    "description":"English: Insurance"
+  },
+  "profileUserIndustryInternationalAffairs":{
+    "message":"International Affairs",
+    "description":"English: International Affairs"
+  },
+  "profileUserIndustryInternationalTradeDevelopment":{
+    "message":"International Trade/Development",
+    "description":"English: International Trade/Development"
+  },
+  "profileUserIndustryInternet":{
+    "message":"Internet",
+    "description":"English: Internet"
+  },
+  "profileUserIndustryInvestmentBankingVenture":{
+    "message":"Investment Banking/Venture",
+    "description":"English: Investment Banking/Venture"
+  },
+  "profileUserIndustryInvestmentManagementHedgeFundPrivateEquity":{
+    "message":"Investment Management/Hedge Fund/Private Equity",
+    "description":"English: Investment Management/Hedge Fund/Private Equity"
+  },
+  "profileUserIndustryJudiciary":{
+    "message":"Judiciary",
+    "description":"English: Judiciary"
+  },
+  "profileUserIndustryLawEnforcement":{
+    "message":"Law Enforcement",
+    "description":"English: Law Enforcement"
+  },
+  "profileUserIndustryLawPracticeLawFirms":{
+    "message":"Law Practice/Law Firms",
+    "description":"English: Law Practice/Law Firms"
+  },
+  "profileUserIndustryLegalServices":{
+    "message":"Legal Services",
+    "description":"English: Legal Services"
+  },
+  "profileUserIndustryLegislativeOffice":{
+    "message":"Legislative Office",
+    "description":"English: Legislative Office"
+  },
+  "profileUserIndustryLeisureTravel":{
+    "message":"Leisure/Travel",
+    "description":"English: Leisure/Travel"
+  },
+  "profileUserIndustryLibrary":{
+    "message":"Library",
+    "description":"English: Library"
+  },
+  "profileUserIndustryLogisticsProcurement":{
+    "message":"Logistics/Procurement",
+    "description":"English: Logistics/Procurement"
+  },
+  "profileUserIndustryLuxuryGoodsJewelry":{
+    "message":"Luxury Goods/Jewelry",
+    "description":"English: Luxury Goods/Jewelry"
+  },
+  "profileUserIndustryMachinery":{
+    "message":"Machinery",
+    "description":"English: Machinery"
+  },
+  "profileUserIndustryManagementConsulting":{
+    "message":"Management Consulting",
+    "description":"English: Management Consulting"
+  },
+  "profileUserIndustryMaritime":{
+    "message":"Maritime",
+    "description":"English: Maritime"
+  },
+  "profileUserIndustryMarketResearch":{
+    "message":"Market Research",
+    "description":"English: Market Research"
+  },
+  "profileUserIndustryMarketingAdvertisingSales":{
+    "message":"Marketing/Advertising/Sales",
+    "description":"English: Marketing/Advertising/Sales"
+  },
+  "profileUserIndustryMechanicalorIndustrialEngineering":{
+    "message":"Mechanical or Industrial Engineering",
+    "description":"English: Mechanical or Industrial Engineering"
+  },
+  "profileUserIndustryMediaProduction":{
+    "message":"Media Production",
+    "description":"English: Media Production"
+  },
+  "profileUserIndustryMedicalEquipment":{
+    "message":"Medical Equipment",
+    "description":"English: Medical Equipment"
+  },
+  "profileUserIndustryMedicalPractice":{
+    "message":"Medical Practice",
+    "description":"English: Medical Practice"
+  },
+  "profileUserIndustryMentalHealthCare":{
+    "message":"Mental Health Care",
+    "description":"English: Mental Health Care"
+  },
+  "profileUserIndustryMilitaryIndustry":{
+    "message":"Military Industry",
+    "description":"English: Military Industry"
+  },
+  "profileUserIndustryMiningMetals":{
+    "message":"Mining/Metals",
+    "description":"English: Mining/Metals"
+  },
+  "profileUserIndustryMotionPicturesFilm":{
+    "message":"Motion Pictures/Film",
+    "description":"English: Motion Pictures/Film"
+  },
+  "profileUserIndustryMuseumsInstitutions":{
+    "message":"Museums/Institutions",
+    "description":"English: Museums/Institutions"
+  },
+  "profileUserIndustryMusic":{
+    "message":"Music",
+    "description":"English: Music"
+  },
+  "profileUserIndustryNanotechnology":{
+    "message":"Nanotechnology",
+    "description":"English: Nanotechnology"
+  },
+  "profileUserIndustryNewspapersJournalism":{
+    "message":"Newspapers/Journalism",
+    "description":"English: Newspapers/Journalism"
+  },
+  "profileUserIndustryNonProfitVolunteering":{
+    "message":"Non-Profit/Volunteering",
+    "description":"English: Non-Profit/Volunteering"
+  },
+  "profileUserIndustryOilEnergySolarGreentech":{
+    "message":"Oil/Energy/Solar/Greentech",
+    "description":"English: Oil/Energy/Solar/Greentech"
+  },
+  "profileUserIndustryOnlinePublishing":{
+    "message":"Online Publishing",
+    "description":"English: Online Publishing"
+  },
+  "profileUserIndustryOtherIndustry":{
+    "message":"Other Industry",
+    "description":"English: Other Industry"
+  },
+  "profileUserIndustryOutsourcingOffshoring":{
+    "message":"Outsourcing/Offshoring",
+    "description":"English: Outsourcing/Offshoring"
+  },
+  "profileUserIndustryPackageFreightDelivery":{
+    "message":"Package/Freight Delivery",
+    "description":"English: Package/Freight Delivery"
+  },
+  "profileUserIndustryPackagingContainers":{
+    "message":"Packaging/Containers",
+    "description":"English: Packaging/Containers"
+  },
+  "profileUserIndustryPaperForestProducts":{
+    "message":"Paper/Forest Products",
+    "description":"English: Paper/Forest Products"
+  },
+  "profileUserIndustryPerformingArts":{
+    "message":"Performing Arts",
+    "description":"English: Performing Arts"
+  },
+  "profileUserIndustryPharmaceuticals":{
+    "message":"Pharmaceuticals",
+    "description":"English: Pharmaceuticals"
+  },
+  "profileUserIndustryPhilanthropy":{
+    "message":"Philanthropy",
+    "description":"English: Philanthropy"
+  },
+  "profileUserIndustryPhotography":{
+    "message":"Photography",
+    "description":"English: Photography"
+  },
+  "profileUserIndustryPlastics":{
+    "message":"Plastics",
+    "description":"English: Plastics"
+  },
+  "profileUserIndustryPoliticalOrganization":{
+    "message":"Political Organization",
+    "description":"English: Political Organization"
+  },
+  "profileUserIndustryPrimarySecondaryEducation":{
+    "message":"Primary/Secondary Education",
+    "description":"English: Primary/Secondary Education"
+  },
+  "profileUserIndustryPrinting":{
+    "message":"Printing",
+    "description":"English: Printing"
+  },
+  "profileUserIndustryProfessionalTraining":{
+    "message":"Professional Training",
+    "description":"English: Professional Training"
+  },
+  "profileUserIndustryProgramDevelopment":{
+    "message":"Program Development",
+    "description":"English: Program Development"
+  },
+  "profileUserIndustryPublicRelationsPR":{
+    "message":"Public Relations/PR",
+    "description":"English: Public Relations/PR"
+  },
+  "profileUserIndustryPublicSafety":{
+    "message":"Public Safety",
+    "description":"English: Public Safety"
+  },
+  "profileUserIndustryPublishingIndustry":{
+    "message":"Publishing Industry",
+    "description":"English: Publishing Industry"
+  },
+  "profileUserIndustryRailroadManufacture":{
+    "message":"Railroad Manufacture",
+    "description":"English: Railroad Manufacture"
+  },
+  "profileUserIndustryRanching":{
+    "message":"Ranching",
+    "description":"English: Ranching"
+  },
+  "profileUserIndustryRealEstateMortgage":{
+    "message":"Real Estate/Mortgage",
+    "description":"English: Real Estate/Mortgage"
+  },
+  "profileUserIndustryRecreationalFacilitiesServices":{
+    "message":"Recreational Facilities/Services",
+    "description":"English: Recreational Facilities/Services"
+  },
+  "profileUserIndustryReligiousInstitutions":{
+    "message":"Religious Institutions",
+    "description":"English: Religious Institutions"
+  },
+  "profileUserIndustryRenewablesEnvironment":{
+    "message":"Renewables/Environment",
+    "description":"English: Renewables/Environment"
+  },
+  "profileUserIndustryResearchIndustry":{
+    "message":"Research Industry",
+    "description":"English: Research Industry"
+  },
+  "profileUserIndustryRestaurants":{
+    "message":"Restaurants",
+    "description":"English: Restaurants"
+  },
+  "profileUserIndustryRetailIndustry":{
+    "message":"Retail Industry",
+    "description":"English: Retail Industry"
+  },
+  "profileUserIndustrySecurityInvestigations":{
+    "message":"Security/Investigations",
+    "description":"English: Security/Investigations"
+  },
+  "profileUserIndustrySemiconductors":{
+    "message":"Semiconductors",
+    "description":"English: Semiconductors"
+  },
+  "profileUserIndustryShipbuilding":{
+    "message":"Shipbuilding",
+    "description":"English: Shipbuilding"
+  },
+  "profileUserIndustrySportingGoods":{
+    "message":"Sporting Goods",
+    "description":"English: Sporting Goods"
+  },
+  "profileUserIndustrySports":{
+    "message":"Sports",
+    "description":"English: Sports"
+  },
+  "profileUserIndustryStaffingRecruiting":{
+    "message":"Staffing/Recruiting",
+    "description":"English: Staffing/Recruiting"
+  },
+  "profileUserIndustrySupermarkets":{
+    "message":"Supermarkets",
+    "description":"English: Supermarkets"
+  },
+  "profileUserIndustryTelecommunications":{
+    "message":"Telecommunications",
+    "description":"English: Telecommunications"
+  },
+  "profileUserIndustryTextiles":{
+    "message":"Textiles",
+    "description":"English: Textiles"
+  },
+  "profileUserIndustryThinkTanks":{
+    "message":"Think Tanks",
+    "description":"English: Think Tanks"
+  },
+  "profileUserIndustryTobacco":{
+    "message":"Tobacco",
+    "description":"English: Tobacco"
+  },
+  "profileUserIndustryTranslationLocalization":{
+    "message":"Translation/Localization",
+    "description":"English: Translation/Localization"
+  },
+  "profileUserIndustryTransportation":{
+    "message":"Transportation",
+    "description":"English: Transportation"
+  },
+  "profileUserIndustryUtilities":{
+    "message":"Utilities",
+    "description":"English: Utilities"
+  },
+  "profileUserIndustryVentureCapitalVC":{
+    "message":"Venture Capital/VC",
+    "description":"English: Venture Capital/VC"
+  },
+  "profileUserIndustryVeterinary":{
+    "message":"Veterinary",
+    "description":"English: Veterinary"
+  },
+  "profileUserIndustryWarehousing":{
+    "message":"Warehousing",
+    "description":"English: Warehousing"
+  },
+  "profileUserIndustryWholesale":{
+    "message":"Wholesale",
+    "description":"English: Wholesale"
+  },
+  "profileUserIndustryWineSpirits":{
+    "message":"Wine/Spirits",
+    "description":"English: Wine/Spirits"
+  },
+  "profileUserIndustryWireless":{
+    "message":"Wireless",
+    "description":"English: Wireless"
+  },
+  "profileUserIndustryWritingEditing":{
+    "message":"Writing/Editing",
+    "description":"English: Writing/Editing"
+  },
+  "profileLocationSharing":{
+    "message":"I'm ok to complete my profile with my location",
+    "description":"English: I'm ok to complete my profile with my location"
+  },
+  "profilePreferencesSharing":{
+    "message":"I'm ok to complete my profile with my preferences information",
+    "description":"English: I'm ok to complete my profile with my preferences information"
+  },
+  "profileSessionSharing":{
+    "message":"I'm ok to complete my profile with my session information",
+    "description":"English: I'm ok to complete my profile with my session information"
+  },
+  "profileBrowsingHistorySharing":{
+    "message":"I'm ok to complete my profile with my browsing history information",
+    "description":"English: I'm ok to complete my profile with my browsing history information"
+  },
+  "privKeyError":{
+    "message":"Wrong private key",
+    "description":"wrong private key error"
+  },
+  "unlockWalletTitle":{
+    "message":"Unlock your wallet",
+    "description":"English: Unlock your wallet"
+  },
+  "unlockWalletWithPassword":{
+    "message":"Enter your wallet password",
+    "description":"English: Enter your wallet password"
+  },
+  "unlockWalletWithPrivkey":{
+    "message":"Enter your passphrase or private key",
+    "description":"English: Enter your private key"
+  },
+  "unlockWalletButton":{
+    "message":"Unlock",
+    "description":"English: Unlock"
+  },
   "walletPrivKeyExport":{
     "message":"Export passphrase and private key",
     "description":"wallet export title"
@@ -607,9 +1519,53 @@
     "message":"Cancel",
     "description":"delete wallet button"
   },
-  "deleteWalletError":{
+  "passwordError":{
     "message":"Wrong password",
     "description":"delete wallet error"
+  },
+  "passwordManagment":{
+    "message":"Password Managment",
+    "description":"password managment title"
+  },
+  "forgottenPassword":{
+    "message":"Forgotten password?",
+    "description":"password subtitle"
+  },
+  "restorePassword":{
+    "message":"Restore from passphrase",
+    "description":"restore password button"
+  },
+  "changePassword":{
+    "message":"Change password",
+    "description":"change password button"
+  },
+  "walletOverlaySeedSubtitle":{
+    "message":"Enter the passphrase (12 words seed) of the wallet",
+    "description":"restore wallet subtitle"
+  },
+  "seedMismatch":{
+    "message":"The passphrase does not match the current wallet",
+    "description":"seed mismatch error"
+  },
+  "seedInvalidError":{
+    "message":"The passphrase should be made of 12 words",
+    "description":"seed invalid error"
+  },
+  "overlayNewPassword":{
+    "message":"New password",
+    "description":"new password prompt"
+  },
+  "restoreConfirm":{
+    "message":"Restore password",
+    "description":"restore password confirm button"
+  },
+  "overlayOldPassword":{
+    "message":"Current password",
+    "description":"restore password confirm button"
+  },
+  "changePasswordConfirm":{
+    "message":"Change password",
+    "description":"restore password confirm button"
   },
   "3pListsOfBlockedHostsPrompt":{
     "message":"{{netFilterCount}} network filters ＋ {{cosmeticFilterCount}} cosmetic filters from:",

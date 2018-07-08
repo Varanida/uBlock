@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title data-i18n="profilePageName"></title>
+    <link rel="stylesheet" type="text/css" href="css/profile_style.bundle.css" />
+</head>
+
+<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
+<div class="m-grid m-grid--hor m-grid--root m-page">
+
+    <!-- When user have an unlocked wallet -->
+    <div id="userProfileForm" class="m-content" style="display:none;">
+        <!--Begin::Main Portlet-->
+        <div class="m-portlet m-portlet--full-height">
+            <!--begin: Portlet Head-->
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <h3 class="m-portlet__head-text" data-i18n="profilePageName"></h3>
+                    </div>
+                </div>
+                <div class="m-portlet__head-tools">
+                    <div class="pull-right">
+                        <span data-i18n="profileCurrentLevel"></span>
+                        <span class="m-badge m-badge--success m-badge--wide"><span data-i18n="profileLevel"></span> <span class="currentLevel"></span></span>
+                    </div>
+                </div>
+            </div>
+            <!--end: Portlet Head-->
+
+            <!--begin: Portlet Body-->
+            <div class="m-portlet__body m-portlet__body--no-padding">
+
+                <!--begin: Form Steps-->
+                <div class="m-wizard m-wizard--4 m-wizard--brand m-wizard--step-first">
+                    <div class="row m-row--no-padding">
+                        <div class="col-xl-3 col-lg-12 m--padding-top-20 m--padding-bottom-15">
+                            <!--begin: Form Steps Head -->
+                            <div class="m-wizard__head">
+
+                                <!--begin: Form Steps Nav -->
+                                <div class="m-wizard__nav">
+                                    <div class="m-wizard__steps">
+                                        <div id="profileLevel1" data-level="1" class="pointer m-wizard__step m-wizard__step--current">
+                                            <div class="m-wizard__step-info">
+                                                <a class="m-wizard__step-number">
+                                                    <span><span>1</span></span>
+                                                </a>
+                                                <div class="m-wizard__step-label" data-i18n="profileLevel1">
+                                                </div>
+                                                <div class="m-wizard__step-icon"><i id="profileLevel1Checked" class="hidden la la-check"></i></div>
+                                            </div>
+                                        </div>
+                                        <div id="profileLevel2" data-level="2" class="m-wizard__step pointer">
+                                            <div class="m-wizard__step-info">
+                                                <a class="m-wizard__step-number">
+                                                    <span><span>2</span></span>
+                                                </a>
+                                                <div class="m-wizard__step-label" data-i18n="profileLevel2">
+                                                </div>
+                                                <div class="m-wizard__step-icon"><i id="profileLevel2Checked" class="hidden la la-check"></i></div>
+                                            </div>
+                                        </div>
+                                        <div id="profileLevel3" data-level="3" class="m-wizard__step pointer">
+                                            <div class="m-wizard__step-info">
+                                                <a class="m-wizard__step-number">
+                                                    <span><span>3</span></span>
+                                                </a>
+                                                <div class="m-wizard__step-label" data-i18n="profileLevel3">
+                                                </div>
+                                                <div class="m-wizard__step-icon"><i id="profileLevel3Checked" class="hidden la la-check"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end: Form Steps Nav -->
+                                <!--begin: Details about Levels -->
+                                <div class="level-info alert m-alert--default" role="alert">
+                                    <strong id="dataBonusInfo" class="m-section__sub big-sub"></strong>
+                                    <p data-i18n="noDataYetInformation"></p>
+                                    <p data-i18n="popupDataDisclaimer"></p>
+                                </div>
+                                <!--end: Details about Levels -->
+                            </div>
+                            <!--end: Form Steps Head -->
+                        </div>
+                        <div class="col-xl-9 col-lg-12">
+                            <!--begin: Form Steps Form-->
+                            <div class="m-wizard__form">
+                                <form class="m-form m-form--label-align-left- m-form--state-" id="m_form" novalidate="novalidate">
+                                    <!--begin: Form Body -->
+                                    <div class="m-portlet__body m-portlet__body--no-padding">
+                                        <!--begin: Form Level 1-->
+                                        <div class="m-wizard__form-step m-wizard__form-step--current" id="m_wizard_form_step_1">
+                                            <div class="m-form__section m-form__section--first">
+                                                <div class="m-form__heading">
+                                                    <h3 class="m-form__heading-title" data-i18n="profilePersonalQuestions"></h3>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label" data-i18n="profileUserGender"></label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <div class="input-group">
+                                                            <select name="userGender" class="form-control m-input m-input--solid" id="user-gender" data-setting-name="userGender"
+                                                                    data-setting-level="1" data-setting-type="input">
+                                                                <option value=""></option>
+                                                                <option value="female" data-i18n="profileUserGenderMale"></option>
+                                                                <option value="male" data-i18n="profileUserGenderFemale"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <fieldset class="form-group m-form__group row">
+                                                    <legend class="col-xl-3 col-lg-3 col-form-label" data-i18n="profileUserBirthdate" for="user-birthdate"></legend>
+                                                    <div class="col-xl-9 col-lg-9 row">
+                                                        <div class="col-xl-3 col-lg-3 date-info-col">
+                                                            <span class="m-form__help" data-i18n="profileUserBirthdateDay"></span>
+                                                            <input type="number" name="userBirthdateDay" id="user-birthdate-day"
+                                                                   placeholder="dd" step="1" min="1" max="31" data-setting-name="userBirthdate"
+                                                                   data-setting-level="1" data-setting-type="date" class="form-control m-input">
+                                                        </div>
+                                                        <div class="col-xl-3 col-lg-3 date-info-col">
+                                                            <span class="m-form__help" data-i18n="profileUserBirthdateMonth"></span>
+                                                            <select name="userBirthdateMonth" class="form-control m-input m-input--solid"
+                                                                    id="user-birthdate-month" data-setting-name="userBirthdate"
+                                                                    data-setting-level="1" data-setting-type="date">
+                                                                <option value=""></option>
+                                                                <option value="01" data-i18n="month01"></option>
+                                                                <option value="02" data-i18n="month02"></option>
+                                                                <option value="03" data-i18n="month03"></option>
+                                                                <option value="04" data-i18n="month04"></option>
+                                                                <option value="05" data-i18n="month05"></option>
+                                                                <option value="06" data-i18n="month06"></option>
+                                                                <option value="07" data-i18n="month07"></option>
+                                                                <option value="08" data-i18n="month08"></option>
+                                                                <option value="09" data-i18n="month09"></option>
+                                                                <option value="10" data-i18n="month10"></option>
+                                                                <option value="11" data-i18n="month11"></option>
+                                                                <option value="12" data-i18n="month12"></option>
+                                                            </select>
+                                                            <!-- <input type="number" name="userBirthdateMonth" id="user-birthdate-month"
+                                                                   step="1" min="1" max="12" data-setting-name="userBirthdate"
+                                                                   data-setting-level="1" data-setting-type="date" class="form-control m-input"> -->
+                                                        </div>
+                                                        <div class="col-xl-3 col-lg-3 date-info-col">
+                                                            <span class="m-form__help" data-i18n="profileUserBirthdateYear"></span>
+                                                            <input type="number" name="userBirthdateYear" id="user-birthdate-year"
+                                                                   placeholder="YYYY" step="1" min="1900" max="2018" data-setting-name="userBirthdate"
+                                                                   data-setting-level="1" data-setting-type="date" class="form-control m-input">
+                                                        </div>
+                                                        <div class="col-xl-9 col-lg-12"><span class="m-form__help" data-i18n="profileUserBirthdateInfo"></span></div>
+                                                    </div>
+                                                </fieldset>
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label" data-i18n="profileUserCity" for="user-city"></label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control m-input m-input--solid" name="userCity" id="user-city"
+                                                                data-setting-name="userCity" data-setting-level="1" data-setting-type="input">
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-lg-3 form-control-label" data-i18n="profileUserRelationshipStatus"></label>
+
+                                                    <div class="col-lg-9 m-form__group-sub">
+                                                        <div class="m-radio-inline">
+
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-single"
+                                                                       data-setting-name="userRelationshipStatus" value="single"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-single" data-i18n="profileUserRelationshipStatusSingle"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-in-relationship"
+                                                                       data-setting-name="userRelationshipStatus" value="in-relationship"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-in-relationship" data-i18n="profileUserRelationshipStatusInRelationship"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-engaged"
+                                                                       data-setting-name="userRelationshipStatus" value="engaged"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-engaged" data-i18n="profileUserRelationshipStatusEngaged"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-married"
+                                                                       data-setting-name="userRelationshipStatus" value="married"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-married" data-i18n="profileUserRelationshipStatusMarried"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-divorced"
+                                                                       data-setting-name="userRelationshipStatus" value="divorced"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-divorced" data-i18n="profileUserRelationshipStatusDivorced"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-checkbox--brand">
+                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-other"
+                                                                       data-setting-name="userRelationshipStatus" value="other"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-other" data-i18n="profileUserRelationshipStatusOther"></i>
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-lg-3 form-control-label" data-i18n="profileUserHasKids"></label>
+
+                                                    <div class="col-lg-9 m-form__group-sub">
+                                                        <div class="m-radio-inline">
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userHasKids" id="user-has-kids"
+                                                                       data-setting-name="userHasKids" value="true"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-has-kids" data-i18n="profileUserHasKidsTrue"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userHasKids" id="user-hasnt-kids"
+                                                                       data-setting-name="userHasKids" value="false"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-hasnt-kids" data-i18n="profileUserHasKidsFalse"></i>
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="m-separator m-separator--dashed m-separator--lg"></div>
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label" data-i18n="profileUserMotherTongue" for="user-mother-tongue"></label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control m-input m-input--solid" name="userMotherTongue" id="user-mother-tongue" data-setting-name="userMotherTongue"
+                                                                data-setting-level="1" data-setting-type="input">
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label" data-i18n="profileUserIndustry" for="user-industry"></label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control m-input m-input--solid" name="userIndustry" id="user-industry" data-setting-name="userIndustry"
+                                                                data-setting-level="1" data-setting-type="input">
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-lg-3 form-control-label" data-i18n="profileUserEducationLevel"></label>
+
+                                                    <div class="col-lg-9 m-form__group-sub">
+                                                        <div class="m-radio-inline">
+
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userEducationLevel" id="user-education-level-none"
+                                                                       data-setting-name="userEducationLevel" value="none"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-education-level-none" data-i18n="profileUserEducationLevelNone"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userEducationLevel" id="user-education-level-college"
+                                                                       data-setting-name="userEducationLevel" value="college"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-education-level-college" data-i18n="profileUserEducationLevelCollege"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userEducationLevel" id="user-education-level-high-school"
+                                                                       data-setting-name="userEducationLevel" value="high-school"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-education-level-high-school" data-i18n="profileUserEducationLevelHighSchool"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userEducationLevel" id="user-education-level-post-graduate"
+                                                                       data-setting-name="userEducationLevel" value="post-graduate"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-education-level-post-graduate" data-i18n="profileUserEducationLevelPostGraduate"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userEducationLevel" id="user-education-level-doctorate"
+                                                                       data-setting-name="userEducationLevel" value="doctorate"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-education-level-doctorate" data-i18n="profileUserEducationLevelDoctorate"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-checkbox--brand">
+                                                                <input type="radio" name="userEducationLevel" id="user-education-level-professional-degree"
+                                                                       data-setting-name="userEducationLevel" value="professional-degree"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-education-level-professional-degree" data-i18n="profileUserEducationLevelProfessionalDegree"></i>
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-lg-3 form-control-label" data-i18n="profileUserWorkStatus"></label>
+
+                                                    <div class="col-lg-9 m-form__group-sub">
+                                                        <div class="m-radio-inline">
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userWorkStatus" id="user-work-status-employee"
+                                                                       data-setting-name="userWorkStatus" value="employee"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-work-status-employee" data-i18n="profileUserWorkStatusEmployee"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userWorkStatus" id="user-work-status-independant"
+                                                                       data-setting-name="userWorkStatus" value="independant"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-work-status-independant" data-i18n="profileUserWorkStatusIndependant"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userWorkStatus" id="user-work-status-unemployed"
+                                                                       data-setting-name="userWorkStatus" value="unemployed"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-work-status-unemployed" data-i18n="profileUserWorkStatusUnemployed"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userWorkStatus" id="user-work-status-student"
+                                                                       data-setting-name="userWorkStatus" value="student"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-work-status-student" data-i18n="profileUserWorkStatusStudent"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userWorkStatus" id="user-work-status-retired"
+                                                                       data-setting-name="userWorkStatus" value="retired"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-work-status-retired" data-i18n="profileUserWorkStatusRetired"></i>
+                                                                <span></span>
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <!--end: Form Steps Step 1-->
+
+                                        <!--begin: Form Steps Step 2-->
+                                        <div class="m-wizard__form-step" id="m_wizard_form_step_2">
+                                            <div class="m-form__section m-form__section--first">
+                                                <div class="m-form__heading">
+                                                    <h3 class="m-form__heading-title" data-i18n="profileLevel2"></h3>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <div class="col-xl-12">
+                                                        <div class="m-checkbox-inline">
+                                                            <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+                                                                <input name="shareLocation" id="share-location" data-setting-name="userShareLocation"
+                                                                       data-setting-level="2" data-setting-type="checkbox"  type="checkbox" />
+                                                                <i data-i18n="profileLocationSharing" for="share-location"></i>
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <div class="col-xl-12">
+                                                        <div class="m-checkbox-inline">
+                                                            <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+                                                                <input name="sharePreferences" id="share-preferences" data-setting-name="userSharePreferences"
+                                                                       data-setting-level="2" data-setting-type="checkbox" type="checkbox" />
+                                                                <i data-i18n="profilePreferencesSharing" for="share-preferences"></i>
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end: Form Steps Step 2-->
+
+                                        <!--begin: Form Steps Step 3-->
+                                        <div class="m-wizard__form-step" id="m_wizard_form_step_3">
+                                            <div class="m-form__section m-form__section--first">
+                                                <div class="m-form__heading">
+                                                    <h3 class="m-form__heading-title" data-i18n="profileLevel3"></h3>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <div class="col-xl-12">
+                                                        <div class="m-checkbox-inline">
+                                                            <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+                                                                <input name="shareSession" id="share-session" type="checkbox" data-setting-name="userShareSession"
+                                                                       data-setting-level="3" data-setting-type="checkbox" />
+                                                                <i data-i18n="profileSessionSharing" for="share-session"></i>
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <div class="col-lg-12">
+                                                        <div class="m-checkbox-inline">
+                                                            <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+                                                                <input name="shareBrowsingHistory" id="share-browsing-history" type="checkbox" data-setting-name="userShareBrowsingHistory"
+                                                                       data-setting-level="3" data-setting-type="checkbox" />
+                                                                <i data-i18n="profileBrowsingHistorySharing" for="share-browsing-history"></i>
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end: Form Steps Step 3-->
+
+                                    </div>
+                                    <!--end: Form Body -->
+
+                                    <!--begin: Form Actions -->
+                                    <div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
+                                        <div class="m-form__actions">
+                                            <div class="row">
+
+                                                <div class="col-lg-6 m--align-left">
+                                                    <button id="lockWalletButton" type="button" class="btn btn-secondary m-btn m-btn--custom m-btn--icon">
+                                                        <span>
+                                                            <i class="la la-expeditedssl"></i>&nbsp;&nbsp;
+                                                            <span data-i18n="lockWallet"></span>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-lg-6 m--align-right">
+                                                    <button id="profileSaveButton" type="button" class="btn btn-success m-btn m-btn--custom m-btn--icon">
+                                                        <span>
+                                                            <i class="la la-save"></i>
+                                                            <span data-i18n="profileSave"></span>
+                                                        </span>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end: Form Actions -->
+                                </form>
+                            </div>
+                            <!--end: Form Steps Form-->
+                        </div>
+                    </div>
+                </div>
+                <!--end: Form Steps-->
+
+            </div>
+            <!--end: Portlet Body-->
+        </div>
+        <!--End::Main Portlet-->
+    </div>
+
+
+    <!-- When user have a locked wallet -->
+    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-login m-login--2 m-login-2--skin-2 m-login--signin" id="userUnlockWallet" style="display:none;background-image:url(img/bg-3.jpg);">
+        <div class="m-grid__item m-grid__item--fluid m-login__wrapper">
+            <div class="m-login__container">
+                <div class="m-login__signin animated flipInX">
+                    <div class="m-login__head">
+                        <h3 class="m-login__title" data-i18n="unlockWalletTitle"></h3>
+                    </div>
+                    <form name="unlockWallet" class="m-login__form m-form" action="">
+
+                        <div id="errorUnlockWalletBlock" style="display:none;" class="alert alert-danger" role="alert">
+                            <span id="errorUnlockWalletMessage"></span>
+                        </div>
+
+                        <div class="form-group m-form__group" id="userUnlockWalletWithPassword">
+                            <div class="profileLoading m-loader m-loader--lg m-loader--success"></div>
+                            <input id="unlock-password"  class="unlock-wallet-field form-control m-input" type="password" placeholder="unlockWalletWithPassword" name="password" autocomplete="off">
+                        </div>
+                        <div class="form-group m-form__group" id="userUnlockWalletWithPrivkey">
+                            <div class="profileLoading m-loader m-loader--lg m-loader--success"></div>
+                            <input id="unlock-privkey"  class="unlock-wallet-field form-control m-input" type="text" placeholder="unlockWalletWithPrivkey" name="privkey" autocomplete="off">
+                        </div>
+
+                        <div class="m-login__form-action">
+                            <button id="unlockWalletButton" type="button" class="btn btn-success m-btn--wide" data-i18n="unlockWalletButton"></button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- When user doesn't have a wallet -->
+    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-login m-login--2 m-login-2--skin-2 m-login--signin" id="userHasNoWallet" style="display:none;background-image:url(img/bg-3.jpg);">
+        <div class="m-grid__item m-grid__item--fluid m-login__wrapper">
+            <div class="m-login__container">
+                <div class="m-login__signin animated flipInX">
+                    <div class="m-alert m-alert--icon alert alert-warning" role="alert">
+                        <div class="m-alert__icon">
+                            <i class="la la-warning"></i>
+                        </div>
+                        <div class="m-alert__text">
+                            <strong data-i18n="noWalletText"></strong>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="js/vapi.js"></script>
+<script src="js/vapi-common.js"></script>
+<script src="js/vapi-client.js"></script>
+<script src="js/udom.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/dashboard-common.js"></script>
+<script src="config/main-config.js"></script>
+<script src="config/profile-config.js"></script>
+<script src="js/profile_scripts.bundle.js"></script>
+
+</body>
+</html>

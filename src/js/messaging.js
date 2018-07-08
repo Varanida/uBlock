@@ -89,8 +89,17 @@ var onMessage = function(request, sender, callback) {
     case 'scriptlet':
         µb.scriptlets.inject(request.tabId, request.scriptlet, callback);
         return;
+
     case 'deleteWallet':
         µw.safeReset(request.password, callback);
+        return;
+
+    case 'changePassword':
+        µw.changePassword(request.currentPassword, request.newPassword, callback);
+        return;
+
+    case 'restoreWalletFromSeed':
+        µw.restoreWalletFromSeed(request.password, request.seed, callback);
         return;
 
     case 'getUserData':
@@ -355,7 +364,9 @@ var popupDataFromTabId = function(tabId, tabTitle) {
         hasWallet: µw.walletSettings.hasKeyring,
         walletAddress: µw.walletSettings.keyringAddress,
         totalRewardCount: µw.walletSettings.totalRewardCount,
-        referralWindowShown: µw.walletSettings.referralWindowShown
+        referralWindowShown: µw.walletSettings.referralWindowShown,
+        referralNoticeHidden: µw.walletSettings.referralNoticeHidden,
+        captchaValidated: µw.walletSettings.captchaValidated
     };
 
     var pageStore = µb.pageStoreFromTabId(tabId);
@@ -458,6 +469,21 @@ var onMessage = function(request, sender, callback) {
     case 'getChartData':
         µw.getChartData(callback);
         return;
+    case 'getCaptcha':
+        µw.getCaptcha(callback);
+        return;
+    case 'sendCaptchaAnswerAndContinue':
+        µw.sendCaptchaAnswerAndContinue(request.solution, callback);
+        return;
+    case 'getCaptchaStatus':
+        µw.getCaptchaStatus(callback);
+        return;
+    case 'getLatestNotification':
+        µw.getLatestNotification(callback);
+        return;
+    case 'setNotificationSeen':
+        µw.setNotificationSeen(request.notificationId, callback);
+        return;
     default:
         break;
     }
@@ -511,6 +537,10 @@ var onMessage = function(request, sender, callback) {
 
     case 'setReferralWindowShown':
         µw.setReferralWindowShown(request.shown);
+        break;
+
+    case 'hideReferralNotice':
+        µw.hideReferralNotice(request.hide);
         break;
     default:
         return vAPI.messaging.UNHANDLED;

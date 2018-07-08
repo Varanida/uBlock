@@ -1,0 +1,133 @@
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: url('fonts/Poppins/Poppins-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  src: url('fonts/Poppins/Poppins-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: url('fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: url('fonts/Poppins/Poppins-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: url('fonts/Roboto/Roboto-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url('fonts/Roboto/Roboto-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url('fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: "LineAwesome";
+    src: url("fonts/line-awesome/line-awesome.eot?v=1.1.");
+    src: url("fonts/line-awesome/line-awesome.eot??v=1.1.#iefix") format("embedded-opentype"), url("fonts/line-awesome/line-awesome.woff2?v=1.1.") format("woff2"), url("fonts/line-awesome/line-awesome.woff?v=1.1.") format("woff"), url("fonts/line-awesome/line-awesome.ttf?v=1.1.") format("truetype"), url("fonts/line-awesome/line-awesome.svg?v=1.1.#fa") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Flaticon";
+    src: url("fonts/flaticon/Flaticon.eot");
+    src: url("fonts/flaticon/Flaticon.eot?#iefix") format("embedded-opentype"), url("fonts/flaticon/Flaticon.woff") format("woff"), url("fonts/flaticon/Flaticon.ttf") format("truetype"), url("fonts/flaticon/Flaticon.svg#Flaticon") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+/*end font definition*/
+
+/*icons definition*/
+[class^="flaticon-"]:before,
+[class*=" flaticon-"]:before {
+    font-family: Flaticon;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-decoration: inherit;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased; }
+.flaticon-grid-menu:before {
+  content: "\f115";
+}
+/*custom style*/
+.m-wizard__step-icon{
+    padding: 15px !important;
+}
+.m-wizard__step-icon i{
+    color: #000 !important;
+}
+.hidden{
+    display:none;
+}
+.pointer{
+    cursor:pointer;
+}
+.level-info.alert.m-alert--default {
+  margin-top: 50px;
+}
+@media (max-width: 1200px) {
+  #userProfileForm .m-wizard.m-wizard--4 .m-wizard__form {
+    padding: 3rem 2rem 2rem 2rem;
+  }
+  #userProfileForm .m-wizard.m-wizard--4 .m-wizard__head .m-wizard__nav .m-wizard__steps .m-wizard__step {
+    display: inline-table;
+  }
+  .level-info.alert.m-alert--default {
+    margin-top: 0px;
+  }
+}
+#profileSaveButton {
+  min-width: 175px;
+}
+.profileLoading {
+  display: none;
+}
+
+.profileLoading.loading {
+  display: block;
+}
+.profileLoading.m-loader.m-loader--lg:before {
+  left: auto;
+  right: 10px;
+  top: 21px;
+}
+
+.date-info-col {
+  text-align: center;
+}

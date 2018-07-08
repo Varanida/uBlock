@@ -58,7 +58,7 @@ class Recorder extends EventEmitter {
   start() {
     console.log("starting recorder");
     this._started = true;
-    vAPI.setTimeout(this._checkTimeEmit, START_TIMEOUT);
+    vAPI.setTimeout(this._checkTimeEmit.bind(this), START_TIMEOUT);
   }
   writeOne() {
     if (!this._started) {
@@ -85,13 +85,14 @@ class Recorder extends EventEmitter {
         continue;
       }
       outbuffer.push({
-        category:     this._buffer[i].cat,
-        timestamp:    this._buffer[i].tstamp,
-        requestUrl:   this._buffer[i].d2,
-        rootHostname: this._buffer[i].d3,
-        pageHostname: this._buffer[i].d4,
-        filter:       this._buffer[i].d0.raw,
-        level:        this._buffer[i].shareLevel
+        category:       this._buffer[i].cat,
+        timestamp:      this._buffer[i].tstamp,
+        requestUrl:     this._buffer[i].d2,
+        rootHostname:   this._buffer[i].d3,
+        pageHostname:   this._buffer[i].d4,
+        rawFilter:         this._buffer[i].d0.raw,
+        compiledFilter: this._buffer[i].d0.compiled,
+        level:          this._buffer[i].shareLevel
       });
     }
     this._clean();
@@ -123,12 +124,12 @@ class Recorder extends EventEmitter {
     }
   }
 
-  _checkTimeEmit = () => {
+  _checkTimeEmit() {
     if (!this._hasEmitted && this._buffer.length > MIN_ENTRIES_BETWEEN_READ) {
       this._hasEmitted = true;
       this.emit('needsReading', {length: this._buffer.length});
     }
-    vAPI.setTimeout(this._checkTimeEmit, MIN_TIME_BETWEEN_CHECK);
+    vAPI.setTimeout(this._checkTimeEmit.bind(this), MIN_TIME_BETWEEN_CHECK);
   }
 }
 

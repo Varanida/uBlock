@@ -116,6 +116,9 @@ body {
 .flaticon-grid-menu:before {
   content: "\f115";
 }
+.flaticon-exclamation-1:before {
+  content: "\f16c";
+}
 /*custom style*/
 
 html, body {
@@ -180,6 +183,21 @@ html, body {
 #address-title {
   cursor: pointer;
 }
+.m-widget1 .m-widget1__item .temporary-notice.m-widget1__desc {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+.m-widget1 .m-widget1__item .temporary-notice.m-widget1__desc > i {
+  font-size: 1rem;
+  vertical-align: middle;
+  margin-left: 6px;
+  cursor: pointer;
+}
+.m-widget1 .m-widget1__item .temporary-notice.m-widget1__desc > i:hover {
+  color: #212529;
+}
+
 
 .m-topbar .m-topbar__nav.m-nav > .m-nav__item > .m-nav__link .m-nav__link-icon .m-nav__link-icon-wrapper > i {
   transition: font-size 0.2s;
@@ -210,6 +228,7 @@ html, body {
   margin-left: auto;
   margin-right: auto;
   width: fit-content;
+  width: -moz-fit-content;
 }
 .m-quick-sidebar .m-section.bottom-data-section {
   margin-bottom: 30px;
@@ -239,6 +258,40 @@ html, body {
 .btn.btn-popup > i.la {
   font-size: 1.4rem;
   margin-right: 0.3rem;
+}
+
+#balanceRefresh {
+  width: 13px;
+  height: 13px;
+  display: none;
+  margin-right: 0.1rem;
+  font-size: 1.3rem;
+  color: #2cd168;
+  cursor: pointer;
+}
+#balanceLoader {
+  width: 12px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.1rem;
+}
+#balanceLoader:before {
+  margin-top: -0.7rem;
+  border-top-width: 1.5px;
+  border-right-width: 1.5px;
+}
+
+#rewardActivated {
+  display: none;
+}
+
+#rewardDeactivated {
+  display: none;
+}
+
+.btn.m-btn--pill.btn-outline-success#passCaptchaButton {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .overlay-container {
@@ -341,6 +394,21 @@ html, body {
   height: 0;
   margin-top: 0;
 }
+.overlay-form.m-form .input-group>.form-control#seed-field {
+  margin: 0px;
+  padding: .15rem 1rem;
+  height: 70px;
+  resize: none;
+  overflow: hidden;
+}
+.overlay-form.m-form .input-group-append>.btn-double {
+  font-size: 1.5rem;
+  padding: 0.1rem 0.5rem;
+}
+.overlay-form.m-form .input-group-append>.btn-separate-left {
+  border-left-color: #27b95d;
+}
+
 .overlayWindow .m-stack__item .btn,
 .overlayWindow .m-form__actions .btn {
   min-width: 90px;
@@ -349,6 +417,54 @@ html, body {
 }
 .overlayWindow .button-list .button-div.m-stack__item {
   padding-bottom: 30px;
+}
+
+#captchaField {
+  width: 150px;
+  height: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  border: 1px solid #3f4047;
+  border-radius: 0.25rem;
+}
+
+#change-captcha {
+  cursor: pointer;
+  color: #2cd068;
+}
+#change-captcha:hover {
+  text-decoration: underline;
+}
+.captchaLoading {
+  display: none;
+}
+
+.captchaLoading.loading {
+  display: block;
+}
+.captchaLoading.m-loader.m-loader--lg:before {
+  left: auto;
+  right: 5px;
+  top: 18px;
+}
+
+.waitingOverlayLoading.m-loader {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.waitingOverlayLoading.m-loader:before {
+  width: 4rem;
+  height: 4rem;
+  margin-top: -2rem;
+  margin-left: -2rem;
+  border-top-width: 5px;
+  border-right-width: 5px;
 }
 
 .modal.slideDown {
@@ -427,4 +543,76 @@ html, body {
 
 #varanida-slider-container .noUi-pips.noUi-pips-horizontal .noUi-value-horizontal {
   transform: translate3d(-50%,15%,0);
+}
+
+#copyright-div {
+  padding: 0;
+  position: relative;
+}
+
+#notification-div {
+  transition: transform 0.4s ease-in, max-height 0.4s ease-in;
+  display: block;
+  padding: 0;
+  transform: none;
+  max-height: 3.4rem;
+  margin-bottom: -10px;
+}
+
+#notification-div.squash {
+  max-height: 10px;
+}
+
+#notification-div.slide {
+  transform: translateX(-400px);
+}
+
+#notification-div .m-alert.m-alert--icon.m-alert--icon-solid {
+  margin-left: -14px;
+  margin-right:-14px;
+  margin-bottom: 0px;
+}
+#notification-div .m-alert__icon {
+  padding: 0.2rem 0.2rem;
+}
+
+#notification-div .la.la-info-circle {
+  font-size: 1.5rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+#notification-text {
+  padding: 0.4rem 0 0.4rem 0.8rem;
+  line-height: 1.3rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+#notification-text a {
+  font-weight: bold;
+  cursor: pointer;
+  color: inherit;
+}
+
+#notification-text a:hover {
+  text-decoration: underline;
+}
+
+#close-notification {
+  padding: 0;
+  vertical-align: middle;
+}
+
+#close-notification button{
+  top: auto;
+  padding: 0 0.3rem;
+  position: relative;
+}
+
+.m-footer__copyright {
+  line-height: 26px;
+}
+
+.m-grid__item.m-footer {
+  transition: height 0.3s;
 }

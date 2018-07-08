@@ -44,8 +44,12 @@ cp platform/chromium/*.html        $DES/
 cp platform/chromium/*.json        $DES/
 cp LICENSE.txt                     $DES/
 
-echo "*** Varanida0.chromium: removing unnecessary scripts"
+echo "*** Varanida0.chromium: removing unnecessary sources"
 rm -rf $DES/js/browserify-js
+rm -rf $DES/js/bundled
+rm -rf $DES/css/bundled
+rm -rf $DES/css/fonts/*/
+
 
 echo "*** Varanida0.chromium: concatenating content scripts"
 cat $DES/js/vapi-usercss.js > /tmp/contentscript.js

@@ -172,15 +172,6 @@ var onBeforeRequest = function(details) {
         var url = µb.redirectEngine.toURL(requestContext);
         if ( url !== undefined ) {
             pageStore.internalRedirectionCount += 1;
-            µw.recorder && µw.recorder.writeOne(
-              tabId,
-              'redirect',
-              { source: 'redirect', raw: µb.redirectEngine.resourceNameRegister },
-              requestType,
-              requestURL,
-              requestContext.rootHostname,
-              requestContext.pageHostname
-            );
             if ( µb.logger.isEnabled() ) {
                 µb.logger.writeOne(
                     tabId,

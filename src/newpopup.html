@@ -69,8 +69,27 @@
     <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
       <div class="m-grid__item m-grid__item--fluid m-wrapper">
         <div class="m-content popup-content">
+          <!--Begin::Notification-->
+          <div id="notification-div" class="m-stack__item m-stack__item--left m-stack__item--middle slide squash">
+            <!-- <div class="alert-info"></div> -->
+            <!-- <div class="alert-success"></div> -->
+            <!-- <div class="alert-warning"></div> -->
+            <!-- <div class="alert-danger"></div> -->
+            <div id="notification-alert" class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-dismissible fade show" role="alert">
+              <div class="m-alert__icon">
+                <i class="la la-info-circle"></i>
+                <span></span>
+              </div>
+              <div id="notification-text" class="m-alert__text">
+              </div>
+              <div id="close-notification" class="m-alert__close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                </button>
+              </div>
+            </div>
+          </div>
+          <!--End::Notification-->
           <!--Begin::Section-->
-          <div class="m-portlet">
             <div class="m-portlet__body  m-portlet__body--no-padding">
               <div class="row m-row--no-padding m-row--col-separator-xl">
                 <div class="col-xl-12">
@@ -83,7 +102,13 @@
                           <span class="m-widget1__desc" data-i18n="popupWalletRewardSubtitle"></span>
                         </div>
                         <div class="col m--align-right">
-                          <span id="total-reward" class="m-widget1__number m--font-accent">0 VAD</span>
+                          <div id="rewardDeactivated">
+                            <button id="passCaptchaButton" type="button" class="btn m-btn--pill btn-outline-success" data-i18n="popupWalletActivateButton"></button>
+                          </div>
+                          <div id="rewardActivated">
+                            <div id="balanceLoader" class="m-loader m-loader--sm m-loader--success"></div>
+                            <span id="total-reward" class="m-widget1__number m--font-accent">0 VAD</span>
+                          </div>
                         </div>
                       </div>
                       <div id="abscentWallet" class="wallet-related-content reward-row row m-row--no-padding align-items-center">
@@ -131,6 +156,7 @@
                               <button id="address-clipboard-button" class="btn btn-success" type="button" data-i18n="popupWalletAdressCopy"></button>
                             </div>
                           </div>
+                          <span id="referral-notice" class="temporary-notice m-widget1__desc"><a id="referral-notice-text"></a><i id="hide-referral-notice" class="la la-times-circle"></i></span>
                         </div>
                         <div id="abscentWalletAddress" class="wallet-related-content col m--align-left">
                           <h3 class="m-widget1__title" data-i18n="popupWalletAdressPrompt"></h3>
@@ -153,21 +179,23 @@
 
               </div>
             </div>
-          </div>
-
         </div>
       </div>
     </div>
     <!-- end::Body -->
 <!-- begin::Footer -->
-    <footer class="m-grid__item m-footer ">
-      <div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
+    <footer class="m-grid__item m-footer">
+      <div class="m-container m-container--full-height m-page__container">
         <div class="m-footer__wrapper">
-          <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
-            <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
+          <div class="m-stack m-stack--hor m-stack--general">
+            <div id="copyright-div" class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
               <span class="m-footer__copyright">
-                2018 &copy; Varanida SAS
-              </span><p style="font-family: Roboto;position: absolute;opacity: 0;">a</p>
+                2018 © Varanida SAS
+              </span>
+              <p style="font-family: Roboto;font-weight: 300;position: absolute;opacity: 0;">a</p>
+              <p style="font-family: Roboto;font-weight: 400;position: absolute;opacity: 0;">a</p>
+              <p style="font-family: Roboto;font-weight: 500;position: absolute;opacity: 0;">a</p>
+              <p style="font-family: Roboto;font-weight: 700;position: absolute;opacity: 0;">a</p>
             </div>
           </div>
         </div>
@@ -188,10 +216,10 @@
             <a id="params-tab" class="nav-link m-tabs__link active" data-toggle="tab" href="#m_quick_sidebar_tabs_settings" role="tab" data-i18n="settingsPageName"></a>
           </li>
           <li class="nav-item m-tabs__item">
-            <a id="stats-tab" class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_logs" role="tab" data-i18n="popupStatisticsTab"></a>
+            <a id="data-tab" class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_data" role="tab" data-i18n="popupDataTab"></a>
           </li>
           <li class="nav-item m-tabs__item">
-            <a id="data-tab" class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_data" role="tab">Données</a>
+            <a id="stats-tab" class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_logs" role="tab" data-i18n="popupStatisticsTab"></a>
           </li>
         </ul>
         <div class="tab-content">
@@ -204,7 +232,7 @@
                   <span class="m-list-settings__item-control">
                     <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
                       <label>
-                        <input id="no-popup" class="hnSwitch" type="checkbox" name="">
+                        <input id="no-popups" class="hnSwitch" type="checkbox" name="">
                         <span></span>
                       </label>
                     </span>
@@ -374,9 +402,10 @@
               <div class="form-group m-form__group">
                 <label data-i18n="popupOverlaySaveSeed"></label>
                 <div class="input-group">
-                  <input id="seed-field" onClick="this.select();" readonly="" class="form-control m-input" placeholder="">
+                  <textarea id="seed-field" readonly="" class="form-control m-input" placeholder=""></textarea>
     							<div class="input-group-append">
-    								<button id="seed-clipboard-button" class="btn btn-success" type="button" data-i18n="popupWalletAdressCopy"></button>
+                    <button id="seed-clipboard-button" class="btn btn-success btn-double" type="button" data-i18n-tip="popupWalletAdressCopy" data-tip-position="over"><i class="la la-files-o"></i></button>
+                    <button id="seed-save-button" class="btn btn-success btn-double btn-separate-left" type="button" data-i18n-tip="popupSaveAsText" data-tip-position="over"><i class="la la-floppy-o"></i></button>
     							</div>
     						</div>
                 <span class="m-form__help" data-i18n="popupOverlaySaveSeedSubtitle"></span>
@@ -496,6 +525,43 @@
         </form>
       </div>
     </div>
+    <!-- captcha overlay -->
+    <div class="overlayWindow" id="captchaOverlay">
+      <div class="m-stack m-stack--hor m-stack--general">
+        <div class="stack-overlay-title m-stack__item m-stack__item--center m-stack__item--middle">
+          <div class="overlayTitle">
+            <h3 data-i18n="popupOverlayCaptchaTitle"></h3>
+          </div>
+        </div>
+        <div class="m-stack__item m-stack__item--center m-stack__item--middle">
+          <div class="overlayText"><p data-i18n="popupOverlayCaptchaSubTitle"></p></div>
+        </div>
+        <form class="overlay-form m-form m-form--state">
+          <div class="m-portlet__body">
+            <div class="m-form__section m-form__section--first">
+              <div class="form-group m-form__group">
+                <label data-i18n="popupOverlayCaptchaField"></label>
+                <div id="captchaField">
+                </div>
+                <span id="change-captcha" class="m-form__help" data-i18n="popupOverlayCaptchaChangeSubtitle"></span>
+                <div>
+                  <div class="captchaLoading m-loader m-loader--lg m-loader--success"></div>
+                  <input id="input-captcha" type="text" class="centered-form form-control m-input" autocomplete="off" placeholder="">
+                  <span class="m-form__help" data-i18n="popupOverlayCaptchaHelpSubtitle"></span>
+                  <div id="input-captcha-overlay-error" class="form-control-feedback"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="m-portlet__foot m-portlet__foot--fit">
+            <div class="m-form__actions m-form__actions">
+              <button id="input-captcha-button-overlay" class="btn btn-primary btn-success" data-i18n="popupOverlayCaptchaButton"></button>
+              <button id="no-captcha-button-overlay" class="btn btn-secondary" data-i18n="popupOverlayNoCaptchaButton"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
     <!-- generic info overlay -->
     <div class="overlayWindow" id="infoOverlay">
       <div class="m-stack m-stack--hor m-stack--general">
@@ -513,6 +579,17 @@
         <div class="button-div m-stack__item m-stack__item--center m-stack__item--middle">
           <button id="info-validate-button-overlay" class="btn btn-primary btn-success"></button>
         </div>
+      </div>
+    </div>
+    <!-- waiting overlay -->
+    <div class="overlayWindow" id="waitingOverlay">
+      <div class="m-stack m-stack--hor m-stack--general">
+        <div class="stack-overlay-title m-stack__item m-stack__item--center m-stack__item--middle">
+          <div class="overlayClose">
+            <i class="la la-close"></i>
+          </div>
+        </div>
+        <div class="waitingOverlayLoading m-loader m-loader--success"></div>
       </div>
     </div>
   </div>

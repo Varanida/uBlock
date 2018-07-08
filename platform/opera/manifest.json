@@ -8,7 +8,7 @@
       "19": "img/browsericons/icon19.png",
       "38": "img/browsericons/icon19.png"
     },
-    "default_popup": "popup.html",
+    "default_popup": "newpopup.html",
     "default_title": "uBlock Origin"
   },
   "commands": {
@@ -57,7 +57,7 @@
   "incognito": "split",
   "manifest_version": 2,
   "minimum_opera_version": "32.0",
-  "name": "uBlock Origin",
+  "name": "Varanida",
   "optional_permissions": [
     "file:///*"
   ],
@@ -73,7 +73,7 @@
     "webRequestBlocking",
     "<all_urls>"
   ],
-  "short_name": "uBlock\u2080",
+  "short_name": "Varanida",
   "sidebar_action": {
     "default_icon": {
       "19": "img/browsericons/icon19.png",

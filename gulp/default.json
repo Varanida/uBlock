@@ -43,14 +43,14 @@
                 "base": {
                     "src": {
                         "styles": [
-                            "{$config.path.src}/css/metronic_styles.css",
-                            "{$config.path.src}/css/newpopup.css",
-                            "{$config.path.src}/css/line-awesome.css"
+                            "{$config.path.src}/css/bundled/metronic_styles.css",
+                            "{$config.path.src}/css/bundled/newpopup.css",
+                            "{$config.path.src}/css/bundled/line-awesome.css"
                         ],
                         "scripts": [
-                            "{$config.path.src}/js/chart_script.js",
-                            "{$config.path.src}/js/slider_script.js",
-                            "{$config.path.src}/js/newpopup.js"
+                            "{$config.path.src}/js/bundled/chart_script.js",
+                            "{$config.path.src}/js/bundled/slider_script.js",
+                            "{$config.path.src}/js/bundled/newpopup.js"
                         ],
                         "html": [
                           "{$config.path.src}/newpopup.html"
@@ -84,6 +84,30 @@
                       "fonts": "{$config.output}/css/fonts",
                       "styles": "{$config.output}/css"
                   }
+                }
+            }
+        },
+        "profile": {
+            "default": {
+                "base": {
+                    "src": {
+                        "styles": [
+                            "{$config.path.src}/css/bundled/metronic_styles.css",
+                            "{$config.path.src}/css/bundled/line-awesome.css",
+                            "{$config.path.src}/css/bundled/profile.css"
+
+                        ],
+                        "scripts": [
+                            "{$config.path.src}/js/bundled/profile.js"
+                        ],
+                        "html": [
+                            "{$config.path.src}/profile.html"
+                        ]
+                    },
+                    "bundle": {
+                        "styles": "{$config.output}/css/profile_style.bundle.css",
+                        "scripts": "{$config.output}/js/profile_scripts.bundle.js"
+                    }
                 }
             }
         }

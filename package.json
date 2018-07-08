@@ -13,9 +13,11 @@
     "build:chromium": "./tools/make-chromium.sh",
     "build:chromium:all": "./tools/make-chromium.sh all",
     "build:firefox:all": "./tools/make-webext.sh all",
-    "release": "npm run release:chromium && npm run release:firefox",
-    "release:chrome": "npm run build:chromium:all",
-    "release:firefox": "npm run build:firefox:all"
+    "build:opera": "./tools/make-opera.sh",
+    "release": "npm run release:chromium && npm run release:firefox && npm run release:opera",
+    "release:chromium": "npm run build:chromium:all",
+    "release:firefox": "npm run build:firefox:all",
+    "release:opera": "npm run build:opera"
   },
   "browserify": {
     "transform": [
@@ -33,18 +35,20 @@
     ]
   },
   "dependencies": {
-    "aws-sdk": "^2.213.1",
+    "aws-sdk": "^2.238.1",
+    "bip39": "^2.5.0",
     "blakejs": "1.1.0",
     "chart.js": "^2.7.2",
-    "eth-keyring-controller": "^3.1.1",
+    "eth-keyring-controller": "^3.1.4",
     "eth-sig-util": "^1.4.2",
     "ethereumjs-util": "^5.2.0",
+    "ethereumjs-wallet": "^0.6.0",
     "loglevel": "^1.5.0",
     "moment": "^2.22.1",
     "nouislider": "^11.1.0"
   },
   "devDependencies": {
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1",
     "babelify": "^8.0.0",
     "brfs": "^1.4.3",

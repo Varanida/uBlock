@@ -16,7 +16,7 @@
          "38":"img/browsericons/icon38.png"
       },
       "default_title":"Varanida",
-      "default_popup":"vara_popup.html"
+      "default_popup":"newpopup.html"
    },
    "commands":{
       "launch-element-zapper":{

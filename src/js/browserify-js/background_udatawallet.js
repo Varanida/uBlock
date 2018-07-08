@@ -264,24 +264,35 @@ const µDataWallet = (function() {
 };
 
 const cleanData = function(dirtyData) {
-  let completionLevel = dirtyData.completionLevel;
-  if (typeof completionLevel !== "number") {
-    completionLevel = 0;
-    if (dirtyData.level3) {
-      completionLevel = 3;
-    } else if (dirtyData.level2) {
-      completionLevel = 2;
-    } else if (dirtyData.level1) {
-      completionLevel = 1;
+  if (!dirtyData || typeof dirtyData !== "object") {
+    return {};
+  }
+  let cleanData = {
+    level1: undefined,
+    level2: undefined,
+    level3: undefined,
+    completionLevel: dirtyData.completionLevel
+  };
+  let lvlStr,cleanLevelData,levelStructure,levelData;
+  for (let level = 1; level < 4; level++) {
+    lvlStr = "level"+level;
+    if (dirtyData[lvlStr] && typeof dirtyData[lvlStr] === "object") {
+      cleanData[lvlStr] = {};
+      cleanLevelData = cleanData[lvlStr];
+      levelStructure = µProfileConfig.userDataStructure[lvlStr];
+      levelData = dirtyData[lvlStr];
+      for (let i = 0; i < levelStructure.length; i++) {
+        if (
+          levelData[levelStructure[i].name] &&
+          typeof levelData[levelStructure[i].name] === levelStructure[i].type
+        ) {
+          cleanLevelData[levelStructure[i].name] = levelData[levelStructure[i].name];
+        }
+      }
     }
   }
-  return {
-    level1: dirtyData.level1,
-    level2: dirtyData.level2,
-    level3: dirtyData.level3,
-    completionLevel: completionLevel
-  };
-}
+  return cleanData;
+};
 
 µDataWallet.setUserData = function(credentials, newCompletionLevel, data, callback) {
   const walletInfo = {
@@ -301,7 +312,7 @@ const cleanData = function(dirtyData) {
     return callback && callback("Data invalid or Completion level not a number or out of range");
   }
   // sanitize data
-  const cleanedData = cleanData(Object.assign({completionLevel: newCompletionLevel}, data));
+  const cleanedData = cleanData(Object.assign(data, {completionLevel: newCompletionLevel}));
   //stringify the object to encrypt it
   let stringData;
   try {
@@ -331,10 +342,13 @@ const cleanData = function(dirtyData) {
             const responseData = JSON.parse(this.responseText);
             return resolve(responseData);
           }
-          return reject("failed to send data");
+          return reject("i18n-profileNetworkError");
         }
       };
       xmlhttp.open("POST", url, true);
+      xmlhttp.addEventListener("error", function() {
+        reject("i18n-profileNetworkError");
+      });
       xmlhttp.setRequestHeader('Content-Type','application/json')
       xmlhttp.send(rawStringToSend);
     });
@@ -346,9 +360,13 @@ const cleanData = function(dirtyData) {
       this.tempDataCreatedOn = moment(responseData.createdOn);
     }
     //update completion setting
-    this.updateSettings({
+    let newSettings = {
       dataCompletionLevel: newCompletionLevel
-    });
+    };
+    if (newCompletionLevel < this.dataSettings.dataShareLevel) {
+      newSettings.dataShareLevel = newCompletionLevel;
+    }
+    this.updateSettings(newSettings);
     //everything went fine, nothing to report
     return null;
   })
@@ -378,23 +396,26 @@ const cleanData = function(dirtyData) {
         } else if (this.status === 204) {
           return resolve(null);
         }
-        return reject("failed to load data");
+        return reject("i18n-profileNetworkError");
       }
     };
     xmlhttp.open("GET", url, true);
+    xmlhttp.addEventListener("error", function() {
+      reject("i18n-profileNetworkError");
+    });
     xmlhttp.send();
   })
   .then((encryptedDataObject) => {
     if (!encryptedDataObject) {
-      return cleanData({});
+      return µWallet.getOrValidatePrivKeyProm(credentials)
+      .then(() => {
+        return cleanData({});
+      });
     }
     //don't use this data if for some reason it's older than data that is currently stored
     if (encryptedDataObject.createdOn && this.tempDataCreatedOn) {
       const encryptedDataTime = moment(encryptedDataObject.createdOn);
       if (encryptedDataTime.isSameOrBefore(this.tempDataCreatedOn, "second")) {
-        console.log("got old data");
-        console.log("received", encryptedDataTime.format());
-        console.log("tempData", this.tempDataCreatedOn.format());
         return this.tempData;
       }
     }
@@ -424,9 +445,13 @@ const cleanData = function(dirtyData) {
         typeof parsedData.completionLevel === "number" &&
         parsedData.completionLevel !== this.dataSettings.dataCompletionLevel
       ) {
-        this.updateSettings({
+        let newSettings = {
           dataCompletionLevel: parsedData.completionLevel
-        });
+        };
+        if (parsedData.completionLevel < this.dataSettings.dataShareLevel) {
+          newSettings.dataShareLevel = parsedData.completionLevel;
+        }
+        this.updateSettings(newSettings);
       }
       // remove unknown properties from the data
       const cleanedData = cleanData(parsedData);

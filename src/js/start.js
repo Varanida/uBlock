@@ -194,6 +194,9 @@ var onWalletSettingReady = function(fetched) {
   var walletSettings = µw.walletSettings;
 
   fromFetch(walletSettings, fetched);
+  if (fetched.requestCountHistory) {
+    µw.requestCountHistory = fetched.requestCountHistory;
+  }
   µw.loadKeyringController(walletSettings.keyringStore);
   µw.loadRecorder();
 }
@@ -289,7 +292,8 @@ var onSelectedFilterListsLoaded = function() {
         'lastBackupTime': 0,
         'netWhitelist': µb.netWhitelistDefault,
         'selfieMagic': '',
-        'version': '0.0.0.0'
+        'version': '0.0.0.0',
+        'requestCountHistory': {lastUpdate: null, history: []}
     };
 
     toFetch(µb.localSettings, fetchableProps);
