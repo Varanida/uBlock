@@ -584,6 +584,13 @@ var onMessage = function(request, sender, callback) {
     }
 
     switch ( request.what ) {
+    case 'getWalletSafeInfo':
+        response = {
+          hasWallet: µw.walletSettings.hasKeyring,
+          walletAddress: µw.walletSettings.keyringAddress,
+          onlyAddress: µw.walletSettings.onlyAddress
+        };
+        break;
     case 'getCollapsibleBlockedRequests':
         response = {
             id: request.id,
