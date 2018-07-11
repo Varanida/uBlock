@@ -2,7 +2,7 @@
     "manifest_version": 2,
 
     "name": "Varanida",
-    "version": "1.26.0",
+    "version": "1.26.1",
 
     "commands": {
         "launch-element-zapper": {
