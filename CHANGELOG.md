@@ -1,4 +1,8 @@
 # Changelog
+##  1.26.1 July 11 2018
+
+Fix for the statistics view in the popup. The local history broke when the extension wasn't used for more than 24 hours.
+
 ## 1.26 Jun 20 2018
 
 - Added filters to the requests sent and rewarded for the airdrop. Only ads are rewarded now, not analytics scripts that are loaded over and over on streaming videos for example. We thnk this will make the airdrop repartition fairer.
