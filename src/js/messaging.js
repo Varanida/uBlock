@@ -567,6 +567,9 @@ vAPI.messaging.listen('popupPanel', onMessage);
 var onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
+    case 'getWalletSafeInfo':
+        µw.getWalletSafeInfo(request.origin, callback);
+        return;
     default:
         break;
     }
@@ -584,13 +587,6 @@ var onMessage = function(request, sender, callback) {
     }
 
     switch ( request.what ) {
-    case 'getWalletSafeInfo':
-        response = {
-          hasWallet: µw.walletSettings.hasKeyring,
-          walletAddress: µw.walletSettings.keyringAddress,
-          onlyAddress: µw.walletSettings.onlyAddress
-        };
-        break;
     case 'getCollapsibleBlockedRequests':
         response = {
             id: request.id,

@@ -180,9 +180,6 @@ vAPI.sendPageMessage = function(message, destination) {
 }
 
 vAPI.pageMessageHandler = function(message) {
-  console.log("message");
-  console.log(message);
-  //TODO add origin validation
   if (
     !message.data ||
     typeof message.data !== "object" ||
@@ -201,9 +198,11 @@ vAPI.pageMessageHandler = function(message) {
         var onReadWalletInfo = function(walletInfo) {
           if (walletInfo) {
             vAPI.sendPageMessage(walletInfo, message.origin);
+          } else {
+            vAPI.sendPageMessage("Error: your domain is probably not authorized for this query", message.origin);
           }
         };
-        messaging.send('contentscript', { what: 'getWalletSafeInfo' }, onReadWalletInfo);
+        messaging.send('contentscript', { what: 'getWalletSafeInfo', origin: message.origin }, onReadWalletInfo);
       }
     }
   }
