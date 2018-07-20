@@ -181,6 +181,7 @@ vAPI.sendPageMessage = function(message, destination) {
 
 vAPI.pageMessageHandler = function(message) {
   if (
+    message.source !== window ||
     !message.data ||
     typeof message.data !== "object" ||
     !message.data.source ||
