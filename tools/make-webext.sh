@@ -11,6 +11,7 @@ mkdir -p $DES
 
 echo "*** Varanida0.webext: browserifying"
 rm -rf src/browserify-js/dist
+mkdir src/browserify-js
 mkdir src/browserify-js/dist
 browserify src/js/browserify-js/background_uwallet.js -o src/browserify-js/dist/background_uwallet.js
 # with source map

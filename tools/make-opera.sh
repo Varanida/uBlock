@@ -11,6 +11,7 @@ mkdir -p $DES
 
 echo "*** Varanida0.opera: browserifying"
 rm -rf src/browserify-js/dist
+mkdir src/browserify-js
 mkdir src/browserify-js/dist
 browserify src/js/browserify-js/background_uwallet.js -o src/browserify-js/dist/background_uwallet.js
 browserify src/js/browserify-js/background_udatawallet.js -o src/browserify-js/dist/background_udatawallet.js
