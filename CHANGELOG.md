@@ -1,4 +1,9 @@
 # Changelog
+##  1.26.2 July 26 2018
+
+Added a way for a page to ask the address of the extension's wallet. Only verified sites will be able to get it. Happens through postMessage.
+Fixed an issue with date inputs in the profile page.
+
 ##  1.26.1 July 11 2018
 
 Fix for the statistics view in the popup. The local history broke when the extension wasn't used for more than 24 hours.
