@@ -567,6 +567,9 @@ vAPI.messaging.listen('popupPanel', onMessage);
 var onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
+    case 'getWalletSafeInfo':
+        µw.getWalletSafeInfo(request.origin, callback);
+        return;
     default:
         break;
     }

@@ -417,6 +417,50 @@ const checkEthereumAddress = function(address) {
     err => callback && callback(err instanceof Error? err.message : err));
 };
 
+const testValidPublisherDomain = function(origin) {
+  if (typeof origin !== "string") {
+    return Promise.resolve(false);
+  }
+
+  return new Promise(function(resolve, reject) {
+    const xmlhttp = new XMLHttpRequest();
+    const url = `${µConfig.urls.api}api/Publishers/check?url=${encodeURIComponent(origin)}`;
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState === 4) {
+        if (this.status === 200) {
+          let data;
+          try {
+            data = JSON.parse(this.responseText);
+          } catch (e) {
+            data = null;
+          }
+          if (data && data.status === "active") {
+            return resolve(true);
+          }
+        }
+        resolve(false);
+      }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+  });
+};
+
+µWallet.getWalletSafeInfo = function(origin, callback) {
+  return testValidPublisherDomain(origin)
+  .then(valid => {
+    if (valid) {
+      callback({
+        hasWallet: this.walletSettings.hasKeyring,
+        walletAddress: this.walletSettings.keyringAddress,
+        onlyAddress: this.walletSettings.onlyAddress
+      });
+    } else {
+      callback(null);
+    }
+  }, () => callback(null));
+};
+
 const hexStringFromUint8 = function(uint8) {
   return uint8.reduce(function(memo, i) {
     return memo + ("0"+(i & 0xff).toString(16)).slice(-2);

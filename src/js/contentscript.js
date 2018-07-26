@@ -172,6 +172,43 @@ vAPI.SafeAnimationFrame.prototype = {
     }
 };
 
+vAPI.sendPageMessage = function(message, destination) {
+  window.postMessage && window.postMessage({
+    source: "varanida-extension",
+    content: message
+  }, destination || "*");
+}
+
+vAPI.pageMessageHandler = function(message) {
+  if (
+    message.source !== window ||
+    !message.data ||
+    typeof message.data !== "object" ||
+    !message.data.source ||
+    message.data.source !== "varanida" ||
+    !message.data.content ||
+    typeof message.data.content !== "object"
+  ) {
+    return;
+  }
+  var messaging = vAPI.messaging;
+  if (message.data.content) {
+    var messageContent = message.data.content;
+    if (messageContent.request && typeof messageContent.request === "string") {
+      if (messageContent.request === "walletInfos") {
+        var onReadWalletInfo = function(walletInfo) {
+          if (walletInfo) {
+            vAPI.sendPageMessage(walletInfo, message.origin);
+          } else {
+            vAPI.sendPageMessage("Error: your domain is probably not authorized for this query", message.origin);
+          }
+        };
+        messaging.send('contentscript', { what: 'getWalletSafeInfo', origin: message.origin }, onReadWalletInfo);
+      }
+    }
+  }
+}
+
 /******************************************************************************/
 /******************************************************************************/
 /******************************************************************************/
@@ -1408,6 +1445,7 @@ vAPI.domSurveyor = (function() {
         },
         bootstrapPhase1
     );
+    window.addEventListener("message", vAPI.pageMessageHandler);
 })();
 
 /******************************************************************************/
