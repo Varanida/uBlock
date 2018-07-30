@@ -34,7 +34,8 @@ const bip39 = require('bip39');
 const hdkey = require('ethereumjs-wallet/hdkey');
 
 //internal dependencies
-const Recorder = require("./recorder.js")
+const Recorder = require("./recorder.js");
+const PersonalMessageManager = require("./personal-message-manager.js");
 
 const µWallet = (function() {
     return {
@@ -56,6 +57,7 @@ const µWallet = (function() {
         requestCountHistory: {lastUpdate: null, history: []},
         recorder: null,
         kinesis: null,
+        personalMessageManager: null,
     };
 })();
 
@@ -455,6 +457,48 @@ const testValidPublisherDomain = function(origin) {
         walletAddress: this.walletSettings.keyringAddress,
         onlyAddress: this.walletSettings.onlyAddress
       });
+    } else {
+      callback(null);
+    }
+  }, () => callback(null));
+};
+
+µWallet.loadMessageManagers = function() {
+  if (!this.personalMessageManager) {
+    this.personalMessageManager = new PersonalMessageManager();
+  }
+};
+
+µWallet.cuePersonalMessageFromPage = function(messageData, origin, callback) {
+  return testValidPublisherDomain(origin)
+  .then(valid => {
+    if (valid) {
+      // add message to the message controller, get msgId
+      const msgId = this.personalMessageManager.addUnapprovedMessage({
+        data: messageData
+      });
+      // attach callback to message events (sign or reject)
+      this.personalMessageManager.once(`${msgId}:finished`, (data) => {
+        switch (data.status) {
+          case 'signed':
+            return callback({signature: data.rawSig});
+          case 'rejected':
+            return callback({rejected: true});
+          default:
+            return callback(`MetaMask Message Signature: Unknown problem with message: ${messageData}`);
+        }
+      });
+      // call for signature (open notification, ...)
+      vAPI.tabs.open({
+        url: `notification.html?role=personalSign&msgid=${msgId}`,
+        select: true,
+        index: -1,
+        popup: true
+      });
+      // the notif gets the message from his id and asks for the password if wallet locked
+      // if signature is approved, the notif calls messaging.signPersonalMessage with the password if needed
+      // which calls a function here that creates the signature, adds it to the message through message controller
+      // message controller emits event that will trigger the callback
     } else {
       callback(null);
     }

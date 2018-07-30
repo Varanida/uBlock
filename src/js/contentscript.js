@@ -204,6 +204,25 @@ vAPI.pageMessageHandler = function(message) {
           }
         };
         messaging.send('contentscript', { what: 'getWalletSafeInfo', origin: message.origin }, onReadWalletInfo);
+      } else if (messageContent.request === "personalSignature") {
+        if (typeof messageContent.message !== "string") {
+          return;
+        }
+        var onPersonalMessageSigned = function(messageInfos) {
+          if (messageInfos && messageInfos.signature) {
+            vAPI.sendPageMessage(messageInfos, message.origin);
+          } else if (messageInfos && messageInfos.rejected) {
+            vAPI.sendPageMessage("Error: signature was rejected", message.origin);
+          } else {
+            console.log(messageInfos);
+            vAPI.sendPageMessage("Error: your domain is probably not authorized for this query", message.origin);
+          }
+        };
+        messaging.send('contentscript', {
+          what: 'cuePersonalMessageFromPage',
+          message: messageContent.message,
+          origin: message.origin
+        }, onPersonalMessageSigned);
       }
     }
   }

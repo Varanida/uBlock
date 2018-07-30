@@ -199,6 +199,7 @@ var onWalletSettingReady = function(fetched) {
   }
   µw.loadKeyringController(walletSettings.keyringStore);
   µw.loadRecorder();
+  µw.loadMessageManagers();
 }
 
 /******************************************************************************/

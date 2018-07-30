@@ -570,6 +570,9 @@ var onMessage = function(request, sender, callback) {
     case 'getWalletSafeInfo':
         µw.getWalletSafeInfo(request.origin, callback);
         return;
+    case 'cuePersonalMessageFromPage':
+        µw.cuePersonalMessageFromPage(request.message, request.origin, callback);
+        return;
     default:
         break;
     }
