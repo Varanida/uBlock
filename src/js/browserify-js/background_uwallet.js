@@ -490,10 +490,12 @@ const testValidPublisherDomain = function(origin) {
       });
       // call for signature (open notification, ...)
       vAPI.tabs.open({
-        url: `notification.html?role=personalSign&msgid=${msgId}`,
+        url: `notification.html?role=personalSign&msgid=${msgId}&origin=${encodeURIComponent(origin)}`,
         select: true,
         index: -1,
-        popup: true
+        popup: true,
+        width: 370,
+        height: 480
       });
       // the notif gets the message from his id and asks for the password if wallet locked
       // if signature is approved, the notif calls messaging.signPersonalMessage with the password if needed

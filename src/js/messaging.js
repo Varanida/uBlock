@@ -664,6 +664,49 @@ vAPI.messaging.listen('contentscript', onMessage);
 /******************************************************************************/
 
 })();
+/******************************************************************************/
+/******************************************************************************/
+
+// channel: notification
+
+(function() {
+
+/******************************************************************************/
+
+var µb = µBlock;
+var µw = µWallet;
+
+/******************************************************************************/
+
+var onMessage = function(request, sender, callback) {
+    // Async
+    switch ( request.what ) {
+    default:
+        break;
+    }
+
+    // Sync
+    var response;
+
+    switch ( request.what ) {
+      case 'getMessageFromId':
+        response = µw.personalMessageManager.getMsg(request.msgId);
+        break;
+      case 'getUnapprovedMsgs':
+        response = µw.personalMessageManager.getUnapprovedMsgs();
+        break;
+    default:
+        return vAPI.messaging.UNHANDLED;
+    }
+
+    callback(response);
+};
+
+vAPI.messaging.listen('notification', onMessage);
+
+/******************************************************************************/
+
+})();
 
 /******************************************************************************/
 /******************************************************************************/
