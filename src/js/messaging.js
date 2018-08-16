@@ -131,6 +131,10 @@ var onMessage = function(request, sender, callback) {
         response = µb.applyFilterListSelection(request);
         break;
 
+    case 'closeTab':
+        µb.closeTab(request.tabId);
+        break;
+
     case 'compileCosmeticFilterSelector':
         response = µb.staticExtFilteringEngine.compileSelector(request.selector);
         break;
@@ -681,6 +685,9 @@ var µw = µWallet;
 var onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
+    case 'signPersonalMessage':
+        µw.signPersonalMessage(request.msgId, {password: request.password, privKey: request.privKey}, callback);
+        return;
     default:
         break;
     }
@@ -694,6 +701,9 @@ var onMessage = function(request, sender, callback) {
         break;
       case 'getUnapprovedMsgs':
         response = µw.personalMessageManager.getUnapprovedMsgs();
+        break;
+      case 'rejectPersonalMessage':
+        response = µw.personalMessageManager.rejectMsg(request.msgId);
         break;
     default:
         return vAPI.messaging.UNHANDLED;

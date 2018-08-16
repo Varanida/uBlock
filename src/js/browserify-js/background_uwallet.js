@@ -485,7 +485,7 @@ const testValidPublisherDomain = function(origin) {
           case 'rejected':
             return callback({rejected: true});
           default:
-            return callback(`MetaMask Message Signature: Unknown problem with message: ${messageData}`);
+            return callback(`Varanida Message Signature: Unknown problem with message: ${messageData}`);
         }
       });
       // call for signature (open notification, ...)
@@ -507,6 +507,29 @@ const testValidPublisherDomain = function(origin) {
   }, () => callback(null));
 };
 
+µWallet.signPersonalMessage = function(msgId, credentials, callback) {
+  if (!this.walletSettings.keyringAddress) {
+    return callback && callback("no wallet");
+  } else if (!msgId) {
+    return callback && callback("no message id provided");
+  }
+  const message = this.personalMessageManager.getMsg(msgId);
+  if (!message) {
+    return callback && callback("message not found");
+  }
+  return this.getOrValidatePrivKeyProm(credentials)
+  .then(privKey => {
+    //sign the data
+    return signPersonalMessageUtil(privKey, message.msgParams)
+    .then((rawSig) => {
+      this.personalMessageManager.setMsgStatusSigned(msgId, rawSig);
+      callback({signature: rawSig});
+    });
+  })
+  .then(res => callback && callback(res),
+    err => callback && callback(err instanceof Error? err.message : err));
+};
+
 const hexStringFromUint8 = function(uint8) {
   return uint8.reduce(function(memo, i) {
     return memo + ("0"+(i & 0xff).toString(16)).slice(-2);
@@ -521,9 +544,9 @@ const uint8FromHexString = function(str) {
   return new Uint8Array(a);
 }
 
-const signPersonalMessage = function(privKey, msgHex) {
+const signPersonalMessageUtil = function(privKey, msgParams) {
   const privKeyBuffer = new Buffer(privKey, 'hex');
-  const sig = sigUtil.personalSign(privKeyBuffer, { data: msgHex })
+  const sig = sigUtil.personalSign(privKeyBuffer, msgParams)
   return Promise.resolve(sig)
 }
 
@@ -599,7 +622,7 @@ const extractAddress = function(msg) {
     encrypted += cipher.final('hex');
     const ivHex = hexStringFromUint8(iv);
     //sign the data
-    return signPersonalMessage(privKey, encrypted)
+    return signPersonalMessageUtil(privKey, {data: encrypted})
     .then((signature) => {
       return {
         data: encrypted,

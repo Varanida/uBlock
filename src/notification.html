@@ -64,13 +64,14 @@
                           <textarea id="message-field" readonly="" class="form-control m-input" placeholder=""></textarea>
                         </div>
                         <span class="m-form__help">Only sign messages from websites you trust. This will create a digital signature using the extension wallet.</span>
+                        <div id="sign-error" class="form-control-feedback"></div>
                       </div>
                     </div>
                   </div>
                   <div class="m-portlet__foot m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions notification-btn-group">
-                      <button id="import-referral-button-overlay" class="btn btn-primary btn-notification-bottom btn-success">Sign</button>
-                      <button id="no-referral-button-overlay" class="btn btn-secondary btn-notification-bottom">Cancel</button>
+                      <button id="sign-message-button" class="btn btn-primary btn-notification-bottom btn-success">Sign</button>
+                      <button id="cancel-sign-message-button" class="btn btn-secondary btn-notification-bottom">Cancel</button>
                     </div>
                   </div>
                 </form>
@@ -98,6 +99,67 @@
           </div>
         </div>
         <div class="waitingOverlayLoading m-loader m-loader--success"></div>
+      </div>
+    </div>
+    <!-- unlock overlay -->
+    <div class="overlayWindow" id="unlockOverlay">
+      <div class="stack-overlay-title m-stack__item m-stack__item--center m-stack__item--middle">
+        <div class="overlayTitle">
+          <h3 data-i18n="unlockWalletTitle"></h3>
+        </div>
+        <div class="overlayClose">
+          <i class="la la-close"></i>
+        </div>
+      </div>
+      <div id="passwordOverlayPanel" class="overlayPanel button-list">
+        <div class="m-stack m-stack--hor m-stack--general">
+          <div class="m-stack__item m-stack__item--center m-stack__item--middle">
+            <div class="overlayText"><p data-i18n="notifOverlayPasswordSubitle"></p></div>
+          </div>
+          <form class="overlay-form m-form m-form--state">
+            <div class="m-portlet__body">
+              <div class="m-form__section m-form__section--first">
+                <div class="form-group m-form__group">
+                  <label data-i18n="unlockWalletWithPassword"></label>
+                  <input id="wallet-password" type="text" class="centered-form form-control m-input" autocomplete="off" placeholder="">
+                  <span class="m-form__help" data-i18n="notifOverlayPasswordInputSubtitle"></span>
+                  <div id="unlock-overlay-password-error" class="form-control-feedback"></div>
+                </div>
+              </div>
+            </div>
+            <div class="m-portlet__foot m-portlet__foot--fit">
+              <div class="m-form__actions m-form__actions">
+                <button id="unlock-password-button-overlay" class="btn btn-primary btn-success" data-i18n="unlockWalletButton"></button>
+                <button id="cancel-password-button-overlay" class="btn btn-secondary" data-i18n="deleteCancel"></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="privKeyOverlayPanel" class="overlayPanel button-list">
+        <div class="m-stack m-stack--hor m-stack--general">
+          <div class="m-stack__item m-stack__item--center m-stack__item--middle">
+            <div class="overlayText"><p data-i18n="notifOverlayPrivKeySubitle"></p></div>
+          </div>
+          <form class="overlay-form m-form m-form--state">
+            <div class="m-portlet__body">
+              <div class="m-form__section m-form__section--first">
+                <div class="form-group m-form__group">
+                  <label data-i18n="unlockWalletWithPrivkey"></label>
+                  <input id="wallet-privkey" type="text" class="centered-form form-control m-input" autocomplete="off" placeholder="">
+                  <span class="m-form__help" data-i18n="notifOverlayPrivKeyInputSubtitle"></span>
+                  <div id="unlock-overlay-privkey-error" class="form-control-feedback"></div>
+                </div>
+              </div>
+            </div>
+            <div class="m-portlet__foot m-portlet__foot--fit">
+              <div class="m-form__actions m-form__actions">
+                <button id="unlock-privkey-button-overlay" class="btn btn-primary btn-success" data-i18n="unlockWalletButton"></button>
+                <button id="cancel-privkey-button-overlay" class="btn btn-secondary" data-i18n="deleteCancel"></button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

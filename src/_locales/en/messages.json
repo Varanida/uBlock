@@ -479,6 +479,22 @@
     "message":"Cancel",
     "description":"captcha overlay cancel button"
   },
+  "notifOverlayPasswordSubitle":{
+    "message":"Enter the wallet's password to sign this message",
+    "description":"captcha overlay cancel button"
+  },
+  "notifOverlayPrivKeySubitle":{
+    "message":"Enter the wallet's passphrase or private key to sign this message",
+    "description":"captcha overlay cancel button"
+  },
+  "notifOverlayPasswordInputSubtitle":{
+    "message":"Enter the password for this wallet",
+    "description":"captcha overlay cancel button"
+  },
+  "notifOverlayPrivKeyInputSubtitle":{
+    "message":"Enter the passphrase (12 words seed) or private key of the wallet",
+    "description":"captcha overlay cancel button"
+  },
   "getCaptchaError":{
     "message":"Error retrieving the captcha",
     "description":"captcha overlay error"
@@ -515,9 +531,17 @@
     "message":"Password is too short ({{minLength}} characters minimum)",
     "description": "password too short error message"
   },
+  "noPasswordError":{
+    "message":"no password provided",
+    "description": "no password error message"
+  },
   "noSeedError":{
     "message":"no passphrase provided",
     "description": "no seed error message"
+  },
+  "noSeedOrPrivKeyError":{
+    "message":"no passphrase or private key provided",
+    "description": "no seed or priv key error message"
   },
   "noAddressError":{
     "message":"no address provided",
@@ -537,6 +561,10 @@
   },
   "importReferralError":{
     "message":"error: invalid referral address",
+    "description": "invalid referral error message"
+  },
+  "signError":{
+    "message":"error signing the message",
     "description": "invalid referral error message"
   },
   "pickerCreate":{
@@ -1461,6 +1489,10 @@
   },
   "privKeyError":{
     "message":"Wrong private key",
+    "description":"wrong private key error"
+  },
+  "privKeyOrPassphraseError":{
+    "message":"Wrong private key or passphrase",
     "description":"wrong private key error"
   },
   "unlockWalletTitle":{

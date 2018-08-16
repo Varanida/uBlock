@@ -479,6 +479,22 @@
     "message":"Annuler",
     "description":"captcha overlay cancel button"
   },
+  "notifOverlayPasswordSubitle":{
+    "message":"Entrez le mot de passe du portefeuille pour signer le message",
+    "description":"captcha overlay cancel button"
+  },
+  "notifOverlayPrivKeySubitle":{
+    "message":"Entrez la passphrase ou clé privée du portefeuille pour signer le message",
+    "description":"captcha overlay cancel button"
+  },
+  "notifOverlayPasswordInputSubtitle":{
+    "message":"Entrez le mot de passe du portefeuille",
+    "description":"captcha overlay cancel button"
+  },
+  "notifOverlayPrivKeyInputSubtitle":{
+    "message":"Entrez la passphrase (12 words seed) ou la clé privée du portefeuille",
+    "description":"captcha overlay cancel button"
+  },
   "getCaptchaError":{
     "message":"Erreur lors du téléchargement du captcha",
     "description":"captcha overlay error"
@@ -515,9 +531,17 @@
     "message":"Mot de passe trop court ({{minLength}} caractères minimum)",
     "description": "password too short error message"
   },
+  "noPasswordError":{
+    "message":"Mot de passe manquant",
+    "description": "no password error message"
+  },
   "noSeedError":{
     "message": "passphrase manquante",
     "description": "no seed error message"
+  },
+  "noSeedOrPrivKeyError":{
+    "message":"passphrase ou clé privée manquante",
+    "description": "no seed or priv key error message"
   },
   "noAddressError":{
     "message":"adresse manquante",
@@ -537,6 +561,10 @@
   },
   "importReferralError":{
     "message":"erreur: adresse de parrain invalide",
+    "description": "invalid referral error message"
+  },
+  "signError":{
+    "message":"erreur lors de la signature du message",
     "description": "invalid referral error message"
   },
   "pickerCreate": {
@@ -873,6 +901,10 @@
   },
   "privKeyError":{
     "message":"Clé privée incorrecte",
+    "description":"wrong private key error"
+  },
+  "privKeyOrPassphraseError":{
+    "message":"Clé privée ou passphrase incorrecte",
     "description":"wrong private key error"
   },
   "unlockWalletTitle":{
