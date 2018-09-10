@@ -12,7 +12,7 @@
   padding: .15rem 0.5rem;
   height: 120px;
   resize: none;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .btn.btn-notification-bottom {

@@ -49,9 +49,7 @@
                   <div class="overlayText"><p id="notificationSubtitle"></p></div>
                 </div>
                 <div class="m-stack m-stack--ver m-stack--general address-display">
-									<div class="m-stack__item m-stack__item--left title-stack">
-										Address
-									</div>
+									<div class="m-stack__item m-stack__item--left title-stack" data-i18n="popupWalletAdressPrompt"></div>
 									<div id="address-stack" class="m-stack__item m-stack__item--right"></div>
 								</div>
                 <div class="notification-separator"></div>
@@ -59,19 +57,19 @@
                   <div class="m-portlet__body">
                     <div class="m-form__section m-form__section--first">
                       <div class="form-group m-form__group">
-                        <label>Message:</label>
+                        <label data-i18n="notifSignMessage"></label>
                         <div class="input-group">
                           <textarea id="message-field" readonly="" class="form-control m-input" placeholder=""></textarea>
                         </div>
-                        <span class="m-form__help">Only sign messages from websites you trust. This will create a digital signature using the extension wallet.</span>
+                        <span class="m-form__help" data-i18n="notifSignwarning"></span>
                         <div id="sign-error" class="form-control-feedback"></div>
                       </div>
                     </div>
                   </div>
                   <div class="m-portlet__foot m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions notification-btn-group">
-                      <button id="sign-message-button" class="btn btn-primary btn-notification-bottom btn-success">Sign</button>
-                      <button id="cancel-sign-message-button" class="btn btn-secondary btn-notification-bottom">Cancel</button>
+                      <button id="sign-message-button" class="btn btn-primary btn-notification-bottom btn-success"data-i18n="notifSignButton"></button>
+                      <button id="cancel-sign-message-button" class="btn btn-secondary btn-notification-bottom"data-i18n="deleteCancel"></button>
                     </div>
                   </div>
                 </form>
@@ -121,7 +119,7 @@
               <div class="m-form__section m-form__section--first">
                 <div class="form-group m-form__group">
                   <label data-i18n="unlockWalletWithPassword"></label>
-                  <input id="wallet-password" type="text" class="centered-form form-control m-input" autocomplete="off" placeholder="">
+                  <input id="wallet-password" type="password" class="centered-form form-control m-input" autocomplete="off" placeholder="">
                   <span class="m-form__help" data-i18n="notifOverlayPasswordInputSubtitle"></span>
                   <div id="unlock-overlay-password-error" class="form-control-feedback"></div>
                 </div>

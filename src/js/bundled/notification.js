@@ -248,10 +248,8 @@
     var subtitle = uDom.nodeFromId("notificationSubtitle");
     switch (role) {
       case "personalSign":
-        title.textContent = "Sign Message";
-        subtitle.innerHTML = "The site <b>"+
-        notifData.origin.replace(/https?:\/\//,"")+
-        "</b> has asked for a signature";
+        title.textContent = vAPI.i18n('notifSignTitle');
+        subtitle.innerHTML = vAPI.i18n('notifSignDetails').replace("{{url}}",notifData.origin.replace(/https?:\/\//,""));
         initPersonalSign();
         break;
     }

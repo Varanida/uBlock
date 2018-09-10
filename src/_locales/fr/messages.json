@@ -481,19 +481,39 @@
   },
   "notifOverlayPasswordSubitle":{
     "message":"Entrez le mot de passe du portefeuille pour signer le message",
-    "description":"captcha overlay cancel button"
+    "description":"notif overlay password prompt subtitle"
   },
   "notifOverlayPrivKeySubitle":{
     "message":"Entrez la passphrase ou clé privée du portefeuille pour signer le message",
-    "description":"captcha overlay cancel button"
+    "description":"notif overlay private key prompt subtitle"
   },
   "notifOverlayPasswordInputSubtitle":{
     "message":"Entrez le mot de passe du portefeuille",
-    "description":"captcha overlay cancel button"
+    "description":"notif overlay password input subtitle"
   },
   "notifOverlayPrivKeyInputSubtitle":{
     "message":"Entrez la passphrase (12 words seed) ou la clé privée du portefeuille",
-    "description":"captcha overlay cancel button"
+    "description":"notif overlay private key input subtitle"
+  },
+  "notifSignTitle":{
+    "message":"Signer un Message",
+    "description":"notif sign window title"
+  },
+  "notifSignDetails":{
+    "message":"Le site <b>{{url}}</b> a demandé une signature",
+    "description":"notif sign window details"
+  },
+  "notifSignMessage":{
+    "message":"Message:",
+    "description":"notif sign window message title"
+  },
+  "notifSignwarning":{
+    "message":"Signez seulement les messages de sites de confiance. Celà va créer une signature numérique avec le portefeuille de l'extension.",
+    "description":"notif sign window warning"
+  },
+  "notifSignButton":{
+    "message":"Signer",
+    "description":"notif sign window button"
   },
   "getCaptchaError":{
     "message":"Erreur lors du téléchargement du captcha",

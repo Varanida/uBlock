@@ -481,19 +481,39 @@
   },
   "notifOverlayPasswordSubitle":{
     "message":"Enter the wallet's password to sign this message",
-    "description":"captcha overlay cancel button"
+    "description":"notif overlay password prompt subtitle"
   },
   "notifOverlayPrivKeySubitle":{
     "message":"Enter the wallet's passphrase or private key to sign this message",
-    "description":"captcha overlay cancel button"
+    "description":"notif overlay private key prompt subtitle"
   },
   "notifOverlayPasswordInputSubtitle":{
     "message":"Enter the password for this wallet",
-    "description":"captcha overlay cancel button"
+    "description":"notif overlay password input subtitle"
   },
   "notifOverlayPrivKeyInputSubtitle":{
     "message":"Enter the passphrase (12 words seed) or private key of the wallet",
-    "description":"captcha overlay cancel button"
+    "description":"notif overlay private key input subtitle"
+  },
+  "notifSignTitle":{
+    "message":"Sign Message",
+    "description":"notif sign window title"
+  },
+  "notifSignDetails":{
+    "message":"The site <b>{{url}}</b> has asked for a signature",
+    "description":"notif sign window details"
+  },
+  "notifSignMessage":{
+    "message":"Message:",
+    "description":"notif sign window message title"
+  },
+  "notifSignwarning":{
+    "message":"Only sign messages from websites you trust. This will create a digital signature using the extension wallet.",
+    "description":"notif sign window warning"
+  },
+  "notifSignButton":{
+    "message":"Sign",
+    "description":"notif sign window button"
   },
   "getCaptchaError":{
     "message":"Error retrieving the captcha",
