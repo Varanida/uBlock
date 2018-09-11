@@ -37,6 +37,7 @@ const hexRe = /^[0-9A-Fa-f]+$/g;
  * @property {number} id An id to track and identify the message object
  * @property {Object} msgParams The parameters to pass to the personal_sign method once the signature request is
  * approved.
+ * @property {string} msgParams.pageMessageId An id given by the page to the message
  * @property {string} msgParams.data The string of the signature request
  * @property {string} msgParams.hexData A hex string conversion of the string
  * @property {string} rawSig A hex string signature (when the message is signed)

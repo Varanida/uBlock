@@ -469,21 +469,22 @@ const testValidPublisherDomain = function(origin) {
   }
 };
 
-µWallet.cuePersonalMessageFromPage = function(messageData, origin, callback) {
+µWallet.cuePersonalMessageFromPage = function(pageMessageId, messageData, origin, callback) {
   return testValidPublisherDomain(origin)
   .then(valid => {
     if (valid) {
       // add message to the message controller, get msgId
       const msgId = this.personalMessageManager.addUnapprovedMessage({
+        pageMessageId: pageMessageId,
         data: messageData
       });
       // attach callback to message events (sign or reject)
       this.personalMessageManager.once(`${msgId}:finished`, (data) => {
         switch (data.status) {
           case 'signed':
-            return callback({signature: data.rawSig});
+            return callback({pageMessageId: data.msgParams.pageMessageId, signature: data.rawSig});
           case 'rejected':
-            return callback({rejected: true});
+            return callback({pageMessageId: data.msgParams.pageMessageId, rejected: true});
           default:
             return callback(`Varanida Message Signature: Unknown problem with message: ${messageData}`);
         }
@@ -523,7 +524,7 @@ const testValidPublisherDomain = function(origin) {
     return signPersonalMessageUtil(privKey, message.msgParams)
     .then((rawSig) => {
       this.personalMessageManager.setMsgStatusSigned(msgId, rawSig);
-      callback({signature: rawSig});
+      return {signature: rawSig};
     });
   })
   .then(res => callback && callback(res),
