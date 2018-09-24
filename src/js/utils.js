@@ -384,6 +384,11 @@
 
 /******************************************************************************/
 
+µBlock.closeTab = function(tabId) {
+    vAPI.tabs.remove(tabId);
+};
+/******************************************************************************/
+
 µBlock.MRUCache = function(size) {
     this.size = size;
     this.array = [];

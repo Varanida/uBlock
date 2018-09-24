@@ -1,0 +1,72 @@
+.m-page .m-page__container.notification-container {
+  padding: 0 20px;
+  width: auto;
+}
+
+.overlay-form.m-form.notification-form {
+  padding: 0;
+}
+
+.overlay-form.m-form .input-group>.form-control#message-field {
+  margin: 0px;
+  padding: .15rem 0.5rem;
+  height: 120px;
+  resize: none;
+  overflow-y: scroll;
+}
+
+.btn.btn-notification-bottom {
+  margin-left: 10px;
+  margin-right: 10px;
+  min-width: 90px;
+}
+
+.overlay-form.m-form .m-form__actions.notification-btn-group {
+  text-align: center;
+  padding: 10px 0px;
+}
+
+.m-stack__item.m-stack__item--left.title-stack {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0;
+  width: 30%;
+  vertical-align: inherit;
+  color: #3f4047;
+}
+
+.m-stack.m-stack--ver.m-stack--general.address-display {
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.m-stack.m-stack--general.m-stack--ver.address-display > .m-stack__item  {
+  vertical-align: inherit;
+}
+
+.m-form.notification-form .m-form__group {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.m-form.notification-form .m-form__group label {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.m-form.notification-form .m-form__group:last-child,
+.m-form.notification-form .m-form__group:first-child {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#notificationSubtitle b {
+  font-weight: 500;
+}
+
+.notification-separator {
+  width: 70%;
+  height: 0px;
+  border-bottom: 1px solid #ebedf2;
+  margin: auto;
+}

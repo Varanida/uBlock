@@ -34,7 +34,8 @@ const bip39 = require('bip39');
 const hdkey = require('ethereumjs-wallet/hdkey');
 
 //internal dependencies
-const Recorder = require("./recorder.js")
+const Recorder = require("./recorder.js");
+const PersonalMessageManager = require("./personal-message-manager.js");
 
 const µWallet = (function() {
     return {
@@ -56,6 +57,7 @@ const µWallet = (function() {
         requestCountHistory: {lastUpdate: null, history: []},
         recorder: null,
         kinesis: null,
+        personalMessageManager: null,
     };
 })();
 
@@ -461,6 +463,74 @@ const testValidPublisherDomain = function(origin) {
   }, () => callback(null));
 };
 
+µWallet.loadMessageManagers = function() {
+  if (!this.personalMessageManager) {
+    this.personalMessageManager = new PersonalMessageManager();
+  }
+};
+
+µWallet.cuePersonalMessageFromPage = function(pageMessageId, messageData, origin, callback) {
+  return testValidPublisherDomain(origin)
+  .then(valid => {
+    if (valid) {
+      // add message to the message controller, get msgId
+      const msgId = this.personalMessageManager.addUnapprovedMessage({
+        pageMessageId: pageMessageId,
+        data: messageData
+      });
+      // attach callback to message events (sign or reject)
+      this.personalMessageManager.once(`${msgId}:finished`, (data) => {
+        switch (data.status) {
+          case 'signed':
+            return callback({pageMessageId: data.msgParams.pageMessageId, signature: data.rawSig});
+          case 'rejected':
+            return callback({pageMessageId: data.msgParams.pageMessageId, rejected: true});
+          default:
+            return callback(`Varanida Message Signature: Unknown problem with message: ${messageData}`);
+        }
+      });
+      // call for signature (open notification, ...)
+      vAPI.tabs.open({
+        url: `notification.html?role=personalSign&msgid=${msgId}&origin=${encodeURIComponent(origin)}`,
+        select: true,
+        index: -1,
+        popup: true,
+        width: 370,
+        height: 480
+      });
+      // the notif gets the message from his id and asks for the password if wallet locked
+      // if signature is approved, the notif calls messaging.signPersonalMessage with the password if needed
+      // which calls a function here that creates the signature, adds it to the message through message controller
+      // message controller emits event that will trigger the callback
+    } else {
+      callback(null);
+    }
+  }, () => callback(null));
+};
+
+µWallet.signPersonalMessage = function(msgId, credentials, callback) {
+  if (!this.walletSettings.keyringAddress) {
+    return callback && callback("no wallet");
+  } else if (!msgId) {
+    return callback && callback("no message id provided");
+  }
+  const message = this.personalMessageManager.getMsg(msgId);
+  if (!message) {
+    return callback && callback("message not found");
+  }
+  return this.getOrValidatePrivKeyProm(credentials)
+  .then(privKey => {
+    //sign the data
+    return signPersonalMessageUtil(privKey, message.msgParams)
+    .then((rawSig) => {
+      this.personalMessageManager.setMsgStatusSigned(msgId, rawSig);
+      return {signature: rawSig};
+    });
+  })
+  .then(res => callback && callback(res),
+    err => callback && callback(err instanceof Error? err.message : err));
+};
+
 const hexStringFromUint8 = function(uint8) {
   return uint8.reduce(function(memo, i) {
     return memo + ("0"+(i & 0xff).toString(16)).slice(-2);
@@ -475,9 +545,9 @@ const uint8FromHexString = function(str) {
   return new Uint8Array(a);
 }
 
-const signPersonalMessage = function(privKey, msgHex) {
+const signPersonalMessageUtil = function(privKey, msgParams) {
   const privKeyBuffer = new Buffer(privKey, 'hex');
-  const sig = sigUtil.personalSign(privKeyBuffer, { data: msgHex })
+  const sig = sigUtil.personalSign(privKeyBuffer, msgParams)
   return Promise.resolve(sig)
 }
 
@@ -553,7 +623,7 @@ const extractAddress = function(msg) {
     encrypted += cipher.final('hex');
     const ivHex = hexStringFromUint8(iv);
     //sign the data
-    return signPersonalMessage(privKey, encrypted)
+    return signPersonalMessageUtil(privKey, {data: encrypted})
     .then((signature) => {
       return {
         data: encrypted,

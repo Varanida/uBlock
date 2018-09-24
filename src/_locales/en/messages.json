@@ -479,6 +479,42 @@
     "message":"Cancel",
     "description":"captcha overlay cancel button"
   },
+  "notifOverlayPasswordSubitle":{
+    "message":"Enter the wallet's password to sign this message",
+    "description":"notif overlay password prompt subtitle"
+  },
+  "notifOverlayPrivKeySubitle":{
+    "message":"Enter the wallet's passphrase or private key to sign this message",
+    "description":"notif overlay private key prompt subtitle"
+  },
+  "notifOverlayPasswordInputSubtitle":{
+    "message":"Enter the password for this wallet",
+    "description":"notif overlay password input subtitle"
+  },
+  "notifOverlayPrivKeyInputSubtitle":{
+    "message":"Enter the passphrase (12 words seed) or private key of the wallet",
+    "description":"notif overlay private key input subtitle"
+  },
+  "notifSignTitle":{
+    "message":"Sign Message",
+    "description":"notif sign window title"
+  },
+  "notifSignDetails":{
+    "message":"The site <b>{{url}}</b> has asked for a signature",
+    "description":"notif sign window details"
+  },
+  "notifSignMessage":{
+    "message":"Message:",
+    "description":"notif sign window message title"
+  },
+  "notifSignwarning":{
+    "message":"Only sign messages from websites you trust. This will create a digital signature using the extension wallet.",
+    "description":"notif sign window warning"
+  },
+  "notifSignButton":{
+    "message":"Sign",
+    "description":"notif sign window button"
+  },
   "getCaptchaError":{
     "message":"Error retrieving the captcha",
     "description":"captcha overlay error"
@@ -515,9 +551,17 @@
     "message":"Password is too short ({{minLength}} characters minimum)",
     "description": "password too short error message"
   },
+  "noPasswordError":{
+    "message":"no password provided",
+    "description": "no password error message"
+  },
   "noSeedError":{
     "message":"no passphrase provided",
     "description": "no seed error message"
+  },
+  "noSeedOrPrivKeyError":{
+    "message":"no passphrase or private key provided",
+    "description": "no seed or priv key error message"
   },
   "noAddressError":{
     "message":"no address provided",
@@ -537,6 +581,10 @@
   },
   "importReferralError":{
     "message":"error: invalid referral address",
+    "description": "invalid referral error message"
+  },
+  "signError":{
+    "message":"error signing the message",
     "description": "invalid referral error message"
   },
   "pickerCreate":{
@@ -1461,6 +1509,10 @@
   },
   "privKeyError":{
     "message":"Wrong private key",
+    "description":"wrong private key error"
+  },
+  "privKeyOrPassphraseError":{
+    "message":"Wrong private key or passphrase",
     "description":"wrong private key error"
   },
   "unlockWalletTitle":{

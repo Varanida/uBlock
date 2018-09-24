@@ -55,7 +55,7 @@ if (
 
 // https://issues.adblockplus.org/ticket/5695
 // - Good idea, adopted: cleaner way to detect user-stylesheet support.
-vAPI.supportsUserStylesheets = 
+vAPI.supportsUserStylesheets =
     chrome.extensionTypes instanceof Object &&
     chrome.extensionTypes.CSSOrigin instanceof Object &&
     'USER' in chrome.extensionTypes.CSSOrigin;
@@ -477,7 +477,13 @@ vAPI.tabs.open = function(details) {
 
         // Open in a standalone window
         if ( details.popup === true ) {
-            chrome.windows.create({ url: details.url, type: 'popup' });
+            chrome.windows.create({
+              url: details.url,
+              type: 'popup',
+              width: details.width,
+              height: details.height,
+              state: "normal"
+            });
             return;
         }
 

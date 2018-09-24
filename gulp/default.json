@@ -110,6 +110,31 @@
                     }
                 }
             }
+        },
+        "notification": {
+            "default": {
+                "base": {
+                    "src": {
+                        "styles": [
+                            "{$config.path.src}/css/bundled/metronic_styles.css",
+                            "{$config.path.src}/css/bundled/line-awesome.css",
+                            "{$config.path.src}/css/bundled/newpopup.css",
+                            "{$config.path.src}/css/bundled/notification.css"
+
+                        ],
+                        "scripts": [
+                            "{$config.path.src}/js/bundled/notification.js"
+                        ],
+                        "html": [
+                            "{$config.path.src}/notification.html"
+                        ]
+                    },
+                    "bundle": {
+                        "styles": "{$config.output}/css/notification_style.bundle.css",
+                        "scripts": "{$config.output}/js/notification_scripts.bundle.js"
+                    }
+                }
+            }
         }
     }
 }

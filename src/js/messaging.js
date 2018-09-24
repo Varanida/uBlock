@@ -131,6 +131,10 @@ var onMessage = function(request, sender, callback) {
         response = µb.applyFilterListSelection(request);
         break;
 
+    case 'closeTab':
+        µb.closeTab(request.tabId);
+        break;
+
     case 'compileCosmeticFilterSelector':
         response = µb.staticExtFilteringEngine.compileSelector(request.selector);
         break;
@@ -570,6 +574,9 @@ var onMessage = function(request, sender, callback) {
     case 'getWalletSafeInfo':
         µw.getWalletSafeInfo(request.origin, callback);
         return;
+    case 'cuePersonalMessageFromPage':
+        µw.cuePersonalMessageFromPage(request.pageMessageId, request.message, request.origin, callback);
+        return;
     default:
         break;
     }
@@ -657,6 +664,55 @@ var onMessage = function(request, sender, callback) {
 };
 
 vAPI.messaging.listen('contentscript', onMessage);
+
+/******************************************************************************/
+
+})();
+/******************************************************************************/
+/******************************************************************************/
+
+// channel: notification
+
+(function() {
+
+/******************************************************************************/
+
+var µb = µBlock;
+var µw = µWallet;
+
+/******************************************************************************/
+
+var onMessage = function(request, sender, callback) {
+    // Async
+    switch ( request.what ) {
+    case 'signPersonalMessage':
+        µw.signPersonalMessage(request.msgId, {password: request.password, privKey: request.privKey}, callback);
+        return;
+    default:
+        break;
+    }
+
+    // Sync
+    var response;
+
+    switch ( request.what ) {
+      case 'getMessageFromId':
+        response = µw.personalMessageManager.getMsg(request.msgId);
+        break;
+      case 'getUnapprovedMsgs':
+        response = µw.personalMessageManager.getUnapprovedMsgs();
+        break;
+      case 'rejectPersonalMessage':
+        response = µw.personalMessageManager.rejectMsg(request.msgId);
+        break;
+    default:
+        return vAPI.messaging.UNHANDLED;
+    }
+
+    callback(response);
+};
+
+vAPI.messaging.listen('notification', onMessage);
 
 /******************************************************************************/
 

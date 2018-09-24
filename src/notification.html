@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html id="uBO-popup-panel">
+
+<head>
+<meta name="viewport" content="width=370, height=500, initial-scale=1"><!-- When showing as a tab in fennec, scale to full size (150px + 320px) -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/notification_style.bundle.css" type="text/css">
+<title>Varanida Notification</title>
+</head>
+
+<body class="popup-fixed-dimensions m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default">
+
+  <!-- begin:: Page -->
+  <div class="m-grid m-grid--hor m-grid--root m-page">
+  <!-- begin::Body -->
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body notification-container">
+      <div class="m-grid__item m-grid__item--fluid m-wrapper">
+        <!-- begin::Header -->
+        <header id="m_header" class="m-grid__item m-header " m-minimize="minimize" m-minimize-mobile="minimize" m-minimize-offset="10" m-minimize-mobile-offset="10">
+          <div class="m-header__top">
+            <div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container notification-container">
+              <div class="m-stack m-stack--ver m-stack--desktop">
+                <!-- begin::Brand -->
+                <div class="m-stack__item m-brand">
+                  <div class="m-stack m-stack--ver m-stack--general m-stack--inline">
+                    <div class="m-stack__item m-stack__item--middle m-brand__logo">
+                      <a id="main-brand-logo" class="m-brand__logo-wrapper">
+                        <img height="40" alt="Varanida" src="img/topbar-logo.png"/>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <!-- end::Brand -->
+              </div>
+            </div>
+          </div>
+        </header>
+        <!-- end::Header -->
+        <div class="m-content popup-content">
+          <!--Begin::Section-->
+            <div class="m-portlet__body  m-portlet__body--no-padding">
+              <div class="m-stack m-stack--hor m-stack--general">
+                <div class="stack-overlay-title m-stack__item m-stack__item--center m-stack__item--middle">
+                  <div class="overlayTitle">
+                    <h3 id="notificationTitle"></h3>
+                  </div>
+                </div>
+                <div class="m-stack__item m-stack__item--center m-stack__item--middle">
+                  <div class="overlayText"><p id="notificationSubtitle"></p></div>
+                </div>
+                <div class="m-stack m-stack--ver m-stack--general address-display">
+									<div class="m-stack__item m-stack__item--left title-stack" data-i18n="popupWalletAdressPrompt"></div>
+									<div id="address-stack" class="m-stack__item m-stack__item--right"></div>
+								</div>
+                <div class="notification-separator"></div>
+                <form class="overlay-form m-form m-form--state notification-form">
+                  <div class="m-portlet__body">
+                    <div class="m-form__section m-form__section--first">
+                      <div class="form-group m-form__group">
+                        <label data-i18n="notifSignMessage"></label>
+                        <div class="input-group">
+                          <textarea id="message-field" readonly="" class="form-control m-input" placeholder=""></textarea>
+                        </div>
+                        <span class="m-form__help" data-i18n="notifSignwarning"></span>
+                        <div id="sign-error" class="form-control-feedback"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="m-portlet__foot m-portlet__foot--fit">
+                    <div class="m-form__actions m-form__actions notification-btn-group">
+                      <button id="sign-message-button" class="btn btn-primary btn-notification-bottom btn-success"data-i18n="notifSignButton"></button>
+                      <button id="cancel-sign-message-button" class="btn btn-secondary btn-notification-bottom"data-i18n="deleteCancel"></button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- end::Body -->
+  </div>
+  <!-- end:: Page -->
+  <div id="templates" style="display: none">
+    <div id="tooltip" class="m-tooltip tooltip popup-tooltip fade" role="tooltip" x-placement="top">
+      <div id="tooltip-arrow" class="arrow"></div>
+      <div id="tooltip-text" class="tooltip-inner"></div>
+    </div>
+  </div>
+  <div id="overlays" class="overlay-container">
+    <!-- waiting overlay -->
+    <div class="overlayWindow" id="waitingOverlay">
+      <div class="m-stack m-stack--hor m-stack--general">
+        <div class="stack-overlay-title m-stack__item m-stack__item--center m-stack__item--middle">
+          <div class="overlayClose">
+            <i class="la la-close"></i>
+          </div>
+        </div>
+        <div class="waitingOverlayLoading m-loader m-loader--success"></div>
+      </div>
+    </div>
+    <!-- unlock overlay -->
+    <div class="overlayWindow" id="unlockOverlay">
+      <div class="stack-overlay-title m-stack__item m-stack__item--center m-stack__item--middle">
+        <div class="overlayTitle">
+          <h3 data-i18n="unlockWalletTitle"></h3>
+        </div>
+        <div class="overlayClose">
+          <i class="la la-close"></i>
+        </div>
+      </div>
+      <div id="passwordOverlayPanel" class="overlayPanel button-list">
+        <div class="m-stack m-stack--hor m-stack--general">
+          <div class="m-stack__item m-stack__item--center m-stack__item--middle">
+            <div class="overlayText"><p data-i18n="notifOverlayPasswordSubitle"></p></div>
+          </div>
+          <form class="overlay-form m-form m-form--state">
+            <div class="m-portlet__body">
+              <div class="m-form__section m-form__section--first">
+                <div class="form-group m-form__group">
+                  <label data-i18n="unlockWalletWithPassword"></label>
+                  <input id="wallet-password" type="password" class="centered-form form-control m-input" autocomplete="off" placeholder="">
+                  <span class="m-form__help" data-i18n="notifOverlayPasswordInputSubtitle"></span>
+                  <div id="unlock-overlay-password-error" class="form-control-feedback"></div>
+                </div>
+              </div>
+            </div>
+            <div class="m-portlet__foot m-portlet__foot--fit">
+              <div class="m-form__actions m-form__actions">
+                <button id="unlock-password-button-overlay" class="btn btn-primary btn-success" data-i18n="unlockWalletButton"></button>
+                <button id="cancel-password-button-overlay" class="btn btn-secondary" data-i18n="deleteCancel"></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="privKeyOverlayPanel" class="overlayPanel button-list">
+        <div class="m-stack m-stack--hor m-stack--general">
+          <div class="m-stack__item m-stack__item--center m-stack__item--middle">
+            <div class="overlayText"><p data-i18n="notifOverlayPrivKeySubitle"></p></div>
+          </div>
+          <form class="overlay-form m-form m-form--state">
+            <div class="m-portlet__body">
+              <div class="m-form__section m-form__section--first">
+                <div class="form-group m-form__group">
+                  <label data-i18n="unlockWalletWithPrivkey"></label>
+                  <input id="wallet-privkey" type="text" class="centered-form form-control m-input" autocomplete="off" placeholder="">
+                  <span class="m-form__help" data-i18n="notifOverlayPrivKeyInputSubtitle"></span>
+                  <div id="unlock-overlay-privkey-error" class="form-control-feedback"></div>
+                </div>
+              </div>
+            </div>
+            <div class="m-portlet__foot m-portlet__foot--fit">
+              <div class="m-form__actions m-form__actions">
+                <button id="unlock-privkey-button-overlay" class="btn btn-primary btn-success" data-i18n="unlockWalletButton"></button>
+                <button id="cancel-privkey-button-overlay" class="btn btn-secondary" data-i18n="deleteCancel"></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="config/main-config.js"></script>
+<script src="lib/punycode.js"></script>
+<script src="js/vapi.js"></script>
+<script src="js/vapi-common.js"></script>
+<script src="js/vapi-client.js"></script>
+<script src="js/udom.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/notification_scripts.bundle.js"></script>
+</body>
+
+</html>
